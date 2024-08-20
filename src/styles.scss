@@ -1,1 +1,83 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --black-100: #000000;
+    --black-90: #191919;
+    --black-80: #333333;
+    --black-70: #4d4d4d;
+    --black-60: #666666;
+    --black-50: #808080;
+    --black-40: #999999;
+    --black-30: #b3b3b3;
+    --black-20: #cccccc;
+    --black-10: #e6e6e6;
+
+    --white-100: #ffffff;
+    --test: #f6f6f6;
+    --test-2: #dddddd;
+
+    --primary-180: #15252f;
+    --primary-170: #203847;
+    --primary-160: #2b4b5e;
+    --primary-150: #365e76;
+    --primary-140: #40708e;
+    --primary-130: #4b83a5;
+    --primary-120: #5696bd;
+    --primary-110: #60a8d4;
+    --primary-100: #6bbaec;
+    --primary-90: #7ac2ee;
+    --primary-80: #89c9f0;
+    --primary-70: #97cff2;
+    --primary-60: #a6d6f4;
+    --primary-50: #b5ddf6;
+    --primary-40: #c4e4f7;
+    --primary-30: #d3ebf9;
+    --primary-20: #e1f1fb;
+
+    --french-gray: #bcc4db;
+    --rose-quartz: #c0a9b0;
+    --glaucous: #2880b5;
+    --glaucous-secondary: #6987c9;
+    --maya-blue: #6bbaec; // Primary
+}
+
+* {
+    font-family: Inter var, ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol,
+        "Noto Color Emoji";
+    font-size: small;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+// *,
+// :after,
+// :before {
+//     box-sizing: border-box;
+//     border: 0 solid #e5e7eb;
+// }
+
+.text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        display: none;
+    }
+    to {
+        opacity: 1;
+        display: block;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        display: block;
+    }
+    to {
+        opacity: 0;
+        display: none;
+    }
+}

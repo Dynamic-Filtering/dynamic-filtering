@@ -1,0 +1,37 @@
+<!-- <div class="search">
+    <input
+        type="text"
+        placeholder="Search"
+        id="searchbar"
+        (input)="changeInput($event)"
+    />
+    <button [innerText]="'Clear'" type="button"></button>
+</div>
+<div class="options-section">
+    @for(option of options; track option.id){
+    <div
+        class="option"
+        [innerText]="option.displayValue"
+        (click)="optionSelectedHandler()"
+    ></div>
+    }
+</div> -->
+<!-- <select [value]="null">
+    <option>Kaas</option>
+    <option>Ham</option>
+</select> -->
+<div class="dropdown">
+    <button class="dropdown-button">
+        <!-- {{ selectedOption ? selectedOption.label : 'Select an option' }} -->
+    </button>
+    <div class="dropdown-content">
+        <input type="text" class="search-input" placeholder="Search..." />
+        <!-- <div
+        *ngFor="let option of filteredOptions"
+        class="dropdown-option"
+        (click)="selectOption(option)"
+      >
+        {{ option.label }}
+      </div> -->
+    </div>
+</div>

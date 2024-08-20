@@ -1,0 +1,39 @@
+<app-button [label]="filter().label" (click)="toggleContent()"></app-button>
+<div
+    class="filter-content"
+    [ngClass]="{ visible: showingContent, hidden: !showingContent }"
+>
+    <div class="range-option">
+        <span>Column</span>
+        <app-select-menu [options]="filterOptions"></app-select-menu>
+        <input type="date" />
+    </div>
+    <hr />
+    <div class="range-option">
+        <span>Column</span>
+        <app-select-menu [options]="filterOptions"></app-select-menu>
+        <input type="number" />
+    </div>
+    <div class="controls">
+        <app-button [label]="'Reset'"></app-button>
+        <app-button [label]="'Apply'" (click)="applyHandler()"></app-button>
+    </div>
+    <!-- <div class="search">
+            <input
+                type="text"
+                placeholder="Search"
+                id="searchbar"
+                (input)="changeInput($event)"
+            />
+            <button [innerText]="'Clear'" type="button"></button>
+        </div>
+        <div class="filter-options-section">
+            @for(option of filter().Options; track option.id){
+            <div
+                class="filter-option"
+                [innerText]="option.displayValue"
+                (click)="optionSelectedHandler()"
+            ></div>
+            }
+        </div> -->
+</div>

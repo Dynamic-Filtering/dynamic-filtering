@@ -1,0 +1,35 @@
+<app-button
+    [label]="
+        filter().label +
+        (selectedOption !== undefined ? ': ' + selectedOption.label : '')
+    "
+    (click)="toggleConent()"
+></app-button>
+<div
+    class="filter-content"
+    [ngClass]="{ visible: showingConent, hidden: !showingConent }"
+>
+    <div class="search">
+        <input
+            type="text"
+            placeholder="Search"
+            id="searchbar"
+            (input)="changeInput($event)"
+        />
+        <!-- Should be an icon button -->
+        <button
+            [innerText]="'Clear'"
+            type="button"
+            (click)="resetHandler()"
+        ></button>
+    </div>
+    <div class="filter-options-section">
+        @for (option of filter().Options; track option.id) {
+            <div
+                class="filter-option"
+                [innerText]="option.label"
+                (click)="optionSelectedHandler(option)"
+            ></div>
+        }
+    </div>
+</div>
