@@ -8,7 +8,7 @@ import {
     InputSignal,
     Output,
 } from '@angular/core';
-import { SelectOption } from '../../../models/filtering/select-option.model';
+import { SelectOption } from '../../../models/filtering/select-filter/select-option.model';
 
 @Component({
     selector: 'app-select-menu',

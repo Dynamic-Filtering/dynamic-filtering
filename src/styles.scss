@@ -41,8 +41,14 @@
 }
 
 * {
-    font-family: Inter var, ui-sans-serif, system-ui, sans-serif,
-        "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol,
+    font-family:
+        Inter var,
+        ui-sans-serif,
+        system-ui,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        Segoe UI Symbol,
         "Noto Color Emoji";
     font-size: small;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
@@ -63,21 +69,21 @@
 @keyframes fadeIn {
     from {
         opacity: 0;
-        display: none;
+        visibility: hidden;
     }
     to {
         opacity: 1;
-        display: block;
+        visibility: visible;
     }
 }
 
 @keyframes fadeOut {
     from {
         opacity: 1;
-        display: block;
+        visibility: visible;
     }
     to {
         opacity: 0;
-        display: none;
+        visibility: hidden;
     }
 }

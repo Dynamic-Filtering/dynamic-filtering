@@ -1,23 +1,19 @@
-import { Filter } from './filter.model';
-import { Condition } from '../condition.model';
+import { Filter } from '../filter.model';
+import { Condition } from '../../condition.model';
 import { SelectOption } from './select-option.model';
-import { OtherOperation } from './other-operation.model';
+import { EqualOperation } from '../operations/equal-operation.model';
 
 export class SelectFilter<T> extends Filter<T> {
     private options: SelectOption<T>[] = [];
 
-    constructor(
-        displayValue: string,
-        column: string,
-        options: SelectOption<T>[],
-    ) {
+    constructor(column: string, label: string, options: SelectOption<T>[]) {
         const selectCondition: Condition<T> = new Condition<T>(
             column,
-            OtherOperation.Equal,
+            EqualOperation.Equal,
         );
         const conditions = [selectCondition];
 
-        super(displayValue, conditions);
+        super(column, label, conditions);
         this.options = options;
     }
 

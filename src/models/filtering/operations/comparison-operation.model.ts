@@ -1,4 +1,4 @@
-export enum RangeOperation {
+export enum ComparisonOperation {
     GreaterThan = 0,
     GreaterThanOrEqual = 1,
     LowerThan = 2,

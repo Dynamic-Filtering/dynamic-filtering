@@ -1,17 +1,22 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FilterComponent } from './components/filters/filter.component';
 import { Filter } from '../models/filtering/filter.model';
-import { SelectFilter } from '../models/filtering/select-filter.model';
-import { RangeFilter } from '../models/filtering/range-filter.model';
+import { SelectFilter } from '../models/filtering/select-filter/select-filter.model';
+import { RangeFilter } from '../models/filtering/range-filter/range-filter.model';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './components/button/button.component';
 import { SelectFilterComponent } from './components/filters/select-filter/select-filter.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { SelectMenuComponent } from './components/select-menu/select-menu.component';
-import { SelectOption } from '../models/filtering/select-option.model';
+import { SelectOption } from '../models/filtering/select-filter/select-option.model';
 import { Condition } from '../models/condition.model';
 import { HttpParams } from '@angular/common/http';
+import { NumberRangeFilter } from '../models/filtering/range-filter/number-range-filter.model';
+import { DateRangeFilter } from '../models/filtering/range-filter/date-range-filter.model';
+import { FilterComponent } from './components/filters/filter/filter.component';
+import { FilterManagementComponent } from './components/filters/filter-manager/filter-manager.component';
+import { FilterManagerService } from './components/filters/filter-manager/filter-manager.service';
+import { StringOperationFilter } from '../models/filtering/operation-filter/string-operation-filter.model';
 
 @Component({
     selector: 'app-root',
@@ -24,13 +29,15 @@ import { HttpParams } from '@angular/common/http';
         SelectFilterComponent,
         DropdownComponent,
         SelectMenuComponent,
+        FilterManagementComponent,
     ],
+    providers: [FilterManagerService],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
 })
 export class AppComponent {
     protected filters: Filter<any>[] = [
-        new SelectFilter('SelectFilter', 'column1', [
+        new SelectFilter('column1', 'SelectFilter', [
             {
                 id: 1,
                 value: 1,
@@ -67,51 +74,51 @@ export class AppComponent {
                 label: 'GB',
             },
         ]),
-        new RangeFilter('RangeFilter', 'column2'),
+        new NumberRangeFilter('column2', 'NumberRangeFilter'),
+        new DateRangeFilter('column3', 'DateRangeFilter'),
+        new StringOperationFilter('column4', 'StringOperationFilter'),
     ];
 
-    public options: SelectOption<number>[] = [
-        {
-            id: 1,
-            value: 1,
-            label: 'Label1',
-        },
-        {
-            id: 2,
-            value: 2,
-            label: 'Label2',
-        },
-        {
-            id: 3,
-            value: 3,
-            label: 'Label3',
-        },
-        {
-            id: 4,
-            value: 4,
-            label: 'Label4',
-        },
-    ];
+    constructor(
+        private readonly filterManagementManager: FilterManagerService,
+    ) {
+        this.filterManagementManager.setFilters(this.filters);
+    }
 
     public optionSelectedHandler(option: SelectOption<unknown>): void {
         console.log('Reached final stop');
         console.log('Selected option', option);
     }
 
+    public updateFilters(event: Filter<unknown>[]): void {
+        console.log('Updating filters', event);
+    }
+
     public logFilters(): void {
         console.log(this.filters);
 
-        const activeConditions = this.filters
-            .filter((filter: Filter<unknown>) =>
-                filter.Conditions.every(
-                    (condition: Condition<unknown>) =>
-                        condition.value !== undefined,
-                ),
-            )
-            .flatMap((filter: Filter<unknown>) => filter.Conditions);
-
-        console.log('Active conditions:', activeConditions);
-        console.log('Http params', this.formatToHttpParams(activeConditions));
+        // const activeConditions = this.filters
+        //     .filter((filter: Filter<unknown>) =>
+        //         filter.Conditions.every(
+        //             (condition: Condition<unknown>) =>
+        //                 condition.value !== undefined,
+        //         ),
+        //     )
+        //     .flatMap((filter: Filter<unknown>) => filter.Conditions);
+        console.log(
+            'Active filters:',
+            this.filterManagementManager.activeFilters(),
+        );
+        console.log(
+            'Active conditions:',
+            this.filterManagementManager.activeConditions(),
+        );
+        console.log(
+            'Http params',
+            this.formatToHttpParams(
+                this.filterManagementManager.activeConditions(),
+            ),
+        );
     }
 
     private formatToHttpParams(activeConditions: Condition<any>[]): HttpParams {

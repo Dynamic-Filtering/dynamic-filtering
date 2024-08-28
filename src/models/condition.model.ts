@@ -1,14 +1,15 @@
-import { OtherOperation } from './filtering/other-operation.model';
-import { RangeOperation } from './filtering/range-operation.model';
+import { EqualOperation } from './filtering/operations/equal-operation.model';
+import { ComparisonOperation } from './filtering/operations/comparison-operation.model';
+import { LikeOperation } from './filtering/operations/like-operation.model';
 
 export class Condition<T> {
     column: string;
-    operation: RangeOperation | OtherOperation;
+    operation: ComparisonOperation | EqualOperation | LikeOperation;
     value?: T;
 
     constructor(
         column: string,
-        operation: RangeOperation | OtherOperation,
+        operation: ComparisonOperation | EqualOperation | LikeOperation,
         value?: T,
     ) {
         this.column = column;

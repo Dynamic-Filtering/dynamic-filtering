@@ -1,77 +1,59 @@
 import { CommonModule } from '@angular/common';
 import {
     Component,
-    ElementRef,
-    HostListener,
+    EventEmitter,
     input,
     InputSignal,
+    Output,
+    ViewChild,
+    ViewContainerRef,
 } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
 import { AbstractFilterComponent } from '../abstract-filter.component';
 import { SelectMenuComponent } from '../../select-menu/select-menu.component';
-import { RangeOperation } from '../../../../models/filtering/range-operation.model';
-import { SelectOption } from '../../../../models/filtering/select-option.model';
-import { RangeFilter } from '../../../../models/filtering/range-filter.model';
-import { Condition } from '../../../../models/condition.model';
+import { RangeFilter } from '../../../../models/filtering/range-filter/range-filter.model';
+import { NumberRangeFilter } from '../../../../models/filtering/range-filter/number-range-filter.model';
+import { DateRangeFilter } from '../../../../models/filtering/range-filter/date-range-filter.model';
+import { NumberRangeFilterComponent } from './number-range-filter/number-range-filter.component';
+import { DateRangeFilterComponent } from './date-range-filter/date-range-filter.component';
 
 @Component({
     selector: 'app-range-filter',
     standalone: true,
     imports: [CommonModule, ButtonComponent, SelectMenuComponent],
     templateUrl: './range-filter.component.html',
-    styleUrls: ['./range-filter.component.scss'],
 })
 export class RangeFilterComponent extends AbstractFilterComponent {
-    public filter: InputSignal<RangeFilter<number | Date>> =
-        input.required<RangeFilter<number | Date>>();
+    public filter: InputSignal<RangeFilter<any>> =
+        input.required<RangeFilter<any>>();
 
-    public showingContent: boolean = false;
-    public filterOptions: SelectOption<RangeOperation>[] = [
-        {
-            id: 1,
-            label: '>',
-            value: RangeOperation.GreaterThan,
-        },
-        {
-            id: 2,
-            label: '>=',
-            value: RangeOperation.GreaterThanOrEqual,
-        },
-        {
-            id: 3,
-            label: '<',
-            value: RangeOperation.LowerThan,
-        },
-        {
-            id: 4,
-            label: '<=',
-            value: RangeOperation.LowerThanOrEqual,
-        },
-    ];
+    @Output() reset: EventEmitter<any> = new EventEmitter<any>();
+    @ViewChild('filterContainer', { read: ViewContainerRef })
+    filterContainer!: ViewContainerRef;
 
-    @HostListener('document:click', ['$event'])
-    clickOutside(event: MouseEvent) {
-        if (!this.elementRef.nativeElement.contains(event.target)) {
-            this.showingContent = false;
+    private componentMap = new Map<any, any>([
+        [NumberRangeFilter, NumberRangeFilterComponent],
+        [DateRangeFilter, DateRangeFilterComponent],
+    ]);
+
+    public ngAfterViewInit() {
+        this.loadComponent();
+    }
+
+    private loadComponent() {
+        for (let mapping of this.componentMap.entries()) {
+            const filterType: any = mapping[0];
+            if (this.filter() instanceof filterType) {
+                const componentRef = this.filterContainer.createComponent(
+                    mapping[1],
+                );
+                (componentRef.instance as any).filter = this.filter;
+            }
         }
     }
 
-    constructor(private elementRef: ElementRef) {
-        super();
-    }
-
-    protected toggleContent(): void {
-        this.showingContent = !this.showingContent;
-    }
-
-    protected applyHandler(): void {
-        // Emit event??
-        this.filter().setRange(
-            1,
-            RangeOperation.GreaterThan,
-            2,
-            RangeOperation.LowerThan,
-        );
-        this.toggleContent();
+    protected resetHandler(): void {
+        console.log('Event caucht from child and re-emitted');
+        this.reset.emit();
     }
 }

@@ -7,12 +7,13 @@ import {
     Inject,
     input,
     InputSignal,
+    model,
     Output,
 } from '@angular/core';
-import { SelectFilter } from '../../../../models/filtering/select-filter.model';
+import { SelectFilter } from '../../../../models/filtering/select-filter/select-filter.model';
 import { AbstractFilterComponent } from '../abstract-filter.component';
 import { ButtonComponent } from '../../button/button.component';
-import { SelectOption } from '../../../../models/filtering/select-option.model';
+import { SelectOption } from '../../../../models/filtering/select-filter/select-option.model';
 
 @Component({
     selector: 'app-select-filter',
@@ -23,8 +24,10 @@ import { SelectOption } from '../../../../models/filtering/select-option.model';
 })
 export class SelectFilterComponent extends AbstractFilterComponent {
     public filter: InputSignal<SelectFilter<unknown>> =
-        input.required<SelectFilter<unknown>>();
-    protected showingConent: boolean = false;
+        model.required<SelectFilter<unknown>>();
+
+    protected firstToggle: boolean = true;
+    protected showingContent: boolean = false;
     protected selectedOption?: SelectOption<unknown> = undefined;
 
     @Output() optionSelected: EventEmitter<SelectOption<unknown>> =
@@ -35,7 +38,7 @@ export class SelectFilterComponent extends AbstractFilterComponent {
     @HostListener('document:click', ['$event'])
     clickOutside(event: MouseEvent) {
         if (!this.elementRef.nativeElement.contains(event.target)) {
-            this.showingConent = false;
+            this.showingContent = false;
         }
     }
 
@@ -44,7 +47,11 @@ export class SelectFilterComponent extends AbstractFilterComponent {
     }
 
     protected toggleConent(): void {
-        this.showingConent = !this.showingConent;
+        if (this.firstToggle) {
+            this.firstToggle = false;
+        }
+
+        this.showingContent = !this.showingContent;
     }
 
     protected optionSelectedHandler(option: SelectOption<unknown>): void {

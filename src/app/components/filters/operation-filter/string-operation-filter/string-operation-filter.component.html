@@ -1,0 +1,16 @@
+<app-button [label]="filter().label" (click)="toggleContent()"></app-button>
+<div
+    class="filter-content"
+    [class.visible]="!firstToggle && showingContent"
+    [class.hidden]="!firstToggle && !showingContent"
+>
+    <div class="range-option">
+        <span [innerText]="filter().column"></span>
+        <app-select-menu [options]="filterOptions"></app-select-menu>
+        <input type="string" />
+    </div>
+    <div class="controls">
+        <app-button [label]="'Reset'"></app-button>
+        <app-button [label]="'Apply'" (click)="applyHandler()"></app-button>
+    </div>
+</div>

@@ -1,13 +1,3 @@
-@for (filter of filters; track filter) {
-    <app-filter
-        [filter]="filter"
-        (optionSelected)="optionSelectedHandler($event)"
-    ></app-filter>
-}
+<app-filter-manager (change)="updateFilters($event)"></app-filter-manager>
 
 <app-button label="What is state?" (click)="logFilters()"></app-button>
-<!-- <app-select-menu
-    label="Label"
-    placeholder="Placeholder"
-    [options]="options"
-></app-select-menu> -->

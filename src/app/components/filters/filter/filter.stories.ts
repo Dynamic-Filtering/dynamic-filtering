@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { FilterComponent } from './filter.component';
-import { SelectFilter } from '../../../models/filtering/select-filter.model';
-import { RangeFilter } from '../../../models/filtering/range-filter.model';
+import { SelectFilter } from '../../../models/filtering/select-filter/select-filter.model';
+import { RangeFilter } from '../../../models/filtering/range-filter/range-filter.model';
 
 const meta: Meta<FilterComponent> = {
     title: 'Filters/Filter',

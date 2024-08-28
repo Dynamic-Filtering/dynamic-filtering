@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { SelectFilterComponent } from './select-filter.component';
-import { SelectFilter } from '../../../../models/filtering/select-filter.model';
+import { SelectFilter } from '../../../../models/filtering/select-filter/select-filter.model';
 
 const meta: Meta<SelectFilterComponent> = {
     title: 'Filters/Select filter',

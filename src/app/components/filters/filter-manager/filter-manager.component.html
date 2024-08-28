@@ -1,0 +1,6 @@
+@for (filter of filterManagementManager.filters(); track filter) {
+    <app-filter
+        [filter]="filter"
+        (optionSelected)="filtersChanged()"
+    ></app-filter>
+}

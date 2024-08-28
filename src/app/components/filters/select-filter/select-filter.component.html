@@ -7,7 +7,8 @@
 ></app-button>
 <div
     class="filter-content"
-    [ngClass]="{ visible: showingConent, hidden: !showingConent }"
+    [class.visible]="!firstToggle && showingContent"
+    [class.hidden]="!firstToggle && !showingContent"
 >
     <div class="search">
         <input
