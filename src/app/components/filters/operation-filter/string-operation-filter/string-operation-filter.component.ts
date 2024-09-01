@@ -89,7 +89,7 @@ export class StringOperationFilterComponent extends AbstractFilterDirective {
     }
 
     protected apply(): void {
-        this.filter().apply('1', ComparisonOperation.GreaterThan);
+        this.filter().apply('1', EqualOperation.Equal);
         this.toggleContent();
 
         this.onApply.emit();

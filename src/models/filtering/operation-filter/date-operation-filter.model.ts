@@ -1,11 +1,24 @@
 import { EqualOperation } from '../operations/equal-operation.model';
 import { ComparisonOperation } from '../operations/comparison-operation.model';
-import { OperationFilter } from './operation-filter.model';
+import { AbstractOperationFilter } from './abstract-operation-filter.model';
+import { Condition } from '../../condition.model';
 
-export class DateOperationFilter extends OperationFilter<Date> {
-    public readonly operations = { ...ComparisonOperation, ...EqualOperation };
+export class DateOperationFilter extends AbstractOperationFilter<
+    Date,
+    ComparisonOperation | EqualOperation
+> {
+    constructor(
+        column: string,
+        label: string,
+        conditions?: Condition<Date, ComparisonOperation | EqualOperation>[],
+    ) {
+        super(column, label, conditions);
+    }
 
-    constructor(column: string, label: string) {
-        super(column, label);
+    public override apply(
+        value: Date,
+        operation: ComparisonOperation | EqualOperation,
+    ): void {
+        super.apply(value, operation);
     }
 }

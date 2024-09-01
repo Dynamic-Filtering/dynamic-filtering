@@ -81,10 +81,12 @@ export class NumberRangeFilterComponent extends AbstractFilterDirective {
             2,
             ComparisonOperation.LowerThan,
         );
+        this.onApply.emit();
         this.toggleContent();
     }
 
     protected reset(): void {
         this.filter().reset();
+        this.onReset.emit();
     }
 }

@@ -1,17 +1,9 @@
-import { EqualOperation } from './filtering/operations/equal-operation.model';
-import { ComparisonOperation } from './filtering/operations/comparison-operation.model';
-import { LikeOperation } from './filtering/operations/like-operation.model';
-
-export class Condition<T> {
+export class Condition<T, R> {
     column: string;
-    operation: ComparisonOperation | EqualOperation | LikeOperation;
-    value?: T;
+    operation: R;
+    value: T;
 
-    constructor(
-        column: string,
-        operation: ComparisonOperation | EqualOperation | LikeOperation,
-        value?: T,
-    ) {
+    constructor(column: string, operation: R, value: T) {
         this.column = column;
         this.operation = operation;
         this.value = value;

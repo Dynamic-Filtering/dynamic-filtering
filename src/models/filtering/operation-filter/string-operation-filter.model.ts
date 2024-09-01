@@ -1,14 +1,17 @@
 import { LikeOperation } from '../operations/like-operation.model';
 import { EqualOperation } from '../operations/equal-operation.model';
-import { OperationFilter } from './operation-filter.model';
+import { AbstractOperationFilter } from './abstract-operation-filter.model';
+import { Condition } from '../../condition.model';
 
-export class StringOperationFilter extends OperationFilter<string> {
-    public readonly operations = { ...LikeOperation, ...EqualOperation };
-    public readonly operationTypes: typeof this.operations = this.operations;
-
-    constructor(column: string, label: string) {
-        super(column, label);
+export class StringOperationFilter extends AbstractOperationFilter<
+    string,
+    EqualOperation | LikeOperation
+> {
+    constructor(
+        column: string,
+        label: string,
+        conditions?: Condition<string, EqualOperation | LikeOperation>[],
+    ) {
+        super(column, label, conditions);
     }
-
-    // Perhaps I should override the apply method to only support the defined operations
 }

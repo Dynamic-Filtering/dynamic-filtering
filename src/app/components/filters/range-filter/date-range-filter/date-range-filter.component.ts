@@ -11,6 +11,7 @@ import { SelectOption } from '../../../../../models/filtering/select-filter/sele
 import { DateRangeFilter } from '../../../../../models/filtering/range-filter/date-range-filter.model';
 import { ButtonComponent } from '../../../button/button.component';
 import { SelectMenuComponent } from '../../../select-menu/select-menu.component';
+import { AbstractFilterDirective } from '../../filter/abstract-filter.directive';
 
 @Component({
     selector: 'app-date-range-filter',
@@ -19,7 +20,7 @@ import { SelectMenuComponent } from '../../../select-menu/select-menu.component'
     templateUrl: './date-range-filter.component.html',
     styleUrls: ['./date-range-filter.component.scss'],
 })
-export class DateRangeFilterComponent {
+export class DateRangeFilterComponent extends AbstractFilterDirective {
     public filter: InputSignal<DateRangeFilter> =
         input.required<DateRangeFilter>();
 
@@ -55,7 +56,9 @@ export class DateRangeFilterComponent {
         }
     }
 
-    constructor(private elementRef: ElementRef) {}
+    constructor(private elementRef: ElementRef) {
+        super();
+    }
 
     protected toggleContent(): void {
         if (this.firstToggle) {
@@ -65,14 +68,19 @@ export class DateRangeFilterComponent {
         this.showingContent = !this.showingContent;
     }
 
-    protected applyHandler(): void {
-        // Emit event??
+    protected apply(): void {
         this.filter().apply(
             new Date(),
             ComparisonOperation.GreaterThan,
             new Date(),
             ComparisonOperation.LowerThan,
         );
+        this.onApply.emit();
         this.toggleContent();
+    }
+
+    protected reset(): void {
+        this.filter().reset();
+        this.onReset.emit();
     }
 }

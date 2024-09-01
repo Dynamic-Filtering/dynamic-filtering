@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Filter } from '../models/filtering/filter.model';
 import { SelectFilter } from '../models/filtering/select-filter/select-filter.model';
-import { RangeFilter } from '../models/filtering/range-filter/range-filter.model';
+import { AbstractRangeFilter } from '../models/filtering/range-filter/abstract-range-filter.model';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './components/button/button.component';
 import { SelectFilterComponent } from './components/filters/select-filter/select-filter.component';
@@ -17,6 +17,9 @@ import { FilterComponent } from './components/filters/filter/filter.component';
 import { FilterManagementComponent } from './components/filters/filter-manager/filter-manager.component';
 import { FilterManagerService } from './components/filters/filter-manager/filter-manager.service';
 import { StringOperationFilter } from '../models/filtering/operation-filter/string-operation-filter.model';
+import { ComparisonOperation } from '../models/filtering/operations/comparison-operation.model';
+import { EqualOperation } from '../models/filtering/operations/equal-operation.model';
+import { LikeOperation } from '../models/filtering/operations/like-operation.model';
 
 @Component({
     selector: 'app-root',
@@ -36,7 +39,10 @@ import { StringOperationFilter } from '../models/filtering/operation-filter/stri
     styleUrl: './app.component.scss',
 })
 export class AppComponent {
-    protected filters: Filter<any>[] = [
+    protected filters: Filter<
+        any,
+        ComparisonOperation | EqualOperation | LikeOperation
+    >[] = [
         new SelectFilter('column1', 'SelectFilter', [
             {
                 id: 1,
@@ -90,7 +96,12 @@ export class AppComponent {
         });
     }
 
-    private formatToHttpParams(activeConditions: Condition<any>[]): HttpParams {
+    private formatToHttpParams(
+        activeConditions: Condition<
+            any,
+            ComparisonOperation | EqualOperation | LikeOperation
+        >[],
+    ): HttpParams {
         let httpParams = new HttpParams();
         activeConditions.forEach;
 

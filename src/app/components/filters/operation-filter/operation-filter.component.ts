@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { DateRangeFilter } from '../../../../models/filtering/range-filter/date-range-filter.model';
 import { NumberRangeFilter } from '../../../../models/filtering/range-filter/number-range-filter.model';
-import { RangeFilter } from '../../../../models/filtering/range-filter/range-filter.model';
+import { AbstractRangeFilter } from '../../../../models/filtering/range-filter/abstract-range-filter.model';
 import { DateRangeFilterComponent } from '../range-filter/date-range-filter/date-range-filter.component';
 import { NumberRangeFilterComponent } from '../range-filter/number-range-filter/number-range-filter.component';
 import { StringOperationFilter } from '../../../../models/filtering/operation-filter/string-operation-filter.model';
@@ -29,8 +29,8 @@ import { AbstractFilterDirective } from '../filter/abstract-filter.directive';
 })
 export class OperationFilterComponent extends AbstractFilterDirective {
     // Input
-    public filter: InputSignal<RangeFilter<any>> =
-        input.required<RangeFilter<any>>();
+    public filter: InputSignal<AbstractRangeFilter<any>> =
+        input.required<AbstractRangeFilter<any>>();
 
     @ViewChild('filterContainer', { read: ViewContainerRef })
     private filterContainer!: ViewContainerRef;

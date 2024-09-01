@@ -1,11 +1,17 @@
 import { EqualOperation } from '../operations/equal-operation.model';
 import { ComparisonOperation } from '../operations/comparison-operation.model';
-import { OperationFilter } from './operation-filter.model';
+import { AbstractOperationFilter } from './abstract-operation-filter.model';
+import { Condition } from '../../condition.model';
 
-export class NumberOperationFilter extends OperationFilter<number> {
-    public readonly operations = { ...ComparisonOperation, ...EqualOperation };
-
-    constructor(column: string, label: string) {
-        super(column, label);
+export class NumberOperationFilter extends AbstractOperationFilter<
+    number,
+    ComparisonOperation | EqualOperation
+> {
+    constructor(
+        column: string,
+        label: string,
+        conditions?: Condition<number, ComparisonOperation | EqualOperation>[],
+    ) {
+        super(column, label, conditions);
     }
 }
