@@ -8,12 +8,14 @@ import {
     input,
     InputSignal,
     model,
+    output,
     Output,
+    OutputEmitterRef,
 } from '@angular/core';
 import { SelectFilter } from '../../../../models/filtering/select-filter/select-filter.model';
-import { AbstractFilterComponent } from '../abstract-filter.component';
 import { ButtonComponent } from '../../button/button.component';
 import { SelectOption } from '../../../../models/filtering/select-filter/select-option.model';
+import { AbstractFilterDirective } from '../filter/abstract-filter.directive';
 
 @Component({
     selector: 'app-select-filter',
@@ -22,7 +24,7 @@ import { SelectOption } from '../../../../models/filtering/select-filter/select-
     templateUrl: './select-filter.component.html',
     styleUrls: ['./select-filter.component.scss'],
 })
-export class SelectFilterComponent extends AbstractFilterComponent {
+export class SelectFilterComponent extends AbstractFilterDirective {
     public filter: InputSignal<SelectFilter<unknown>> =
         model.required<SelectFilter<unknown>>();
 
@@ -30,10 +32,9 @@ export class SelectFilterComponent extends AbstractFilterComponent {
     protected showingContent: boolean = false;
     protected selectedOption?: SelectOption<unknown> = undefined;
 
-    @Output() optionSelected: EventEmitter<SelectOption<unknown>> =
-        new EventEmitter();
-    @Output() reset: EventEmitter<void> = new EventEmitter();
-    @Output() input: EventEmitter<any> = new EventEmitter();
+    // public optionSelected: OutputEmitterRef<SelectOption<unknown>> =
+    //     output<SelectOption<unknown>>();
+    public onInput: OutputEmitterRef<any> = output<any>(); //For search bar
 
     @HostListener('document:click', ['$event'])
     clickOutside(event: MouseEvent) {
@@ -54,25 +55,28 @@ export class SelectFilterComponent extends AbstractFilterComponent {
         this.showingContent = !this.showingContent;
     }
 
-    protected optionSelectedHandler(option: SelectOption<unknown>): void {
+    protected apply(option: SelectOption<unknown>): void {
+        console.log('Apply in select-filter.component');
         // When we select an option the filter should become active
         // We should also add a clear icon button
         this.selectedOption = option;
         this.filter().selectValue(option.id);
-        this.optionSelected.emit(option);
+        // this.optionSelected.emit(option);
+        this.onApply.emit();
         this.toggleConent();
     }
 
-    protected resetHandler(): void {
+    protected reset(): void {
         // When we reset the filter should become inactive
         // We should also remove the clear icon button
-        this.selectedOption = undefined;
         this.filter().resetValue();
-        this.reset.emit();
+
+        this.selectedOption = undefined;
         this.toggleConent();
+        this.onReset.emit();
     }
 
-    protected changeInput(event: any): void {
-        this.input.emit(event);
+    protected input(event: any): void {
+        this.onInput.emit(event);
     }
 }

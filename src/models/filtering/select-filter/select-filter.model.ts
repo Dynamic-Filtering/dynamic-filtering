@@ -4,7 +4,10 @@ import { SelectOption } from './select-option.model';
 import { EqualOperation } from '../operations/equal-operation.model';
 
 export class SelectFilter<T> extends Filter<T> {
-    private options: SelectOption<T>[] = [];
+    private _options: SelectOption<T>[] = [];
+    get options() {
+        return this._options;
+    }
 
     constructor(column: string, label: string, options: SelectOption<T>[]) {
         const selectCondition: Condition<T> = new Condition<T>(
@@ -14,24 +17,22 @@ export class SelectFilter<T> extends Filter<T> {
         const conditions = [selectCondition];
 
         super(column, label, conditions);
-        this.options = options;
-    }
-
-    get Options() {
-        return this.options;
+        this._options = options;
     }
 
     public selectValue(id: number) {
-        const option = this.options.find(
+        const option = this._options.find(
             (option: SelectOption<T>) => option.id === id,
         );
         if (option) {
-            this.conditions[0].value = option.value;
+            this._conditions[0].value = option.value;
+            this.onApply.emit();
         }
     }
 
     public resetValue() {
-        this.conditions[0].value = undefined;
+        this._conditions[0].value = undefined;
+        this.onReset.emit();
     }
 
     // Might need options for replacing the list with a new one or adding and remove items

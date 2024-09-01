@@ -15,21 +15,17 @@
             type="text"
             placeholder="Search"
             id="searchbar"
-            (input)="changeInput($event)"
+            (input)="input($event)"
         />
         <!-- Should be an icon button -->
-        <button
-            [innerText]="'Clear'"
-            type="button"
-            (click)="resetHandler()"
-        ></button>
+        <button [innerText]="'Clear'" type="button" (click)="reset()"></button>
     </div>
     <div class="filter-options-section">
-        @for (option of filter().Options; track option.id) {
+        @for (option of filter().options; track option.id) {
             <div
                 class="filter-option"
                 [innerText]="option.label"
-                (click)="optionSelectedHandler(option)"
+                (click)="apply(option)"
             ></div>
         }
     </div>

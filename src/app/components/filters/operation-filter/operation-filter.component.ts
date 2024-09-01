@@ -18,6 +18,7 @@ import { NumberOperationFilter } from '../../../../models/filtering/operation-fi
 import { DateOperationFilterComponent } from './date-operation-filter/date-operation-filter.component';
 import { NumberOperationFilterComponent } from './number-operation-filter/number-operation-filter.component';
 import { StringOperationFilterComponent } from './string-operation-filter/string-operation-filter.component';
+import { AbstractFilterDirective } from '../filter/abstract-filter.directive';
 
 @Component({
     selector: 'app-operation-filter',
@@ -26,13 +27,13 @@ import { StringOperationFilterComponent } from './string-operation-filter/string
     templateUrl: './operation-filter.component.html',
     styleUrl: './operation-filter.component.scss',
 })
-export class OperationFilterComponent {
+export class OperationFilterComponent extends AbstractFilterDirective {
+    // Input
     public filter: InputSignal<RangeFilter<any>> =
         input.required<RangeFilter<any>>();
 
-    @Output() reset: EventEmitter<any> = new EventEmitter<any>();
     @ViewChild('filterContainer', { read: ViewContainerRef })
-    filterContainer!: ViewContainerRef;
+    private filterContainer!: ViewContainerRef;
 
     private componentMap = new Map<any, any>([
         [StringOperationFilter, StringOperationFilterComponent],
@@ -40,24 +41,46 @@ export class OperationFilterComponent {
         [DateOperationFilter, DateOperationFilterComponent],
     ]);
 
+    private eventMap = new Map<string, Function>([
+        ['onReset', () => this.reset()],
+        ['onApply', () => this.apply()],
+    ]);
+
     public ngAfterViewInit() {
         this.loadComponent();
     }
 
     private loadComponent() {
-        for (let mapping of this.componentMap.entries()) {
-            const filterType: any = mapping[0];
+        for (let componentMapping of this.componentMap.entries()) {
+            const filterType: any = componentMapping[0];
+
             if (this.filter() instanceof filterType) {
                 const componentRef = this.filterContainer.createComponent(
-                    mapping[1],
+                    componentMapping[1],
                 );
-                (componentRef.instance as any).filter = this.filter;
+                const componentRefAsAny: any = componentRef.instance;
+                componentRefAsAny.filter = this.filter;
+
+                for (let eventMapping of this.eventMap.entries()) {
+                    if (componentRefAsAny[eventMapping[0]]) {
+                        componentRefAsAny[eventMapping[0]].subscribe(
+                            (event: any) => {
+                                eventMapping[1](event);
+                            },
+                        );
+                    }
+                }
             }
         }
     }
 
-    protected resetHandler(): void {
-        console.log('Event caucht from child and re-emitted');
-        this.reset.emit();
+    protected reset(): void {
+        console.log('Reset in operation-filter.component.ts');
+        this.onReset.emit();
+    }
+
+    protected apply(): void {
+        console.log('Apply in operation-filter.component.ts');
+        this.onApply.emit();
     }
 }

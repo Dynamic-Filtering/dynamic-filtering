@@ -16,10 +16,12 @@ export abstract class OperationFilter<
         operation: ComparisonOperation | EqualOperation | LikeOperation,
     ): void {
         const condition = new Condition<T>(this.column, operation, value);
-        this.conditions = [condition];
+        this._conditions = [condition];
+        this.onApply.emit();
     }
 
     public reset(): void {
-        this.conditions.length = 0;
+        this._conditions.length = 0;
+        this.onReset.emit();
     }
 }

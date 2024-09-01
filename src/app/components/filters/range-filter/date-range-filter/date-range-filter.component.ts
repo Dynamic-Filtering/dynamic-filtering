@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { ComparisonOperation } from '../../../../../models/filtering/operations/comparison-operation.model';
 import { SelectOption } from '../../../../../models/filtering/select-filter/select-option.model';
-import { AbstractFilterComponent } from '../../abstract-filter.component';
 import { DateRangeFilter } from '../../../../../models/filtering/range-filter/date-range-filter.model';
 import { ButtonComponent } from '../../../button/button.component';
 import { SelectMenuComponent } from '../../../select-menu/select-menu.component';
@@ -20,7 +19,7 @@ import { SelectMenuComponent } from '../../../select-menu/select-menu.component'
     templateUrl: './date-range-filter.component.html',
     styleUrls: ['./date-range-filter.component.scss'],
 })
-export class DateRangeFilterComponent extends AbstractFilterComponent {
+export class DateRangeFilterComponent {
     public filter: InputSignal<DateRangeFilter> =
         input.required<DateRangeFilter>();
 
@@ -56,9 +55,7 @@ export class DateRangeFilterComponent extends AbstractFilterComponent {
         }
     }
 
-    constructor(private elementRef: ElementRef) {
-        super();
-    }
+    constructor(private elementRef: ElementRef) {}
 
     protected toggleContent(): void {
         if (this.firstToggle) {

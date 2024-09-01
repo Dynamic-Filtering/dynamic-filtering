@@ -1,6 +1,7 @@
-@for (filter of filterManagementManager.filters(); track filter) {
+@for (filter of filterManagerService.filters(); track filter) {
     <app-filter
         [filter]="filter"
-        (optionSelected)="filtersChanged()"
+        (onApply)="filtersChanged()"
+        (onReset)="filtersChanged()"
     ></app-filter>
 }

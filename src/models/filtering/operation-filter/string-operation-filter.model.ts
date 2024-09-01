@@ -4,6 +4,7 @@ import { OperationFilter } from './operation-filter.model';
 
 export class StringOperationFilter extends OperationFilter<string> {
     public readonly operations = { ...LikeOperation, ...EqualOperation };
+    public readonly operationTypes: typeof this.operations = this.operations;
 
     constructor(column: string, label: string) {
         super(column, label);

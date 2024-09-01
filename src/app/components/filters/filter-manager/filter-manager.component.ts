@@ -29,17 +29,17 @@ export class FilterManagementComponent {
     // public filters: InputSignal<Filter<unknown>[]> =
     //     input.required<Filter<unknown>[]>();
 
-    public change: OutputEmitterRef<Filter<unknown>[]> =
-        output<Filter<unknown>[]>();
+    // public change: OutputEmitterRef<Filter<unknown>[]> =
+    //     output<Filter<unknown>[]>();
 
     constructor(
-        protected readonly filterManagementManager: FilterManagerService,
+        protected readonly filterManagerService: FilterManagerService,
     ) {}
 
     protected filtersChanged() {
-        this.change.emit(this.filterManagementManager.filters());
-        this.filterManagementManager.setFilters(
-            this.filterManagementManager.filters(),
+        // this.change.emit(this.filterManagementManager.filters());
+        this.filterManagerService.setFilters(
+            this.filterManagerService.filters(),
         );
     }
 }

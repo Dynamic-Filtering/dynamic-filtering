@@ -16,10 +16,10 @@ export abstract class RangeFilter<T extends number | Date> extends Filter<T> {
         const condition1 = new Condition<T>(this.column, operation1, value1);
         const condition2 = new Condition<T>(this.column, operation2, value2);
 
-        this.conditions = [condition1, condition2];
+        this._conditions = [condition1, condition2];
     }
 
     public reset() {
-        this.conditions.length = 0;
+        this._conditions.length = 0;
     }
 }

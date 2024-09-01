@@ -6,14 +6,16 @@ import {
     HostListener,
     input,
     InputSignal,
+    output,
     Output,
+    OutputEmitterRef,
 } from '@angular/core';
 import { ComparisonOperation } from '../../../../../models/filtering/operations/comparison-operation.model';
 import { SelectOption } from '../../../../../models/filtering/select-filter/select-option.model';
-import { AbstractFilterComponent } from '../../abstract-filter.component';
 import { NumberRangeFilter } from '../../../../../models/filtering/range-filter/number-range-filter.model';
 import { ButtonComponent } from '../../../button/button.component';
 import { SelectMenuComponent } from '../../../select-menu/select-menu.component';
+import { AbstractFilterDirective } from '../../filter/abstract-filter.directive';
 
 @Component({
     selector: 'app-number-range-filter',
@@ -22,14 +24,13 @@ import { SelectMenuComponent } from '../../../select-menu/select-menu.component'
     templateUrl: './number-range-filter.component.html',
     styleUrls: ['./number-range-filter.component.scss'],
 })
-export class NumberRangeFilterComponent extends AbstractFilterComponent {
+export class NumberRangeFilterComponent extends AbstractFilterDirective {
     public filter: InputSignal<NumberRangeFilter> =
         input.required<NumberRangeFilter>();
 
-    @Output() reset: EventEmitter<void> = new EventEmitter();
-
     protected firstToggle: boolean = true;
-    public showingContent: boolean = false;
+    protected showingContent: boolean = false;
+
     public filterOptions: SelectOption<ComparisonOperation>[] = [
         {
             id: 1,
@@ -72,7 +73,7 @@ export class NumberRangeFilterComponent extends AbstractFilterComponent {
         this.showingContent = !this.showingContent;
     }
 
-    protected applyHandler(): void {
+    protected apply(): void {
         // Emit event??
         this.filter().apply(
             1,
@@ -81,5 +82,9 @@ export class NumberRangeFilterComponent extends AbstractFilterComponent {
             ComparisonOperation.LowerThan,
         );
         this.toggleContent();
+    }
+
+    protected reset(): void {
+        this.filter().reset();
     }
 }

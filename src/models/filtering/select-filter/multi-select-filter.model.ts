@@ -24,11 +24,11 @@ export class MultiSelectFilter<T> extends Filter<T> {
         );
         if (option) {
             if (option.selected) {
-                const conditionIndex = this.conditions.findIndex(
+                const conditionIndex = this._conditions.findIndex(
                     (condition: Condition<T>) => condition.id === option.id,
                 );
                 if (conditionIndex !== -1) {
-                    this.conditions.splice(conditionIndex, 1);
+                    this._conditions.splice(conditionIndex, 1);
                 }
             } else {
                 const selectCondition: Condition<T> = new Condition<T>(
@@ -36,7 +36,7 @@ export class MultiSelectFilter<T> extends Filter<T> {
                     this.column,
                     EqualOperation.Equal,
                 );
-                this.conditions.push(selectCondition);
+                this._conditions.push(selectCondition);
                 option.selected = true;
             }
         }
@@ -47,7 +47,7 @@ export class MultiSelectFilter<T> extends Filter<T> {
             option.selected = false;
             return option;
         });
-        this.conditions.length = 0;
+        this._conditions.length = 0;
     }
 
     // May want to split up resetting the conditions from the selected options at some point

@@ -17,6 +17,7 @@ import { SelectFilterComponent } from '../select-filter/select-filter.component'
 import { SelectFilter } from '../../../../models/filtering/select-filter/select-filter.model';
 import { OperationFilter } from '../../../../models/filtering/operation-filter/operation-filter.model';
 import { OperationFilterComponent } from '../operation-filter/operation-filter.component';
+import { AbstractFilterDirective } from './abstract-filter.directive';
 
 @Component({
     selector: 'app-filter',
@@ -24,17 +25,16 @@ import { OperationFilterComponent } from '../operation-filter/operation-filter.c
     imports: [CommonModule, SelectFilterComponent],
     templateUrl: './filter.component.html',
 })
-export class FilterComponent implements AfterViewInit {
+export class FilterComponent
+    extends AbstractFilterDirective
+    implements AfterViewInit
+{
     // Input
     public filter: InputSignal<Filter<unknown>> =
         input.required<Filter<unknown>>();
 
-    // Output
-    public optionSelected: OutputEmitterRef<any> = output<any>(); // Some sort of select option type
-    public reset: OutputEmitterRef<void> = output<void>();
-
     @ViewChild('filterContainer', { read: ViewContainerRef })
-    filterContainer!: ViewContainerRef;
+    private filterContainer!: ViewContainerRef;
 
     private componentMap = new Map<any, any>([
         [SelectFilter, SelectFilterComponent],
@@ -42,38 +42,46 @@ export class FilterComponent implements AfterViewInit {
         [OperationFilter, OperationFilterComponent],
     ]);
 
+    private eventMap = new Map<string, Function>([
+        ['onReset', () => this.reset()],
+        ['onApply', () => this.apply()],
+    ]);
+
     public ngAfterViewInit() {
         this.loadComponent();
     }
 
     private loadComponent() {
-        for (let mapping of this.componentMap.entries()) {
-            const filterType: any = mapping[0];
+        for (let componentMapping of this.componentMap.entries()) {
+            const filterType: any = componentMapping[0];
+
             if (this.filter() instanceof filterType) {
                 const componentRef = this.filterContainer.createComponent(
-                    mapping[1],
+                    componentMapping[1],
                 );
-                const componentRefAsAny: any = componentRef.instance as any;
+                const componentRefAsAny: any = componentRef.instance;
                 componentRefAsAny.filter = this.filter;
 
-                if (componentRefAsAny.optionSelected) {
-                    componentRefAsAny.optionSelected.subscribe(
-                        (option: SelectOption<unknown>) => {
-                            this.optionSelectedHandler(option);
-                        },
-                    );
+                for (let eventMapping of this.eventMap.entries()) {
+                    if (componentRefAsAny[eventMapping[0]]) {
+                        componentRefAsAny[eventMapping[0]].subscribe(
+                            (event: any) => {
+                                eventMapping[1](event);
+                            },
+                        );
+                    }
                 }
             }
         }
     }
 
-    protected optionSelectedHandler(option: SelectOption<unknown>): void {
-        console.log('Event caucht from child and re-emitted');
-        this.optionSelected.emit(option);
+    protected reset(): void {
+        console.log('Reset in filter.component.ts');
+        this.onReset.emit();
     }
 
-    protected resetHandler(): void {
-        console.log('Event caucht from child and re-emitted');
-        this.reset.emit();
+    protected apply(): void {
+        console.log('Apply in filter.component.ts');
+        this.onApply.emit();
     }
 }

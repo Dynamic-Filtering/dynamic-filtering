@@ -1,5 +1,6 @@
 import {
     computed,
+    effect,
     Injectable,
     Signal,
     signal,
@@ -15,11 +16,11 @@ export class FilterManagerService {
 
     public activeFilters: Signal<Filter<unknown>[]> = computed(() =>
         this.internalFilters().filter((filter: Filter<unknown>) => {
-            if (filter.Conditions.length === 0) {
+            if (filter.conditions.length === 0) {
                 return false;
             }
 
-            return filter.Conditions.every(
+            return filter.conditions.every(
                 (condition: Condition<unknown>) =>
                     condition.value !== undefined,
             );
@@ -28,7 +29,7 @@ export class FilterManagerService {
 
     public activeConditions: Signal<Condition<unknown>[]> = computed(() =>
         this.activeFilters().flatMap(
-            (filter: Filter<unknown>) => filter.Conditions,
+            (filter: Filter<unknown>) => filter.conditions,
         ),
     );
 

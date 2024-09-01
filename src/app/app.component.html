@@ -1,3 +1,42 @@
-<app-filter-manager (change)="updateFilters($event)"></app-filter-manager>
+<app-filter-manager></app-filter-manager>
 
-<app-button label="What is state?" (click)="logFilters()"></app-button>
+@if (filterManagementManager.activeFilters().length > 0) {
+    <section>
+        <h2>Active filters:</h2>
+        <div class="active-filters-display">
+            @for (
+                activeFilter of filterManagementManager.activeFilters();
+                track $index
+            ) {
+                <div class="filter">
+                    <span class="label" [innerText]="activeFilter.label"></span>
+                    <div class="conditions">
+                        @for (
+                            condition of activeFilter.conditions;
+                            track $index
+                        ) {
+                            <div class="condition-detail">
+                                <span>Column:</span>
+                                <span [innerText]="condition.column"></span>
+                            </div>
+                            <div class="condition-detail">
+                                <span>Operation:</span>
+                                <span [innerText]="condition.operation"></span>
+                            </div>
+                            <div class="condition-detail">
+                                <span>Value:</span>
+                                <span [innerText]="condition.value"></span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+}
+
+<button disabled>Disabled</button>
+<button>Enabled</button>
+
+<app-button label="Disabled" [disabled]="true"></app-button>
+<app-button label="Enabled"></app-button>

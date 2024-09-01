@@ -13,42 +13,59 @@ import { NumberRangeFilter } from '../../../../../models/filtering/range-filter/
 import { SelectOption } from '../../../../../models/filtering/select-filter/select-option.model';
 import { SelectMenuComponent } from '../../../select-menu/select-menu.component';
 import { StringOperationFilter } from '../../../../../models/filtering/operation-filter/string-operation-filter.model';
+import { AbstractFilterDirective } from '../../filter/abstract-filter.directive';
+import { LikeOperation } from '../../../../../models/filtering/operations/like-operation.model';
+import { EqualOperation } from '../../../../../models/filtering/operations/equal-operation.model';
+import {
+    FormControl,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-string-operation-filter',
     standalone: true,
-    imports: [ButtonComponent, SelectMenuComponent],
+    imports: [
+        CommonModule,
+        ButtonComponent,
+        SelectMenuComponent,
+        ReactiveFormsModule,
+    ],
     templateUrl: './string-operation-filter.component.html',
     styleUrl: './string-operation-filter.component.scss',
 })
-export class StringOperationFilterComponent {
+export class StringOperationFilterComponent extends AbstractFilterDirective {
     public filter: InputSignal<StringOperationFilter> =
         input.required<StringOperationFilter>();
 
-    @Output() reset: EventEmitter<void> = new EventEmitter();
+    protected form: FormGroup = new FormGroup({
+        operation: new FormControl<LikeOperation | EqualOperation>(
+            EqualOperation.Equal,
+            [Validators.required],
+        ),
+        value: new FormControl<string | null>(null, [Validators.required]),
+    });
 
     protected firstToggle: boolean = true;
     public showingContent: boolean = false;
-    public filterOptions: SelectOption<ComparisonOperation>[] = [
+    public filterOptions: SelectOption<LikeOperation | EqualOperation>[] = [
         {
             id: 1,
-            label: '>',
-            value: ComparisonOperation.GreaterThan,
+            label: 'Equal',
+            value: EqualOperation.Equal,
         },
         {
             id: 2,
-            label: '>=',
-            value: ComparisonOperation.GreaterThanOrEqual,
+            label: 'Not equal',
+            value: EqualOperation.NotEqual,
         },
         {
             id: 3,
-            label: '<',
-            value: ComparisonOperation.LowerThan,
-        },
-        {
-            id: 4,
-            label: '<=',
-            value: ComparisonOperation.LowerThanOrEqual,
+            label: 'Like',
+            value: LikeOperation.Like,
         },
     ];
 
@@ -59,7 +76,9 @@ export class StringOperationFilterComponent {
         }
     }
 
-    constructor(private elementRef: ElementRef) {}
+    constructor(private elementRef: ElementRef) {
+        super();
+    }
 
     protected toggleContent(): void {
         if (this.firstToggle) {
@@ -69,9 +88,17 @@ export class StringOperationFilterComponent {
         this.showingContent = !this.showingContent;
     }
 
-    protected applyHandler(): void {
-        // Emit event??
+    protected apply(): void {
         this.filter().apply('1', ComparisonOperation.GreaterThan);
         this.toggleContent();
+
+        this.onApply.emit();
+    }
+
+    protected reset(): void {
+        this.filter().reset();
+        this.toggleContent();
+
+        this.onReset.emit();
     }
 }

@@ -3,3 +3,33 @@
     flex-direction: column;
     gap: 5rem;
 }
+
+.active-filters-display {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: bisque;
+
+    .filter {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+
+        .label {
+            max-width: 50%;
+            width: 25%;
+        }
+
+        .conditions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            .condition-detail {
+                display: flex;
+                flex-direction: row;
+                gap: 0.25rem;
+            }
+        }
+    }
+}

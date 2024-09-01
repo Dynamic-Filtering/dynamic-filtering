@@ -4,13 +4,22 @@
     [class.visible]="!firstToggle && showingContent"
     [class.hidden]="!firstToggle && !showingContent"
 >
-    <div class="range-option">
+    <div class="range-option" [formGroup]="form">
         <span [innerText]="filter().column"></span>
-        <app-select-menu [options]="filterOptions"></app-select-menu>
-        <input type="string" />
+        <!-- How do we support angular forms with custom components -->
+        <app-select-menu
+            [options]="filterOptions"
+            formControlName="operation"
+            ngDefaultControl
+        ></app-select-menu>
+        <input type="string" formControlName="value" />
     </div>
     <div class="controls">
-        <app-button [label]="'Reset'"></app-button>
-        <app-button [label]="'Apply'" (click)="applyHandler()"></app-button>
+        <app-button [label]="'Reset'" (click)="reset()"></app-button>
+        <app-button
+            [label]="'Apply'"
+            [disabled]="form.invalid"
+            (click)="apply()"
+        ></app-button>
     </div>
 </div>

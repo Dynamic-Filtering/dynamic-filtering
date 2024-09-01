@@ -9,13 +9,13 @@ import {
     ViewContainerRef,
 } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
-import { AbstractFilterComponent } from '../abstract-filter.component';
 import { SelectMenuComponent } from '../../select-menu/select-menu.component';
 import { RangeFilter } from '../../../../models/filtering/range-filter/range-filter.model';
 import { NumberRangeFilter } from '../../../../models/filtering/range-filter/number-range-filter.model';
 import { DateRangeFilter } from '../../../../models/filtering/range-filter/date-range-filter.model';
 import { NumberRangeFilterComponent } from './number-range-filter/number-range-filter.component';
 import { DateRangeFilterComponent } from './date-range-filter/date-range-filter.component';
+import { AbstractFilterDirective } from '../filter/abstract-filter.directive';
 
 @Component({
     selector: 'app-range-filter',
@@ -23,7 +23,7 @@ import { DateRangeFilterComponent } from './date-range-filter/date-range-filter.
     imports: [CommonModule, ButtonComponent, SelectMenuComponent],
     templateUrl: './range-filter.component.html',
 })
-export class RangeFilterComponent extends AbstractFilterComponent {
+export class RangeFilterComponent extends AbstractFilterDirective {
     public filter: InputSignal<RangeFilter<any>> =
         input.required<RangeFilter<any>>();
 

@@ -80,45 +80,14 @@ export class AppComponent {
     ];
 
     constructor(
-        private readonly filterManagementManager: FilterManagerService,
+        protected readonly filterManagementManager: FilterManagerService,
     ) {
         this.filterManagementManager.setFilters(this.filters);
-    }
 
-    public optionSelectedHandler(option: SelectOption<unknown>): void {
-        console.log('Reached final stop');
-        console.log('Selected option', option);
-    }
-
-    public updateFilters(event: Filter<unknown>[]): void {
-        console.log('Updating filters', event);
-    }
-
-    public logFilters(): void {
-        console.log(this.filters);
-
-        // const activeConditions = this.filters
-        //     .filter((filter: Filter<unknown>) =>
-        //         filter.Conditions.every(
-        //             (condition: Condition<unknown>) =>
-        //                 condition.value !== undefined,
-        //         ),
-        //     )
-        //     .flatMap((filter: Filter<unknown>) => filter.Conditions);
-        console.log(
-            'Active filters:',
-            this.filterManagementManager.activeFilters(),
-        );
-        console.log(
-            'Active conditions:',
-            this.filterManagementManager.activeConditions(),
-        );
-        console.log(
-            'Http params',
-            this.formatToHttpParams(
-                this.filterManagementManager.activeConditions(),
-            ),
-        );
+        // Way to bind events from the filter models directly
+        this.filters[0].onReset.subscribe(() => {
+            console.log('Reset caught from filter ref');
+        });
     }
 
     private formatToHttpParams(activeConditions: Condition<any>[]): HttpParams {
