@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { SelectFilterComponent } from './select-filter.component';
-import { SelectFilter } from '../../../../models/filtering/select-filter/select-filter.model';
+import { SingleSelectFilter } from '../../../../models/filtering/select-filter/single-select-filter.model';
 
 const meta: Meta<SelectFilterComponent> = {
     title: 'Filters/Select filter',
@@ -10,7 +10,7 @@ const meta: Meta<SelectFilterComponent> = {
         layout: 'centered',
     },
     args: {
-        filter: new SelectFilter('Display value', 'column', [
+        filter: new SingleSelectFilter('Display value', 'column', [
             {
                 id: 1,
                 value: 1,

@@ -53,17 +53,14 @@ export class StringOperationFilterComponent extends AbstractFilterDirective {
     public showingContent: boolean = false;
     public filterOptions: SelectOption<LikeOperation | EqualOperation>[] = [
         {
-            id: 1,
             label: 'Equal',
             value: EqualOperation.Equal,
         },
         {
-            id: 2,
             label: 'Not equal',
             value: EqualOperation.NotEqual,
         },
         {
-            id: 3,
             label: 'Like',
             value: LikeOperation.Like,
         },

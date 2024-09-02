@@ -33,22 +33,18 @@ export class NumberRangeFilterComponent extends AbstractFilterDirective {
 
     public filterOptions: SelectOption<ComparisonOperation>[] = [
         {
-            id: 1,
             label: '>',
             value: ComparisonOperation.GreaterThan,
         },
         {
-            id: 2,
             label: '>=',
             value: ComparisonOperation.GreaterThanOrEqual,
         },
         {
-            id: 3,
             label: '<',
             value: ComparisonOperation.LowerThan,
         },
         {
-            id: 4,
             label: '<=',
             value: ComparisonOperation.LowerThanOrEqual,
         },

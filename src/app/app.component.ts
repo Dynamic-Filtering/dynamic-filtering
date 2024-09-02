@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Filter } from '../models/filtering/filter.model';
-import { SelectFilter } from '../models/filtering/select-filter/select-filter.model';
+import { SingleSelectFilter } from '../models/filtering/select-filter/single-select-filter.model';
 import { AbstractRangeFilter } from '../models/filtering/range-filter/abstract-range-filter.model';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './components/button/button.component';
@@ -43,39 +43,32 @@ export class AppComponent {
         any,
         ComparisonOperation | EqualOperation | LikeOperation
     >[] = [
-        new SelectFilter('column1', 'SelectFilter', [
+        new SingleSelectFilter('column1', 'SelectFilter', [
             {
-                id: 1,
                 value: 1,
                 label: 'NL',
             },
             {
-                id: 2,
                 value: 2,
                 label: 'BE',
             },
             {
-                id: 3,
                 value: 3,
                 label: 'DE',
             },
             {
-                id: 4,
                 value: 4,
                 label: 'CZ',
             },
             {
-                id: 5,
                 value: 5,
                 label: 'PO',
             },
             {
-                id: 6,
                 value: 6,
                 label: 'US',
             },
             {
-                id: 7,
                 value: 7,
                 label: 'GB',
             },

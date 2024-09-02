@@ -21,7 +21,7 @@
         <button [innerText]="'Clear'" type="button" (click)="reset()"></button>
     </div>
     <div class="filter-options-section">
-        @for (option of filter().options; track option.id) {
+        @for (option of filter().options; track $index) {
             <div
                 class="filter-option"
                 [innerText]="option.label"

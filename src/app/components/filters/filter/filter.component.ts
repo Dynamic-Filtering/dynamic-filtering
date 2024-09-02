@@ -13,7 +13,7 @@ import { Filter } from '../../../../models/filtering/filter.model';
 import { AbstractRangeFilter } from '../../../../models/filtering/range-filter/abstract-range-filter.model';
 import { SelectOption } from '../../../../models/filtering/select-filter/select-option.model';
 import { SelectFilterComponent } from '../select-filter/select-filter.component';
-import { SelectFilter } from '../../../../models/filtering/select-filter/select-filter.model';
+import { SingleSelectFilter } from '../../../../models/filtering/select-filter/single-select-filter.model';
 import { AbstractOperationFilter } from '../../../../models/filtering/operation-filter/abstract-operation-filter.model';
 import { OperationFilterComponent } from '../operation-filter/operation-filter.component';
 import { AbstractFilterDirective } from './abstract-filter.directive';
@@ -50,7 +50,7 @@ export class FilterComponent
     private filterContainer!: ViewContainerRef;
 
     private componentMap = new Map<any, any>([
-        [SelectFilter, SelectFilterComponent],
+        [SingleSelectFilter, SelectFilterComponent],
         [NumberRangeFilter, NumberRangeFilterComponent],
         [DateRangeFilter, DateRangeFilterComponent],
         [AbstractOperationFilter, OperationFilterComponent],

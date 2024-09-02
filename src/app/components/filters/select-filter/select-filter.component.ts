@@ -12,7 +12,7 @@ import {
     Output,
     OutputEmitterRef,
 } from '@angular/core';
-import { SelectFilter } from '../../../../models/filtering/select-filter/select-filter.model';
+import { SingleSelectFilter } from '../../../../models/filtering/select-filter/single-select-filter.model';
 import { ButtonComponent } from '../../button/button.component';
 import { SelectOption } from '../../../../models/filtering/select-filter/select-option.model';
 import { AbstractFilterDirective } from '../filter/abstract-filter.directive';
@@ -25,8 +25,8 @@ import { AbstractFilterDirective } from '../filter/abstract-filter.directive';
     styleUrls: ['./select-filter.component.scss'],
 })
 export class SelectFilterComponent extends AbstractFilterDirective {
-    public filter: InputSignal<SelectFilter<unknown>> =
-        model.required<SelectFilter<unknown>>();
+    public filter: InputSignal<SingleSelectFilter<unknown>> =
+        model.required<SingleSelectFilter<unknown>>();
 
     protected firstToggle: boolean = true;
     protected showingContent: boolean = false;
@@ -60,7 +60,7 @@ export class SelectFilterComponent extends AbstractFilterDirective {
         // When we select an option the filter should become active
         // We should also add a clear icon button
         this.selectedOption = option;
-        this.filter().selectValue(option.id);
+        this.filter().selectOption(option.value);
         // this.optionSelected.emit(option);
         this.onApply.emit();
         this.toggleConent();
@@ -69,7 +69,7 @@ export class SelectFilterComponent extends AbstractFilterDirective {
     protected reset(): void {
         // When we reset the filter should become inactive
         // We should also remove the clear icon button
-        this.filter().resetValue();
+        this.filter().reset();
 
         this.selectedOption = undefined;
         this.toggleConent();
