@@ -1,8 +1,8 @@
 import { SortingDirection } from './sorting-direction.model';
 
 export class Sorting {
-    column: string;
-    direction: SortingDirection;
+    public column: string;
+    public direction: SortingDirection;
 
     constructor(column: string, sortingDirection: SortingDirection) {
         this.column = column;

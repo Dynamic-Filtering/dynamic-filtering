@@ -77,31 +77,4 @@ export class AppComponent {
             console.log('Reset caught from filter ref');
         });
     }
-
-    private formatToHttpParams(
-        activeConditions: Condition<
-            any,
-            ComparisonOperation | EqualOperation | LikeOperation
-        >[],
-    ): HttpParams {
-        let httpParams = new HttpParams();
-        activeConditions.forEach;
-
-        for (let index = 0; index < activeConditions.length; index++) {
-            httpParams = httpParams.set(
-                `Filters[${index}].Column`,
-                activeConditions[index].column,
-            );
-            httpParams = httpParams.set(
-                `Filters[${index}].Operation`,
-                activeConditions[index].operation,
-            );
-            httpParams = httpParams.set(
-                `Filters[${index}].Value`,
-                activeConditions[index].value,
-            );
-        }
-
-        return httpParams;
-    }
 }

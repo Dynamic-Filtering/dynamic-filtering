@@ -5,11 +5,20 @@ import { LikeOperation } from './filtering/operations/like-operation.model';
 import { Pagination } from './pagination/pagination.model';
 import { Sorting } from './sorting/sorting.model';
 
-export interface DynamicQueryOption {
-    filters: Condition<
+export class DynamicQueryOption {
+    conditions: Condition<
         unknown,
         ComparisonOperation | EqualOperation | LikeOperation
     >[];
     sortings: Sorting[];
     pagination: Pagination;
+
+    constructor(conditions: Condition<
+        unknown,
+        ComparisonOperation | EqualOperation | LikeOperation
+    >[], sortings: Sorting[], pagination: Pagination) {
+        this.conditions = conditions
+        this.sortings = sortings;
+        this.pagination = pagination;
+    }
 }

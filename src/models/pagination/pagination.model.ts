@@ -1,8 +1,8 @@
 export class Pagination {
-    skip: number = 0;
-    take: number = 25;
+    public skip: number;
+    public take: number;
 
-    constructor(skip: number, take: number) {
+    constructor(skip: number = 0, take: number = 25) {
         this.skip = skip;
         this.take = take;
     }
