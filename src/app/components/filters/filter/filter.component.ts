@@ -4,18 +4,13 @@ import {
     Component,
     input,
     InputSignal,
-    output,
-    OutputEmitterRef,
     ViewChild,
     ViewContainerRef,
 } from '@angular/core';
 import { Filter } from '../../../../models/filtering/filter.model';
-import { AbstractRangeFilter } from '../../../../models/filtering/range-filter/abstract-range-filter.model';
-import { SelectOption } from '../../../../models/filtering/select-filter/select-option.model';
-import { SelectFilterComponent } from '../select-filter/select-filter.component';
+import { SingleSelectFilterComponent } from '../select-filter/single-select-filter/single-select-filter.component';
 import { SingleSelectFilter } from '../../../../models/filtering/select-filter/single-select-filter.model';
 import { AbstractOperationFilter } from '../../../../models/filtering/operation-filter/abstract-operation-filter.model';
-import { OperationFilterComponent } from '../operation-filter/operation-filter.component';
 import { AbstractFilterDirective } from './abstract-filter.directive';
 import { ComparisonOperation } from '../../../../models/filtering/operations/comparison-operation.model';
 import { EqualOperation } from '../../../../models/filtering/operations/equal-operation.model';
@@ -24,11 +19,19 @@ import { NumberRangeFilter } from '../../../../models/filtering/range-filter/num
 import { NumberRangeFilterComponent } from '../range-filter/number-range-filter/number-range-filter.component';
 import { DateRangeFilter } from '../../../../models/filtering/range-filter/date-range-filter.model';
 import { DateRangeFilterComponent } from '../range-filter/date-range-filter/date-range-filter.component';
+import { StringOperationFilterComponent } from '../operation-filter/string-operation-filter/string-operation-filter.component';
+import { NumberOperationFilter } from '../../../../models/filtering/operation-filter/number-operation-filter.model';
+import { NumberOperationFilterComponent } from '../operation-filter/number-operation-filter/number-operation-filter.component';
+import { DateOperationFilter } from '../../../../models/filtering/operation-filter/date-operation-filter.model';
+import { DateOperationFilterComponent } from '../operation-filter/date-operation-filter/date-operation-filter.component';
+import { MultiSelectFilter } from '../../../../models/filtering/select-filter/multi-select-filter.model';
+import { MultiSelectFilterComponent } from '../select-filter/multi-select-filter/multi-select-filter.component';
+import { StringOperationFilter } from '../../../../models/filtering/operation-filter/string-operation-filter.model';
 
 @Component({
     selector: 'app-filter',
     standalone: true,
-    imports: [CommonModule, SelectFilterComponent],
+    imports: [CommonModule, SingleSelectFilterComponent],
     templateUrl: './filter.component.html',
 })
 export class FilterComponent
@@ -50,10 +53,13 @@ export class FilterComponent
     private filterContainer!: ViewContainerRef;
 
     private componentMap = new Map<any, any>([
-        [SingleSelectFilter, SelectFilterComponent],
+        [SingleSelectFilter, SingleSelectFilterComponent],
+        [MultiSelectFilter, MultiSelectFilterComponent],
         [NumberRangeFilter, NumberRangeFilterComponent],
         [DateRangeFilter, DateRangeFilterComponent],
-        [AbstractOperationFilter, OperationFilterComponent],
+        [StringOperationFilter, StringOperationFilterComponent],
+        [NumberOperationFilter, NumberOperationFilterComponent],
+        [DateOperationFilter, DateOperationFilterComponent],
     ]);
 
     private eventMap = new Map<string, Function>([

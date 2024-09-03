@@ -5,7 +5,7 @@ import { SingleSelectFilter } from '../models/filtering/select-filter/single-sel
 import { AbstractRangeFilter } from '../models/filtering/range-filter/abstract-range-filter.model';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './components/button/button.component';
-import { SelectFilterComponent } from './components/filters/select-filter/select-filter.component';
+import { SingleSelectFilterComponent } from './components/filters/select-filter/single-select-filter/single-select-filter.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { SelectMenuComponent } from './components/select-menu/select-menu.component';
 import { SelectOption } from '../models/filtering/select-filter/select-option.model';
@@ -20,6 +20,8 @@ import { StringOperationFilter } from '../models/filtering/operation-filter/stri
 import { ComparisonOperation } from '../models/filtering/operations/comparison-operation.model';
 import { EqualOperation } from '../models/filtering/operations/equal-operation.model';
 import { LikeOperation } from '../models/filtering/operations/like-operation.model';
+import { MultiSelectFilter } from '../models/filtering/select-filter/multi-select-filter.model';
+import { MultiSelectOption } from '../models/filtering/select-filter/multi-select-option.model';
 
 @Component({
     selector: 'app-root',
@@ -29,7 +31,7 @@ import { LikeOperation } from '../models/filtering/operations/like-operation.mod
         FilterComponent,
         CommonModule,
         ButtonComponent,
-        SelectFilterComponent,
+        SingleSelectFilterComponent,
         DropdownComponent,
         SelectMenuComponent,
         FilterManagementComponent,
@@ -43,39 +45,27 @@ export class AppComponent {
         any,
         ComparisonOperation | EqualOperation | LikeOperation
     >[] = [
-        new SingleSelectFilter('column1', 'SelectFilter', [
-            {
-                value: 1,
-                label: 'NL',
-            },
-            {
-                value: 2,
-                label: 'BE',
-            },
-            {
-                value: 3,
-                label: 'DE',
-            },
-            {
-                value: 4,
-                label: 'CZ',
-            },
-            {
-                value: 5,
-                label: 'PO',
-            },
-            {
-                value: 6,
-                label: 'US',
-            },
-            {
-                value: 7,
-                label: 'GB',
-            },
+        new SingleSelectFilter('column1', 'SingleSelectFilter', [
+            new SelectOption('NL', 1),
+            new SelectOption('BE', 2),
+            new SelectOption('DE', 3),
+            new SelectOption('CZ', 4),
+            new SelectOption('PO', 5),
+            new SelectOption('US', 6),
+            new SelectOption('GB', 7),
         ]),
         new NumberRangeFilter('column2', 'NumberRangeFilter'),
         new DateRangeFilter('column3', 'DateRangeFilter'),
         new StringOperationFilter('column4', 'StringOperationFilter'),
+        new MultiSelectFilter('column1', 'MultiSelectFilter', [
+            new MultiSelectOption('NL', 1),
+            new MultiSelectOption('BE', 2),
+            new MultiSelectOption('DE', 3),
+            new MultiSelectOption('CZ', 4),
+            new MultiSelectOption('PO', 5),
+            new MultiSelectOption('US', 6),
+            new MultiSelectOption('GB', 7),
+        ]),
     ];
 
     constructor(

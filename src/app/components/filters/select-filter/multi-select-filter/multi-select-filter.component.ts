@@ -2,38 +2,32 @@ import { CommonModule } from '@angular/common';
 import {
     Component,
     ElementRef,
-    EventEmitter,
     HostListener,
-    Inject,
-    input,
     InputSignal,
     model,
     output,
-    Output,
     OutputEmitterRef,
 } from '@angular/core';
-import { SingleSelectFilter } from '../../../../models/filtering/select-filter/single-select-filter.model';
-import { ButtonComponent } from '../../button/button.component';
-import { SelectOption } from '../../../../models/filtering/select-filter/select-option.model';
-import { AbstractFilterDirective } from '../filter/abstract-filter.directive';
+import { ButtonComponent } from '../../../button/button.component';
+import { AbstractFilterDirective } from '../../filter/abstract-filter.directive';
+import { MultiSelectFilter } from '../../../../../models/filtering/select-filter/multi-select-filter.model';
+import { MultiSelectOption } from '../../../../../models/filtering/select-filter/multi-select-option.model';
 
 @Component({
     selector: 'app-select-filter',
     standalone: true,
     imports: [CommonModule, ButtonComponent],
-    templateUrl: './select-filter.component.html',
-    styleUrls: ['./select-filter.component.scss'],
+    templateUrl: './multi-select-filter.component.html',
+    styleUrls: ['./multi-select-filter.component.scss'],
 })
-export class SelectFilterComponent extends AbstractFilterDirective {
-    public filter: InputSignal<SingleSelectFilter<unknown>> =
-        model.required<SingleSelectFilter<unknown>>();
+export class MultiSelectFilterComponent extends AbstractFilterDirective {
+    public filter: InputSignal<MultiSelectFilter<unknown>> =
+        model.required<MultiSelectFilter<unknown>>();
 
     protected firstToggle: boolean = true;
     protected showingContent: boolean = false;
-    protected selectedOption?: SelectOption<unknown> = undefined;
+    protected selectedOptions: MultiSelectOption<unknown>[] = [];
 
-    // public optionSelected: OutputEmitterRef<SelectOption<unknown>> =
-    //     output<SelectOption<unknown>>();
     public onInput: OutputEmitterRef<any> = output<any>(); //For search bar
 
     @HostListener('document:click', ['$event'])
@@ -55,15 +49,12 @@ export class SelectFilterComponent extends AbstractFilterDirective {
         this.showingContent = !this.showingContent;
     }
 
-    protected apply(option: SelectOption<unknown>): void {
-        console.log('Apply in select-filter.component');
-        // When we select an option the filter should become active
-        // We should also add a clear icon button
-        this.selectedOption = option;
+    protected apply(option: MultiSelectOption<unknown>): void {
         this.filter().selectOption(option.value);
-        // this.optionSelected.emit(option);
-        this.onApply.emit();
-        this.toggleConent();
+        this.selectedOptions.push(option);
+
+        // this.onApply.emit();
+        // this.toggleConent();
     }
 
     protected reset(): void {
@@ -71,7 +62,7 @@ export class SelectFilterComponent extends AbstractFilterDirective {
         // We should also remove the clear icon button
         this.filter().reset();
 
-        this.selectedOption = undefined;
+        this.selectedOptions = [];
         this.toggleConent();
         this.onReset.emit();
     }

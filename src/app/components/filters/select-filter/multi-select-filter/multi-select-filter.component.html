@@ -1,0 +1,32 @@
+<!-- Should this show the selected options? Pipe? -->
+<app-button
+    [label]="
+        filter().label +
+        (selectedOptions.length > 0 ? ': ' + selectedOptions[0].label : '')
+    "
+    (click)="toggleConent()"
+></app-button>
+<div
+    class="filter-content"
+    [class.visible]="!firstToggle && showingContent"
+    [class.hidden]="!firstToggle && !showingContent"
+>
+    <div class="search">
+        <input
+            type="text"
+            placeholder="Search"
+            id="searchbar"
+            (input)="input($event)"
+        />
+        <!-- Should be an icon button -->
+        <button [innerText]="'Clear'" type="button" (click)="reset()"></button>
+    </div>
+    <div class="filter-options-section">
+        @for (option of filter().options; track $index) {
+            <div class="select-option" (click)="apply(option)">
+                <input type="checkbox" (click)="apply(option)" />
+                <div class="filter-option" [innerText]="option.label"></div>
+            </div>
+        }
+    </div>
+</div>

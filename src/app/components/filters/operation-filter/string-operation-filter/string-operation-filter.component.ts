@@ -1,15 +1,11 @@
 import {
     Component,
     ElementRef,
-    EventEmitter,
     HostListener,
     input,
     InputSignal,
-    Output,
 } from '@angular/core';
 import { ButtonComponent } from '../../../button/button.component';
-import { ComparisonOperation } from '../../../../../models/filtering/operations/comparison-operation.model';
-import { NumberRangeFilter } from '../../../../../models/filtering/range-filter/number-range-filter.model';
 import { SelectOption } from '../../../../../models/filtering/select-filter/select-option.model';
 import { SelectMenuComponent } from '../../../select-menu/select-menu.component';
 import { StringOperationFilter } from '../../../../../models/filtering/operation-filter/string-operation-filter.model';
@@ -19,7 +15,6 @@ import { EqualOperation } from '../../../../../models/filtering/operations/equal
 import {
     FormControl,
     FormGroup,
-    FormsModule,
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';

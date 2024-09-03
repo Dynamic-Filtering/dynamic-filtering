@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { SelectFilterComponent } from './select-filter.component';
+import { SingleSelectFilterComponent } from './single-select-filter/single-select-filter.component';
 import { SingleSelectFilter } from '../../../../models/filtering/select-filter/single-select-filter.model';
 
-const meta: Meta<SelectFilterComponent> = {
+const meta: Meta<SingleSelectFilterComponent> = {
     title: 'Filters/Select filter',
-    component: SelectFilterComponent,
+    component: SingleSelectFilterComponent,
     tags: ['autodocs'],
     parameters: {
         layout: 'centered',
@@ -36,6 +36,6 @@ const meta: Meta<SelectFilterComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<SelectFilterComponent>;
+type Story = StoryObj<SingleSelectFilterComponent>;
 
 export const Default: Story = {};
