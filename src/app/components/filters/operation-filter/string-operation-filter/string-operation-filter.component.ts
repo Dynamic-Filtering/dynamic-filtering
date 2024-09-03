@@ -6,7 +6,6 @@ import {
     InputSignal,
 } from '@angular/core';
 import { ButtonComponent } from '../../../button/button.component';
-import { SelectOption } from '../../../../../models/filtering/select-filter/select-option.model';
 import { SelectMenuComponent } from '../../../select-menu/select-menu.component';
 import { StringOperationFilter } from '../../../../../models/filtering/operation-filter/string-operation-filter.model';
 import { AbstractFilterDirective } from '../../filter/abstract-filter.directive';
@@ -19,6 +18,7 @@ import {
     Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SelectOption } from '../../../../../models/filtering/options/select-option.model';
 
 @Component({
     selector: 'app-string-operation-filter',

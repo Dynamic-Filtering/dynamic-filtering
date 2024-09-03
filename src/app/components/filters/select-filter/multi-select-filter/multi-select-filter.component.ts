@@ -11,7 +11,7 @@ import {
 import { ButtonComponent } from '../../../button/button.component';
 import { AbstractFilterDirective } from '../../filter/abstract-filter.directive';
 import { MultiSelectFilter } from '../../../../../models/filtering/select-filter/multi-select-filter.model';
-import { MultiSelectOption } from '../../../../../models/filtering/select-filter/multi-select-option.model';
+import { MultiSelectOption } from '../../../../../models/filtering/options/multi-select-option.model';
 
 @Component({
     selector: 'app-select-filter',

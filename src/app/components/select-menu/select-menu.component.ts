@@ -9,8 +9,8 @@ import {
     InputSignal,
     Output,
 } from '@angular/core';
-import { SelectOption } from '../../../models/filtering/select-filter/select-option.model';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { SelectOption } from '../../../models/filtering/options/select-option.model';
 
 @Component({
     selector: 'app-select-menu',

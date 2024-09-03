@@ -14,8 +14,8 @@ import {
 } from '@angular/core';
 import { SingleSelectFilter } from '../../../../../models/filtering/select-filter/single-select-filter.model';
 import { ButtonComponent } from '../../../button/button.component';
-import { SelectOption } from '../../../../../models/filtering/select-filter/select-option.model';
 import { AbstractFilterDirective } from '../../filter/abstract-filter.directive';
+import { SelectOption } from '../../../../../models/filtering/options/select-option.model';
 
 @Component({
     selector: 'app-select-filter',

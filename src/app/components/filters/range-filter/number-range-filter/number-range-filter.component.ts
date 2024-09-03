@@ -2,20 +2,16 @@ import { CommonModule } from '@angular/common';
 import {
     Component,
     ElementRef,
-    EventEmitter,
     HostListener,
     input,
     InputSignal,
-    output,
-    Output,
-    OutputEmitterRef,
 } from '@angular/core';
 import { ComparisonOperation } from '../../../../../models/filtering/operations/comparison-operation.model';
-import { SelectOption } from '../../../../../models/filtering/select-filter/select-option.model';
 import { NumberRangeFilter } from '../../../../../models/filtering/range-filter/number-range-filter.model';
 import { ButtonComponent } from '../../../button/button.component';
 import { SelectMenuComponent } from '../../../select-menu/select-menu.component';
 import { AbstractFilterDirective } from '../../filter/abstract-filter.directive';
+import { SelectOption } from '../../../../../models/filtering/options/select-option.model';
 
 @Component({
     selector: 'app-number-range-filter',

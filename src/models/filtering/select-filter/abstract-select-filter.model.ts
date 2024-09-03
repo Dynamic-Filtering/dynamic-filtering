@@ -1,7 +1,7 @@
 import { Filter } from '../filter.model';
 import { EqualOperation } from '../operations/equal-operation.model';
-import { MultiSelectOption } from './multi-select-option.model';
-import { SelectOption } from './select-option.model';
+import { MultiSelectOption } from '../options/multi-select-option.model';
+import { SelectOption } from '../options/select-option.model';
 
 export abstract class AbstractSelectFilter<
     T,

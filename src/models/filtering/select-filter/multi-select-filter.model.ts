@@ -1,6 +1,6 @@
 import { Condition } from '../../condition.model';
-import { MultiSelectOption } from './multi-select-option.model';
 import { EqualOperation } from '../operations/equal-operation.model';
+import { MultiSelectOption } from '../options/multi-select-option.model';
 import { AbstractSelectFilter } from './abstract-select-filter.model';
 
 export class MultiSelectFilter<T> extends AbstractSelectFilter<

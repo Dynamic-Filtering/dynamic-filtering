@@ -1,6 +1,6 @@
 import { Condition } from '../../condition.model';
-import { SelectOption } from './select-option.model';
 import { EqualOperation } from '../operations/equal-operation.model';
+import { SelectOption } from '../options/select-option.model';
 import { AbstractSelectFilter } from './abstract-select-filter.model';
 
 export class SingleSelectFilter<T> extends AbstractSelectFilter<

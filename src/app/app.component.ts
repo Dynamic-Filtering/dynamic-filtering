@@ -2,13 +2,11 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Filter } from '../models/filtering/filter.model';
 import { SingleSelectFilter } from '../models/filtering/select-filter/single-select-filter.model';
-import { AbstractRangeFilter } from '../models/filtering/range-filter/abstract-range-filter.model';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './components/button/button.component';
 import { SingleSelectFilterComponent } from './components/filters/select-filter/single-select-filter/single-select-filter.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { SelectMenuComponent } from './components/select-menu/select-menu.component';
-import { SelectOption } from '../models/filtering/select-filter/select-option.model';
 import { Condition } from '../models/condition.model';
 import { HttpParams } from '@angular/common/http';
 import { NumberRangeFilter } from '../models/filtering/range-filter/number-range-filter.model';
@@ -21,7 +19,8 @@ import { ComparisonOperation } from '../models/filtering/operations/comparison-o
 import { EqualOperation } from '../models/filtering/operations/equal-operation.model';
 import { LikeOperation } from '../models/filtering/operations/like-operation.model';
 import { MultiSelectFilter } from '../models/filtering/select-filter/multi-select-filter.model';
-import { MultiSelectOption } from '../models/filtering/select-filter/multi-select-option.model';
+import { MultiSelectOption } from '../models/filtering/options/multi-select-option.model';
+import { SelectOption } from '../models/filtering/options/select-option.model';
 
 @Component({
     selector: 'app-root',
