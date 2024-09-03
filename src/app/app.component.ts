@@ -7,8 +7,6 @@ import { ButtonComponent } from './components/button/button.component';
 import { SingleSelectFilterComponent } from './components/filters/select-filter/single-select-filter/single-select-filter.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { SelectMenuComponent } from './components/select-menu/select-menu.component';
-import { Condition } from '../models/condition.model';
-import { HttpParams } from '@angular/common/http';
 import { NumberRangeFilter } from '../models/filtering/range-filter/number-range-filter.model';
 import { DateRangeFilter } from '../models/filtering/range-filter/date-range-filter.model';
 import { FilterComponent } from './components/filters/filter/filter.component';
@@ -70,8 +68,6 @@ export class AppComponent {
     constructor(
         protected readonly filterManagementManager: FilterManagerService,
     ) {
-        this.filterManagementManager.setFilters(this.filters);
-
         // Way to bind events from the filter models directly
         this.filters[0].onReset.subscribe(() => {
             console.log('Reset caught from filter ref');

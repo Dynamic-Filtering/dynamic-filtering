@@ -1,4 +1,4 @@
-import { Component, output, OutputEmitterRef } from '@angular/core';
+import { Component, effect, input, InputSignal, output, OutputEmitterRef } from '@angular/core';
 import { FilterComponent } from '../filter/filter.component';
 import { Filter } from '../../../../models/filtering/filter.model';
 import { CommonModule } from '@angular/common';
@@ -17,6 +17,8 @@ import { LikeOperation } from '../../../../models/filtering/operations/like-oper
 // TODO:
 // - Support adding new filters (take mapping of columns and the supported filter variants, but would be hard with select filter inputs)
 export class FilterManagementComponent {
+    public filters: InputSignal<Filter<unknown, ComparisonOperation | EqualOperation | LikeOperation>[]> = input.required();
+
     public change: OutputEmitterRef<
         Filter<unknown, ComparisonOperation | EqualOperation | LikeOperation>[]
     > =
@@ -29,7 +31,13 @@ export class FilterManagementComponent {
 
     constructor(
         protected readonly filterManagerService: FilterManagerService,
-    ) {}
+    ) {
+        effect(() => {
+            if(this.filters()) {
+                this.filterManagerService.setFilters(this.filters())
+            }
+        }, {allowSignalWrites: true})
+    }
 
     protected filtersChanged() {
         this.change.emit(this.filterManagerService.filters());

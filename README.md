@@ -1,27 +1,33 @@
-# DynamicFiltering
+# Dynamic filtering 🔎
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.
+Dynamic Filtering is a package that provides classes, interfaces, components, and services for managing filters in applications. It allows developers to create and apply filters dynamically, enabling the addition, removal, and modification of filters at runtime. The package supports building complex filter logic, useful for data querying, search functionalities, and user-defined filtering rules.
 
-## Development server
+Features include:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+-   Classes and Interfaces: A base set of classes and interfaces for common filters supporting extension with your own implementation.
+-   Components: UI component for managing everything filter related.
+-   Services: Manage filter states, listen to changes, and programatically add new filters.
 
-## Code scaffolding
+# Installing ⬇️
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+// Include installation guide
 
-## Build
+```bash
+npm install dynamic-filtering
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+# Usage 🕑
 
-## Running unit tests
+The app filter manager component is the visual component for (possibly) adding, removing and displaying your defined and to be defined filters. Using it is pretty easy. You only need to provide the current filters (active or inactive ones) as shown below:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```ts
+<app-filter-manager [filters]="filters"></app-filter-manager>
+```
 
-## Running end-to-end tests
+> It's a standalone component so don't forget to import it in your component file.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Most logic performed by the app filter manager is also accessable through it's manager service. Using it is as easy as injecting it into your component. For example:
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```ts
+constructor(protected readonly filterManagementManager: FilterManagerService) {}
+```
