@@ -33,7 +33,7 @@ npm install dynamic-filtering
 
 # Usage 🕑
 
-The app filter manager component is the visual component for adding, removing and displaying your defined and to be defined filters. Using it is pretty easy. You only need to provide the current filters (active or inactive ones) as shown below:
+The app filter manager component is the visual component for adding, removing and displaying your defined and to be defined filters. Using it is pretty easy. You only need to provide the initial filters (active or inactive ones) as shown below:
 
 ```html
 <app-filter-manager [filters]="filters"></app-filter-manager>
@@ -57,4 +57,20 @@ constructor(protected readonly filterManagementManager: FilterManagerService) {
             await this.apiClient.fetchUsers(httpParams)
         })
     }
+```
+
+The active conditions resulting from the filters will need to be parsed into a useful format at some point. In order to do this we provide a helper class which helps format your filters into http params. Examples:
+
+```ts
+let httpParams = new HttpParams();
+httpParams = DynamicFilterService.formatConditionsToHttpParams(conditions, httpParams);
+httpParams = DynamicFilterService.formatSortingsToHttpParams(sortings, httpParams);
+httpParams = DynamicFilterService.formatPaginationToHttpParams(pagination, httpParams);
+```
+
+There is also a single method which combines three methods above into one:
+
+```ts
+let httpParams = new HttpParams();
+httpParams = DynamicFilterService.formatDynamicQueryOptionToHttpParams(dynamicQueryOption, httpParams);
 ```
