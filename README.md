@@ -12,7 +12,7 @@ Features include:
 
 // Include installation guide
 
-```bash
+```shell
 npm install dynamic-filtering
 ```
 
