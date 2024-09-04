@@ -59,7 +59,7 @@ constructor(protected readonly filterManagementManager: FilterManagerService) {
     }
 ```
 
-The active conditions resulting from the filters will need to be parsed into a useful format at some point. In order to do this we provide a helper class which helps format your filters into http params. Examples:
+The active conditions resulting from the filters will need to be parsed into a useful format at some point. To do this we provide a helper class that helps format your filters into http params. Examples:
 
 ```ts
 let httpParams = new HttpParams();
@@ -68,7 +68,7 @@ httpParams = DynamicFilterService.formatSortingsToHttpParams(sortings, httpParam
 httpParams = DynamicFilterService.formatPaginationToHttpParams(pagination, httpParams);
 ```
 
-There is also a single method which combines three methods above into one:
+There is also a single method that combines the three methods above into one:
 
 ```ts
 let httpParams = new HttpParams();
