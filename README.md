@@ -20,11 +20,11 @@ npm install dynamic-filtering
 
 The app filter manager component is the visual component for (possibly) adding, removing and displaying your defined and to be defined filters. Using it is pretty easy. You only need to provide the current filters (active or inactive ones) as shown below:
 
-```ts
+```html
 <app-filter-manager [filters]="filters"></app-filter-manager>
 ```
 
-> It's a standalone component so don't forget to import it in your component file.
+> Don't forget to import the component in your component file or module.
 
 Most logic performed by the app filter manager is also accessable through it's manager service. Using it is as easy as injecting it into your component. For example:
 
