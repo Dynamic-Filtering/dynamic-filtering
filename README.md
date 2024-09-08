@@ -73,3 +73,7 @@ There is also a single method that combines the three methods above into one:
 let httpParams = new HttpParams();
 httpParams = DynamicFilterService.formatDynamicQueryOptionToHttpParams(dynamicQueryOption, httpParams);
 ```
+
+# Copyright and license
+
+Code is released under the [MIT License](https://github.com/JobHaast/dynamic-filtering/blob/main/LICENSE).

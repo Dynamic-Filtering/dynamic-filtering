@@ -1,24 +1,79 @@
-# DynamicFiltering
+<p align="center">
+  <a href="https://getbootstrap.com/">
+    <img src="./dynamic-filtering-logo.svg" alt="Dynamic filtering logo" width="150" height="150">
+  </a>
+</p>
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.
+<h3 align="center">Dynamic filtering</h3>
 
-## Code scaffolding
+<p align="center">
+  Filtering made a whole lot easier
+  <br>
+  <a href="https://github.com/JobHaast/dynamic-filtering/issues/new">Report bug</a>
+  ·
+  <a href="https://github.com/JobHaast/dynamic-filtering/issues/new">Request feature</a>
+</p>
 
-Run `ng generate component component-name --project dynamic-filtering` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project dynamic-filtering`.
-> Note: Don't forget to add `--project dynamic-filtering` or else it will be added to the default project in your `angular.json` file. 
+# Dynamic filtering 🔎
 
-## Build
+Dynamic Filtering is a package that provides classes, interfaces, components, and services for managing filters in applications. It allows developers to create and apply filters dynamically, enabling the addition, removal, and modification of filters at runtime. The package supports building complex filter logic that is useful for data querying, search functionalities, and user-defined filtering rules.
 
-Run `ng build dynamic-filtering` to build the project. The build artifacts will be stored in the `dist/` directory.
+Features include:
 
-## Publishing
+-   Classes and Interfaces: A base set of classes and interfaces for common filters supporting extension with your implementation.
+-   Components: UI component for managing everything filter-related.
+-   Services: Manage filter states, listen to changes, and programmatically add new filters.
 
-After building your library with `ng build dynamic-filtering`, go to the dist folder `cd dist/dynamic-filtering` and run `npm publish`.
+# Installing ⬇️
 
-## Running unit tests
+```shell
+npm install dynamic-filtering
+```
 
-Run `ng test dynamic-filtering` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# Usage 🕑
 
-## Further help
+The app filter manager component is the visual component for adding, removing and displaying your defined and to be defined filters. Using it is pretty easy. You only need to provide the initial filters (active or inactive ones) as shown below:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```HTML
+<app-filter-manager [filters]="filters"></app-filter-manager>
+```
+
+> Don't forget to import the component in your component file or module.
+
+Most logic performed by the app filter manager is also accessible through its manager service. Using it is as easy as injecting it into your component. For example:
+
+```ts
+constructor(protected readonly filterManagementManager: FilterManagerService) {}
+```
+
+The manager service exposes useful properties like the currently active filters and conditions. Hooking into changes to these properties is pretty easy by utilizing Angular's signals. Usage of listening to these changes might look something as follows:
+
+```ts
+constructor(protected readonly filterManagementManager: FilterManagerService) {
+        effect(async () => {
+            const activeConditions = this.filterManagementManager.activeConditions()
+            const httpParams = DynamicFilterService.formatConditionsToHttpParams(activeConditions, new HttpParams())
+            await this.apiClient.fetchUsers(httpParams)
+        })
+    }
+```
+
+The active conditions resulting from the filters will need to be parsed into a useful format at some point. To do this we provide a helper class that helps format your filters into http params. Examples:
+
+```ts
+let httpParams = new HttpParams();
+httpParams = DynamicFilterService.formatConditionsToHttpParams(conditions, httpParams);
+httpParams = DynamicFilterService.formatSortingsToHttpParams(sortings, httpParams);
+httpParams = DynamicFilterService.formatPaginationToHttpParams(pagination, httpParams);
+```
+
+There is also a single method that combines the three methods above into one:
+
+```ts
+let httpParams = new HttpParams();
+httpParams = DynamicFilterService.formatDynamicQueryOptionToHttpParams(dynamicQueryOption, httpParams);
+```
+
+# Copyright and license
+
+Code is released under the [MIT License](https://github.com/JobHaast/dynamic-filtering/blob/main/LICENSE).
