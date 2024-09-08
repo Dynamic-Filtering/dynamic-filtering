@@ -1,0 +1,16 @@
+{
+    "name": "dynamic-filtering",
+    "version": "0.0.1",
+    "scripts": {
+        "build": "ng build dynamic-filtering",
+        "watch": "ng build dynamic-filtering --watch --configuration development"
+    },
+    "peerDependencies": {
+        "@angular/common": "^18.1.0",
+        "@angular/core": "^18.1.0"
+    },
+    "dependencies": {
+        "tslib": "^2.3.0"
+    },
+    "sideEffects": false
+}
