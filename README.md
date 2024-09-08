@@ -1,7 +1,5 @@
 <p align="center">
-  <a href="https://getbootstrap.com/">
-    <img src="./dynamic-filtering-logo.svg" alt="Dynamic filtering logo" width="150" height="150">
-  </a>
+  <img src="./dynamic-filtering-logo.svg" alt="Dynamic filtering logo" width="150" height="150">
 </p>
 
 <h3 align="center">Dynamic filtering</h3>
