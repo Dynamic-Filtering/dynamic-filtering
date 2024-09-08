@@ -9,9 +9,8 @@ import {
     OutputEmitterRef,
 } from '@angular/core';
 import { ButtonComponent } from '../../../button/button.component';
-import { AbstractFilterDirective } from '../../filter/abstract-filter.directive';
-import { MultiSelectFilter } from '../../../../../models/filtering/select-filter/multi-select-filter.model';
-import { MultiSelectOption } from '../../../../../models/filtering/options/multi-select-option.model';
+import { AbstractFilterDirective } from '../../../../../../projects/dynamic-filtering/src/lib/components/filter/abstract-filter.directive';
+import { MultiSelectFilter, MultiSelectOption } from 'dynamic-filtering';
 
 @Component({
     selector: 'app-select-filter',

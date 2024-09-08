@@ -1,0 +1,8 @@
+@for (filter of filterManagerService.filters(); track filter) {
+<app-filter
+    [filter]="filter"
+    [componentMap]="componentMap()"
+    (onApply)="filtersChanged()"
+    (onReset)="filtersChanged()"
+></app-filter>
+}

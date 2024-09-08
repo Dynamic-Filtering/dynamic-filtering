@@ -10,7 +10,7 @@ import {
     Output,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SelectOption } from '../../../models/filtering/options/select-option.model';
+import { SelectOption } from 'dynamic-filtering';
 
 @Component({
     selector: 'app-select-menu',

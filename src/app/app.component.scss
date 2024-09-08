@@ -4,6 +4,13 @@
     gap: 5rem;
 }
 
+.filter-manager {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
 .active-filters-display {
     display: flex;
     flex-direction: column;

@@ -7,10 +7,7 @@ import {
 } from '@angular/core';
 import { ButtonComponent } from '../../../button/button.component';
 import { SelectMenuComponent } from '../../../select-menu/select-menu.component';
-import { StringOperationFilter } from '../../../../../models/filtering/operation-filter/string-operation-filter.model';
-import { AbstractFilterDirective } from '../../filter/abstract-filter.directive';
-import { LikeOperation } from '../../../../../models/filtering/operations/like-operation.model';
-import { EqualOperation } from '../../../../../models/filtering/operations/equal-operation.model';
+import { AbstractFilterDirective } from '../../../../../../projects/dynamic-filtering/src/lib/components/filter/abstract-filter.directive';
 import {
     FormControl,
     FormGroup,
@@ -18,7 +15,12 @@ import {
     Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SelectOption } from '../../../../../models/filtering/options/select-option.model';
+import {
+    StringOperationFilter,
+    LikeOperation,
+    EqualOperation,
+    SelectOption,
+} from 'dynamic-filtering';
 
 @Component({
     selector: 'app-string-operation-filter',
@@ -39,7 +41,7 @@ export class StringOperationFilterComponent extends AbstractFilterDirective {
     protected form: FormGroup = new FormGroup({
         operation: new FormControl<LikeOperation | EqualOperation>(
             EqualOperation.Equal,
-            [Validators.required],
+            [Validators.required]
         ),
         value: new FormControl<string | null>(null, [Validators.required]),
     });

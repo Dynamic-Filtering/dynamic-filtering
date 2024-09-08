@@ -1,12 +1,12 @@
 import { EventEmitter } from '@angular/core';
-import { Condition } from '../condition.model';
+import { Condition } from './condition.model';
 import { ComparisonOperation } from './operations/comparison-operation.model';
 import { EqualOperation } from './operations/equal-operation.model';
 import { LikeOperation } from './operations/like-operation.model';
 
 export abstract class Filter<
     T,
-    R extends ComparisonOperation | EqualOperation | LikeOperation,
+    R extends ComparisonOperation | EqualOperation | LikeOperation
 > {
     public readonly column: string;
     public readonly label: string;

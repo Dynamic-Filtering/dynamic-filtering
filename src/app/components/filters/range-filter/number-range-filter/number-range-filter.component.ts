@@ -6,12 +6,14 @@ import {
     input,
     InputSignal,
 } from '@angular/core';
-import { ComparisonOperation } from '../../../../../models/filtering/operations/comparison-operation.model';
-import { NumberRangeFilter } from '../../../../../models/filtering/range-filter/number-range-filter.model';
 import { ButtonComponent } from '../../../button/button.component';
 import { SelectMenuComponent } from '../../../select-menu/select-menu.component';
-import { AbstractFilterDirective } from '../../filter/abstract-filter.directive';
-import { SelectOption } from '../../../../../models/filtering/options/select-option.model';
+import { AbstractFilterDirective } from '../../../../../../projects/dynamic-filtering/src/lib/components/filter/abstract-filter.directive';
+import {
+    ComparisonOperation,
+    NumberRangeFilter,
+    SelectOption,
+} from 'dynamic-filtering';
 
 @Component({
     selector: 'app-number-range-filter',
@@ -71,7 +73,7 @@ export class NumberRangeFilterComponent extends AbstractFilterDirective {
             1,
             ComparisonOperation.GreaterThan,
             2,
-            ComparisonOperation.LowerThan,
+            ComparisonOperation.LowerThan
         );
         this.onApply.emit();
         this.toggleContent();

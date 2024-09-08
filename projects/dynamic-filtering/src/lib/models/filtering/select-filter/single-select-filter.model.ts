@@ -1,4 +1,4 @@
-import { Condition } from '../../condition.model';
+import { Condition } from '../condition.model';
 import { EqualOperation } from '../operations/equal-operation.model';
 import { SelectOption } from '../options/select-option.model';
 import { AbstractSelectFilter } from './abstract-select-filter.model';
@@ -13,13 +13,13 @@ export class SingleSelectFilter<T> extends AbstractSelectFilter<
 
     public selectOption(value: T) {
         const option = this.options.find(
-            (option: SelectOption<T>) => option.value === value,
+            (option: SelectOption<T>) => option.value === value
         );
         if (option) {
             const condition = new Condition<T, EqualOperation.Equal>(
                 this.column,
                 EqualOperation.Equal,
-                option.value,
+                option.value
             );
             this._conditions = [condition];
             this.apply();

@@ -1,12 +1,12 @@
-import { Condition } from '../../condition.model';
+import { Condition } from '../condition.model';
 import { ComparisonOperation } from '../operations/comparison-operation.model';
 import { AbstractRangeFilter } from './abstract-range-filter.model';
 
-export class DateRangeFilter extends AbstractRangeFilter<Date> {
+export class NumberRangeFilter extends AbstractRangeFilter<number> {
     constructor(
         column: string,
         label: string,
-        conditions?: Condition<Date, ComparisonOperation>[],
+        conditions?: Condition<number, ComparisonOperation>[]
     ) {
         super(column, label, conditions);
     }

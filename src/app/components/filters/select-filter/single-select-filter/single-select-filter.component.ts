@@ -1,21 +1,19 @@
 import { CommonModule } from '@angular/common';
 import {
     Component,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    Inject,
-    input,
     InputSignal,
     model,
-    output,
-    Output,
     OutputEmitterRef,
+    output,
+    HostListener,
+    ElementRef,
 } from '@angular/core';
-import { SingleSelectFilter } from '../../../../../models/filtering/select-filter/single-select-filter.model';
+import {
+    AbstractFilterDirective,
+    SingleSelectFilter,
+    SelectOption,
+} from 'dynamic-filtering';
 import { ButtonComponent } from '../../../button/button.component';
-import { AbstractFilterDirective } from '../../filter/abstract-filter.directive';
-import { SelectOption } from '../../../../../models/filtering/options/select-option.model';
 
 @Component({
     selector: 'app-select-filter',

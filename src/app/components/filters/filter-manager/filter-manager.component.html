@@ -1,7 +1,0 @@
-@for (filter of filterManagerService.filters(); track filter) {
-    <app-filter
-        [filter]="filter"
-        (onApply)="filtersChanged()"
-        (onReset)="filtersChanged()"
-    ></app-filter>
-}
