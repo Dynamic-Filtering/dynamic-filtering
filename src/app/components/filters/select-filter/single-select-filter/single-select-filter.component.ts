@@ -54,7 +54,6 @@ export class SingleSelectFilterComponent extends AbstractFilterDirective {
     }
 
     protected apply(option: SelectOption<unknown>): void {
-        console.log('Apply in select-filter.component');
         // When we select an option the filter should become active
         // We should also add a clear icon button
         this.selectedOption = option;

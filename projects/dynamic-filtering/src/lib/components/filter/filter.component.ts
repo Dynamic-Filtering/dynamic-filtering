@@ -39,16 +39,6 @@ export class FilterComponent
     @ViewChild('filterContainer', { read: ViewContainerRef })
     private filterContainer!: ViewContainerRef;
 
-    // private componentMap = new Map<any, any>([
-    //     [SingleSelectFilter, SingleSelectFilterComponent],
-    //     [MultiSelectFilter, MultiSelectFilterComponent],
-    //     [NumberRangeFilter, NumberRangeFilterComponent],
-    //     [DateRangeFilter, DateRangeFilterComponent],
-    //     [StringOperationFilter, StringOperationFilterComponent],
-    //     [NumberOperationFilter, NumberOperationFilterComponent],
-    //     [DateOperationFilter, DateOperationFilterComponent],
-    // ]);
-
     private eventMap = new Map<string, Function>([
         ['onReset', () => this.reset()],
         ['onApply', () => this.apply()],
@@ -83,12 +73,10 @@ export class FilterComponent
     }
 
     protected reset(): void {
-        console.log('Reset in filter.component.ts');
         this.onReset.emit();
     }
 
     protected apply(): void {
-        console.log('Apply in filter.component.ts');
         this.onApply.emit();
     }
 }
