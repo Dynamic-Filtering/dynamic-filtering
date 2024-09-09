@@ -1,8 +1,8 @@
 ---
-name: Bug report
+name: "\U0001F41B Report a bug \U0001F198"
 about: Create a report to help us improve
 title: ''
-labels: ''
+labels: bug
 assignees: ''
 
 ---
@@ -26,13 +26,12 @@ If applicable, add screenshots to help explain your problem.
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
  - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+ - Version [e.g. v1.0.0]
 
 **Additional context**
 Add any other context about the problem here.
+
+**Severity**
+- [ ] Critical (blocks use of the application)
+- [ ] Major (significant impact, but not a blocker)
+- [ ] Minor (does not significantly impact use)
