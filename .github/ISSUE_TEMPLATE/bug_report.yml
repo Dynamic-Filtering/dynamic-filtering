@@ -1,118 +1,83 @@
 name: "🐛 Report a bug 🆘"
 description: "Create a report to help us improve"
-title: ""
-labels: 
-  - bug
+title: "Provide a summary of the issue"
+labels:
+    - bug
 assignees: []
 
 body:
-  - type: markdown
-    attributes:
-      value: |
-        **Describe the bug**  
-        A clear and concise description of what the bug is.
+    - type: textarea
+      id: describe_bug
+      attributes:
+          label: Describe the bug
+          description: A clear and concise description of what the bug is.
+          placeholder: Describe the bug...
+          validations:
+              required: true
 
-  - type: textarea
-    id: describe_bug
-    attributes:
-      label: Describe the bug
-      description: A clear and concise description of what the bug is.
-      placeholder: Describe the bug...
+    - type: textarea
+      id: steps_to_reproduce
+      attributes:
+          label: Steps to Reproduce
+          description: Provide a summary of the issue and what you expected to happen, including specific steps to reproduce.
+          placeholder: List steps to reproduce the issue.
+          validations:
+              required: true
 
-  - type: markdown
-    attributes:
-      value: |
-        **To Reproduce**  
-        Steps to reproduce the behavior:
+    - type: textarea
+      id: expected_behavior
+      attributes:
+          label: Expected Behavior
+          description: What did you expect to happen?
+          placeholder: Describe the expected outcome.
+          validations:
+              required: true
 
-  - type: textarea
-    id: steps_to_reproduce
-    attributes:
-      label: Steps to Reproduce
-      description: Steps to reproduce the behavior:
-      value: |
-        1. Go to '...'
-        2. Click on '...'
-        3. Scroll down to '...'
-        4. See error
-      placeholder: List steps to reproduce the issue.
+    - type: textarea
+      id: screenshots
+      attributes:
+          label: Screenshots
+          description: Add screenshots or links to images if applicable.
+          placeholder: Link to screenshots or images.
 
-  - type: markdown
-    attributes:
-      value: |
-        **Expected behavior**  
-        A clear and concise description of what you expected to happen.
+    - type: dropdown
+      id: os
+      attributes:
+          label: What operating system(s) are you seeing the problem on?
+          multiple: true
+          options:
+              - Windows
+              - macOS
+              - Android
+              - iOS
+              - Linux
+          validations:
+              required: true
 
-  - type: textarea
-    id: expected_behavior
-    attributes:
-      label: Expected Behavior
-      description: What did you expect to happen?
-      placeholder: Describe the expected outcome.
+    - type: dropdown
+      id: browser
+      attributes:
+          label: What browser(s) are you seeing the problem on?
+          multiple: true
+          options:
+              - Chrome
+              - Safari
+              - Firefox
+              - Microsoft Edge
+              - Opera
 
-  - type: markdown
-    attributes:
-      value: |
-        **Screenshots**  
-        If applicable, add screenshots to help explain your problem.
+    - type: input
+      id: version
+      attributes:
+          label: What version of dynamic filtering are you using?
+          placeholder: e.g., v1.0.0
 
-  - type: textarea
-    id: screenshots
-    attributes:
-      label: Screenshots
-      description: Add screenshots or links to images if applicable.
-      placeholder: Link to screenshots or images.
-
-  - type: markdown
-    attributes:
-      value: |
-        **Desktop (please complete the following information):**
-
-  - type: input
-    id: os
-    attributes:
-      label: OS
-      description: What is your operating system?
-      placeholder: e.g., iOS
-
-  - type: input
-    id: browser
-    attributes:
-      label: Browser
-      description: Which browser are you using?
-      placeholder: e.g., Chrome, Safari
-
-  - type: input
-    id: version
-    attributes:
-      label: Version
-      description: Browser or application version
-      placeholder: e.g., v1.0.0
-
-  - type: markdown
-    attributes:
-      value: |
-        **Additional context**  
-        Add any other context about the problem here.
-
-  - type: textarea
-    id: additional_context
-    attributes:
-      label: Additional Context
-      description: Add any additional information relevant to the issue.
-      placeholder: Provide additional context.
-
-  - type: markdown
-    attributes:
-      value: |
-        **Severity**
-
-  - type: checkboxes
-    id: severity
-    attributes:
-      label: Severity
-      description: Select the severity level of the issue.
-      options:
-        - label: Critical (blocks use of the application)
-        - label: Major (significant impact, but not a blocker)
-        - label: Minor (does not significantly impact use)
+    - type: dropdown
+      id: severity
+      attributes:
+          label: How severe is the issue?
+          multiple: false
+          options:
+              - Critical (blocks use of the application)
+              - Major (significant impact, but not a blocker)
+              - Minor (does not significantly impact use)
