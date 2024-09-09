@@ -7,9 +7,9 @@
 <p align="center">
   Filtering made a whole lot easier
   <br>
-  <a href="https://github.com/JobHaast/dynamic-filtering/issues/new">Report bug</a>
+  <a href="https://github.com/JobHaast/dynamic-filtering/issues/new?labels=bug&template=%F0%9F%90%9B-report-a-bug-%F0%9F%86%98.md">Report a bug</a>
   ·
-  <a href="https://github.com/JobHaast/dynamic-filtering/issues/new">Request feature</a>
+  <a href="https://github.com/JobHaast/dynamic-filtering/issues/new?labels=feature&template=%E2%9C%8D%EF%B8%8F-feature-request-%F0%9F%94%A5.md">Request a feature</a>
 </p>
 
 # Dynamic filtering 🔎
