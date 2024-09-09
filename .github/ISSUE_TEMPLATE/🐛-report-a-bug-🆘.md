@@ -1,10 +1,9 @@
 ---
 name: "\U0001F41B Report a bug \U0001F198"
 about: Create a report to help us improve
-title: ''
+title: ""
 labels: bug
-assignees: ''
-
+assignees: ""
 ---
 
 **Describe the bug**
@@ -12,6 +11,7 @@ A clear and concise description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
@@ -24,14 +24,16 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. v1.0.0]
+
+-   OS: [e.g. iOS]
+-   Browser [e.g. chrome, safari]
+-   Version [e.g. v1.0.0]
 
 **Additional context**
 Add any other context about the problem here.
 
 **Severity**
-- [ ] Critical (blocks use of the application)
-- [ ] Major (significant impact, but not a blocker)
-- [ ] Minor (does not significantly impact use)
+
+-   [ ] Critical (blocks use of the application)
+-   [ ] Major (significant impact, but not a blocker)
+-   [ ] Minor (does not significantly impact use)
