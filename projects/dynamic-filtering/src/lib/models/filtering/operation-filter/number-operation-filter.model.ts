@@ -14,4 +14,11 @@ export class NumberOperationFilter extends AbstractOperationFilter<
     ) {
         super(column, label, conditions);
     }
+
+    public override apply(
+        value: number,
+        operation: ComparisonOperation | EqualOperation
+    ): void {
+        super.apply(value, operation);
+    }
 }

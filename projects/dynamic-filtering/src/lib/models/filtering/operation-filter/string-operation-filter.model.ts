@@ -14,4 +14,11 @@ export class StringOperationFilter extends AbstractOperationFilter<
     ) {
         super(column, label, conditions);
     }
+
+    public override apply(
+        value: string,
+        operation: EqualOperation | LikeOperation
+    ): void {
+        super.apply(value, operation);
+    }
 }
