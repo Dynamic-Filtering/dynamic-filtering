@@ -7,7 +7,7 @@
 .filter-manager {
     display: flex;
     flex-direction: row;
-    gap: 0.5rem;
+    gap: 0.25rem;
     flex-wrap: wrap;
 }
 
@@ -39,4 +39,9 @@
             }
         }
     }
+}
+
+.filter-controls {
+    display: flex;
+    gap: 0.25rem;
 }

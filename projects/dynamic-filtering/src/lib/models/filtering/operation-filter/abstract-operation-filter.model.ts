@@ -23,9 +23,4 @@ export abstract class AbstractOperationFilter<
         this._conditions = [condition];
         this.onApply.emit();
     }
-
-    public reset(): void {
-        this._conditions.length = 0;
-        this.onReset.emit();
-    }
 }

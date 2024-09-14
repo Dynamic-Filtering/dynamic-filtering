@@ -34,10 +34,11 @@
 </section>
 }
 
-<button disabled>Disabled</button>
-<button>Enabled</button>
-
-<app-button label="Disabled" [disabled]="true"></app-button>
-<app-button label="Enabled"></app-button>
-
-<app-button label="Add filter" (click)="addFilter()"></app-button>
+<div class="filter-controls">
+    <app-button label="Add filter" (click)="addFilter()"></app-button>
+    <app-button
+        label="Remove first filter"
+        (click)="removeFilter()"
+    ></app-button>
+    <app-button label="Reset filters" (click)="resetFilters()"></app-button>
+</div>

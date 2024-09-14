@@ -34,4 +34,9 @@ export abstract class Filter<
             this._conditions = conditions;
         }
     }
+
+    public reset(): void {
+        this._conditions.length = 0;
+        this.onReset.emit();
+    }
 }

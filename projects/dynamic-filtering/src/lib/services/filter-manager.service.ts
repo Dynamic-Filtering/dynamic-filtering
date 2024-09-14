@@ -147,6 +147,19 @@ export class FilterManagerService {
     }
 
     /**
+     * Resets all filters by calling their `reset` method.
+     *
+     * This will reset each filter in the array to its initial state.
+     * Once reset, it will notify any subscribers of the changes.
+     *
+     * @public
+     */
+    public resetFilters(): void {
+        this.internalFilters().forEach((filter) => filter.reset());
+        this.notify();
+    }
+
+    /**
      * Notifies subscribers of changes in the filter array.
      *
      * This method is used to trigger an update in the filter state without

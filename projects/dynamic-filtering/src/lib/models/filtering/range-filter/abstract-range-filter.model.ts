@@ -36,8 +36,4 @@ export abstract class AbstractRangeFilter<
 
         this._conditions = [condition1, condition2];
     }
-
-    public reset() {
-        this._conditions.length = 0;
-    }
 }

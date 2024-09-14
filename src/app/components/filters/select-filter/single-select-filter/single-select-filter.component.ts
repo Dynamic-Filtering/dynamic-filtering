@@ -7,6 +7,7 @@ import {
     output,
     HostListener,
     ElementRef,
+    AfterViewInit,
 } from '@angular/core';
 import {
     AbstractFilterDirective,
@@ -22,7 +23,10 @@ import { ButtonComponent } from '../../../button/button.component';
     templateUrl: './single-select-filter.component.html',
     styleUrls: ['./single-select-filter.component.scss'],
 })
-export class SingleSelectFilterComponent extends AbstractFilterDirective {
+export class SingleSelectFilterComponent
+    extends AbstractFilterDirective
+    implements AfterViewInit
+{
     public filter: InputSignal<SingleSelectFilter<unknown>> =
         model.required<SingleSelectFilter<unknown>>();
 
@@ -43,6 +47,14 @@ export class SingleSelectFilterComponent extends AbstractFilterDirective {
 
     constructor(private elementRef: ElementRef) {
         super();
+    }
+
+    public ngAfterViewInit(): void {
+        // The filter can be reset outside of the component,
+        // therefore we should listen to this event
+        this.filter().onReset.subscribe(() => {
+            this.selectedOption = undefined;
+        });
     }
 
     protected toggleConent(): void {
@@ -68,7 +80,7 @@ export class SingleSelectFilterComponent extends AbstractFilterDirective {
         // We should also remove the clear icon button
         this.filter().reset();
 
-        this.selectedOption = undefined;
+        // this.selectedOption = undefined;
         this.toggleConent();
         this.onReset.emit();
     }

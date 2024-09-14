@@ -98,4 +98,14 @@ export class AppComponent {
             new StringOperationFilter('column6', 'StringOperationFilter2')
         );
     }
+
+    public removeFilter(): void {
+        console.log('Remove first filter');
+        this.filterManagerService.removeFilter(0);
+    }
+
+    public resetFilters(): void {
+        console.log('Reset filters');
+        this.filterManagerService.resetFilters();
+    }
 }
