@@ -17,7 +17,7 @@ import {
 import { ButtonComponent } from '../../../button/button.component';
 
 @Component({
-    selector: 'app-select-filter',
+    selector: 'app-single-select-filter',
     standalone: true,
     imports: [CommonModule, ButtonComponent],
     templateUrl: './single-select-filter.component.html',

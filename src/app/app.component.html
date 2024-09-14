@@ -9,7 +9,7 @@
     <h2>Active filters:</h2>
     <div class="active-filters-display">
         @for ( activeFilter of filterManagerService.activeFilters(); track
-        $index ) {
+        $index) {
         <div class="filter">
             <span class="label" [innerText]="activeFilter.label"></span>
             <div class="conditions">

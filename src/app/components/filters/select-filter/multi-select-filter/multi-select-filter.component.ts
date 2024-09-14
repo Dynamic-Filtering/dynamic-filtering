@@ -13,7 +13,7 @@ import { AbstractFilterDirective } from '../../../../../../projects/dynamic-filt
 import { MultiSelectFilter, MultiSelectOption } from 'dynamic-filtering';
 
 @Component({
-    selector: 'app-select-filter',
+    selector: 'app-multi-select-filter',
     standalone: true,
     imports: [CommonModule, ButtonComponent],
     templateUrl: './multi-select-filter.component.html',
@@ -48,11 +48,23 @@ export class MultiSelectFilterComponent extends AbstractFilterDirective {
         this.showingContent = !this.showingContent;
     }
 
-    protected apply(option: MultiSelectOption<unknown>): void {
-        this.filter().selectOption(option.value);
-        this.selectedOptions.push(option);
+    protected selectOption(
+        event: MouseEvent,
+        option: MultiSelectOption<unknown>
+    ): void {
+        event.stopPropagation();
 
-        // this.onApply.emit();
+        this.filter().selectOption(option.value);
+    }
+
+    protected apply(): void {
+        console.log(this.filter());
+        this.filter().apply();
+        this.toggleConent();
+        // this.filter().selectOption(option.value);
+        // this.selectedOptions.push(option);
+
+        this.onApply.emit();
         // this.toggleConent();
     }
 

@@ -17,8 +17,7 @@
         min-width: 15rem;
 
         // Could be better
-        box-shadow:
-            0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
             0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
         .search {
@@ -54,6 +53,8 @@
             .filter-option {
                 color: var(--black-100);
                 padding: 0.5rem 1rem;
+                display: flex;
+                gap: 0.25rem;
             }
 
             .filter-option:hover {
@@ -63,6 +64,14 @@
                 background-color: var(--black-20);
                 cursor: pointer;
             }
+        }
+
+        .controls {
+            padding: 1rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: right;
+            gap: 0.5rem;
         }
     }
 

@@ -23,10 +23,18 @@
     </div>
     <div class="filter-options-section">
         @for (option of filter().options; track $index) {
-            <div class="select-option" (click)="apply(option)">
-                <input type="checkbox" (click)="apply(option)" />
-                <div class="filter-option" [innerText]="option.label"></div>
-            </div>
+        <div class="filter-option" (click)="selectOption($event, option)">
+            <input
+                type="checkbox"
+                (click)="selectOption($event, option)"
+                [checked]="option.selected"
+            />
+            <span [innerText]="option.label"></span>
+        </div>
         }
+    </div>
+    <div class="controls">
+        <app-button [label]="'Reset'" (click)="reset()"></app-button>
+        <app-button [label]="'Apply'" (click)="apply()"></app-button>
     </div>
 </div>
