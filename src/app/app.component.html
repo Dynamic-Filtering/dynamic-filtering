@@ -4,11 +4,11 @@
     [componentMap]="componentMap"
 ></app-filter-manager>
 
-@if (filterManagementManager.activeFilters().length > 0) {
+@if (filterManagerService.activeFilters().length > 0) {
 <section>
     <h2>Active filters:</h2>
     <div class="active-filters-display">
-        @for ( activeFilter of filterManagementManager.activeFilters(); track
+        @for ( activeFilter of filterManagerService.activeFilters(); track
         $index ) {
         <div class="filter">
             <span class="label" [innerText]="activeFilter.label"></span>
@@ -39,3 +39,5 @@
 
 <app-button label="Disabled" [disabled]="true"></app-button>
 <app-button label="Enabled"></app-button>
+
+<app-button label="Add filter" (click)="addFilter()"></app-button>

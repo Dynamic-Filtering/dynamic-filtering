@@ -64,7 +64,7 @@ export class AppComponent {
         new NumberRangeFilter('column2', 'NumberRangeFilter'),
         new DateRangeFilter('column3', 'DateRangeFilter'),
         new StringOperationFilter('column4', 'StringOperationFilter'),
-        new MultiSelectFilter('column1', 'MultiSelectFilter', [
+        new MultiSelectFilter('column5', 'MultiSelectFilter', [
             new MultiSelectOption('NL', 1),
             new MultiSelectOption('BE', 2),
             new MultiSelectOption('DE', 3),
@@ -85,12 +85,17 @@ export class AppComponent {
         [DateOperationFilter, DateOperationFilterComponent],
     ]);
 
-    constructor(
-        protected readonly filterManagementManager: FilterManagerService
-    ) {
+    constructor(protected readonly filterManagerService: FilterManagerService) {
         // Way to bind events from the filter models directly
         this.filters[0].onReset.subscribe(() => {
             console.log('Reset caught from filter ref');
         });
+    }
+
+    public addFilter(): void {
+        console.log('Adding filter');
+        this.filterManagerService.addFilter(
+            new StringOperationFilter('column6', 'StringOperationFilter2')
+        );
     }
 }

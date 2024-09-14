@@ -1,17 +1,28 @@
-button.cta {
-    padding: 0rem 1rem;
-    border-radius: 2rem;
-    height: 2rem;
-    border: none;
-    background-color: var(--primary-100);
-    color: var(--white-100);
-
-    // Need to fix shadow here
-    // box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px 0px inset,
-    //     rgba(17, 17, 26, 0.05) 0px 8px 32px 0px;
-}
-
-button:hover {
+:host {
+    width: fit-content;
     cursor: pointer;
-    background-color: var(--primary-110);
+
+    button.cta {
+        padding: 0rem 1rem;
+        border-radius: 2rem;
+        height: 2rem;
+        border: none;
+        background-color: var(--primary-100);
+        color: var(--white-100);
+
+        // Need to fix shadow here
+        // box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px 0px inset,
+        //     rgba(17, 17, 26, 0.05) 0px 8px 32px 0px;
+
+        &:disabled {
+            background-color: var(--primary-60);
+            color: var(--black-10);
+            cursor: not-allowed;
+        }
+    }
+
+    button:hover {
+        cursor: pointer;
+        background-color: var(--primary-110);
+    }
 }
