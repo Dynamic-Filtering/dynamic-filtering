@@ -41,15 +41,15 @@ The `app-filter-manager` component is the visual component for adding, removing 
 Most logic performed by the app filter manager is also accessible through its manager service. Using it is as easy as injecting it into your component. For example:
 
 ```ts
-constructor(protected readonly filterManagementManager: FilterManagerService) {}
+constructor(protected readonly filterManagerService: FilterManagerService) {}
 ```
 
 The manager service exposes useful properties like the currently active filters and conditions. Hooking into changes to these properties is pretty easy by utilizing Angular's signals. Listening to these changes might look something as follows:
 
 ```ts
-constructor(protected readonly filterManagementManager: FilterManagerService) {
+constructor(protected readonly filterManagerService: FilterManagerService) {
         effect(async () => {
-            const activeConditions = this.filterManagementManager.activeConditions()
+            const activeConditions = this.filterManagerService.activeConditions()
             const httpParams = DynamicFilterService.formatConditionsToHttpParams(activeConditions, new HttpParams())
             await this.apiClient.fetchUsers(httpParams)
         })
