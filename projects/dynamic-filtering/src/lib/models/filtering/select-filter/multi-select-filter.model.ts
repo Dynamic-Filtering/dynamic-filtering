@@ -1,7 +1,7 @@
-import { Condition } from '../condition.model';
-import { InOperation } from '../operations/in-operation.model';
-import { MultiSelectOption } from '../options/multi-select-option.model';
-import { AbstractSelectFilter } from './abstract-select-filter.model';
+import { Condition } from "../condition.model";
+import { InOperation } from "../operations/in-operation.model";
+import { MultiSelectOption } from "../options/multi-select-option.model";
+import { AbstractSelectFilter } from "./abstract-select-filter.model";
 
 /**
  * Represents a multi-select filter that allows the user to select multiple options simultaneously.
@@ -23,7 +23,7 @@ export class MultiSelectFilter<T> extends AbstractSelectFilter<
      */
     get selectedOptions(): MultiSelectOption<T>[] {
         return this._options.filter(
-            (option: MultiSelectOption<T>) => option.selected
+            (option: MultiSelectOption<T>) => option.selected,
         );
     }
 
@@ -39,7 +39,7 @@ export class MultiSelectFilter<T> extends AbstractSelectFilter<
         column: string,
         label: string,
         options: MultiSelectOption<T>[],
-        conditions?: Condition<T, InOperation.In>[]
+        conditions?: Condition<T, InOperation.In>[],
     ) {
         super(column, label, options, conditions);
     }
@@ -54,13 +54,13 @@ export class MultiSelectFilter<T> extends AbstractSelectFilter<
      */
     public selectOption(value: T): void {
         const option = this.options.find(
-            (option: MultiSelectOption<T>) => option.value === value
+            (option: MultiSelectOption<T>) => option.value === value,
         );
         if (option) {
             if (option.selected) {
                 const conditionIndex = this._conditions.findIndex(
                     (condition: Condition<T, InOperation.In>) =>
-                        condition.value === option.value
+                        condition.value === option.value,
                 );
                 if (conditionIndex !== -1) {
                     this._conditions.splice(conditionIndex, 1);

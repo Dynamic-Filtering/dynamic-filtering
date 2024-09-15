@@ -1,9 +1,9 @@
-import { Condition } from '../condition.model';
-import { Filter } from '../filter.model';
-import { EqualOperation } from '../operations/equal-operation.model';
-import { InOperation } from '../operations/in-operation.model';
-import { MultiSelectOption } from '../options/multi-select-option.model';
-import { SelectOption } from '../options/select-option.model';
+import { Condition } from "../condition.model";
+import { Filter } from "../filter.model";
+import { EqualOperation } from "../operations/equal-operation.model";
+import { InOperation } from "../operations/in-operation.model";
+import { MultiSelectOption } from "../options/multi-select-option.model";
+import { SelectOption } from "../options/select-option.model";
 
 /**
  * Abstract class for implementing a select filter that operates with options such as single or multi-select.
@@ -17,7 +17,7 @@ import { SelectOption } from '../options/select-option.model';
 export abstract class AbstractSelectFilter<
     T,
     R extends EqualOperation.Equal | InOperation,
-    V extends SelectOption<T> | MultiSelectOption<T>
+    V extends SelectOption<T> | MultiSelectOption<T>,
 > extends Filter<T, R> {
     /**
      * A protected array of options that can be selected in this filter.
@@ -52,7 +52,7 @@ export abstract class AbstractSelectFilter<
         column: string,
         label: string,
         options: V[],
-        conditions?: Condition<T, R>[]
+        conditions?: Condition<T, R>[],
     ) {
         super(column, label, conditions);
         this._options = options;

@@ -1,9 +1,9 @@
-import { EventEmitter } from '@angular/core';
-import { Condition } from './condition.model';
-import { ComparisonOperation } from './operations/comparison-operation.model';
-import { EqualOperation } from './operations/equal-operation.model';
-import { LikeOperation } from './operations/like-operation.model';
-import { InOperation } from './operations/in-operation.model';
+import { EventEmitter } from "@angular/core";
+import { Condition } from "./condition.model";
+import { ComparisonOperation } from "./operations/comparison-operation.model";
+import { EqualOperation } from "./operations/equal-operation.model";
+import { LikeOperation } from "./operations/like-operation.model";
+import { InOperation } from "./operations/in-operation.model";
 
 /**
  * An abstract base class representing a filter for managing conditions that apply to data filtering logic.
@@ -16,7 +16,11 @@ import { InOperation } from './operations/in-operation.model';
  */
 export abstract class Filter<
     T,
-    R extends ComparisonOperation | EqualOperation | LikeOperation | InOperation
+    R extends
+        | ComparisonOperation
+        | EqualOperation
+        | LikeOperation
+        | InOperation,
 > {
     /**
      * The name of the column or field that this filter applies to.

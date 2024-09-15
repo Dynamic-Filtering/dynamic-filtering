@@ -1,8 +1,8 @@
-import { Filter } from '../filter.model';
-import { Condition } from '../condition.model';
-import { ComparisonOperation } from '../operations/comparison-operation.model';
-import { EqualOperation } from '../operations/equal-operation.model';
-import { LikeOperation } from '../operations/like-operation.model';
+import { Filter } from "../filter.model";
+import { Condition } from "../condition.model";
+import { ComparisonOperation } from "../operations/comparison-operation.model";
+import { EqualOperation } from "../operations/equal-operation.model";
+import { LikeOperation } from "../operations/like-operation.model";
 
 /**
  * Abstract class representing a filter that supports operations such as comparison, equality, or "like" operations.
@@ -14,10 +14,7 @@ import { LikeOperation } from '../operations/like-operation.model';
  *
  * @extends Filter<T, R>
  */
-export abstract class AbstractOperationFilter<
-    T,
-    R extends ComparisonOperation | EqualOperation | LikeOperation
-> extends Filter<T, R> {
+export abstract class AbstractOperationFilter<T, R extends ComparisonOperation | EqualOperation | LikeOperation> extends Filter<T, R> {
     /**
      * Initializes the operation filter with the provided column, label, and conditions.
      *
@@ -30,9 +27,7 @@ export abstract class AbstractOperationFilter<
      */
     constructor(column: string, label: string, conditions?: Condition<T, R>[]) {
         if (conditions && conditions.length > 1) {
-            throw new RangeError(
-                'Operation filters only support a single condition'
-            );
+            throw new RangeError("Operation filters only support a single condition");
         }
 
         super(column, label, conditions);

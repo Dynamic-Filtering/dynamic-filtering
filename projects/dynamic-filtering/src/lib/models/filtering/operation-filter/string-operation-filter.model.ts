@@ -1,7 +1,7 @@
-import { LikeOperation } from '../operations/like-operation.model';
-import { EqualOperation } from '../operations/equal-operation.model';
-import { AbstractOperationFilter } from './abstract-operation-filter.model';
-import { Condition } from '../condition.model';
+import { LikeOperation } from "../operations/like-operation.model";
+import { EqualOperation } from "../operations/equal-operation.model";
+import { AbstractOperationFilter } from "./abstract-operation-filter.model";
+import { Condition } from "../condition.model";
 
 /**
  * A filter class for handling string-based operations, such as equality or "like" operations.
@@ -26,7 +26,7 @@ export class StringOperationFilter extends AbstractOperationFilter<
     constructor(
         column: string,
         label: string,
-        conditions?: Condition<string, EqualOperation | LikeOperation>[]
+        conditions?: Condition<string, EqualOperation | LikeOperation>[],
     ) {
         super(column, label, conditions);
     }
@@ -46,7 +46,7 @@ export class StringOperationFilter extends AbstractOperationFilter<
      */
     public override apply(
         value: string,
-        operation: EqualOperation | LikeOperation
+        operation: EqualOperation | LikeOperation,
     ): void {
         super.apply(value, operation);
     }

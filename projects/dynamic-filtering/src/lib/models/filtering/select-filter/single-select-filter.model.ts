@@ -1,7 +1,7 @@
-import { Condition } from '../condition.model';
-import { EqualOperation } from '../operations/equal-operation.model';
-import { SelectOption } from '../options/select-option.model';
-import { AbstractSelectFilter } from './abstract-select-filter.model';
+import { Condition } from "../condition.model";
+import { EqualOperation } from "../operations/equal-operation.model";
+import { SelectOption } from "../options/select-option.model";
+import { AbstractSelectFilter } from "./abstract-select-filter.model";
 
 /**
  * Represents a single-select filter that allows the user to select only one option at a time.
@@ -31,11 +31,11 @@ export class SingleSelectFilter<T> extends AbstractSelectFilter<
         column: string,
         label: string,
         options: SelectOption<T>[],
-        conditions?: Condition<T, EqualOperation.Equal>[]
+        conditions?: Condition<T, EqualOperation.Equal>[],
     ) {
         if (conditions && conditions.length > 1) {
             throw new RangeError(
-                'Single select filters only support a single condition'
+                "Single select filters only support a single condition",
             );
         }
 
@@ -52,13 +52,13 @@ export class SingleSelectFilter<T> extends AbstractSelectFilter<
      */
     public selectOption(value: T): void {
         const option = this.options.find(
-            (option: SelectOption<T>) => option.value === value
+            (option: SelectOption<T>) => option.value === value,
         );
         if (option) {
             const condition = new Condition<T, EqualOperation.Equal>(
                 this.column,
                 EqualOperation.Equal,
-                option.value
+                option.value,
             );
             this._conditions = [condition];
             this.apply();

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule } from "@angular/common";
 import {
     AfterViewInit,
     Component,
@@ -6,19 +6,19 @@ import {
     InputSignal,
     ViewChild,
     ViewContainerRef,
-} from '@angular/core';
-import { AbstractFilterDirective } from './abstract-filter.directive';
-import { Filter } from '../../models/filtering/filter.model';
-import { ComparisonOperation } from '../../models/filtering/operations/comparison-operation.model';
-import { EqualOperation } from '../../models/filtering/operations/equal-operation.model';
-import { LikeOperation } from '../../models/filtering/operations/like-operation.model';
-import { InOperation } from '../../models/filtering/operations/in-operation.model';
+} from "@angular/core";
+import { AbstractFilterDirective } from "./abstract-filter.directive";
+import { Filter } from "../../models/filtering/filter.model";
+import { ComparisonOperation } from "../../models/filtering/operations/comparison-operation.model";
+import { EqualOperation } from "../../models/filtering/operations/equal-operation.model";
+import { LikeOperation } from "../../models/filtering/operations/like-operation.model";
+import { InOperation } from "../../models/filtering/operations/in-operation.model";
 
 @Component({
-    selector: 'app-filter',
+    selector: "app-filter",
     standalone: true,
     imports: [CommonModule],
-    templateUrl: './filter.component.html',
+    templateUrl: "./filter.component.html",
 })
 export class FilterComponent
     extends AbstractFilterDirective
@@ -43,12 +43,12 @@ export class FilterComponent
 
     public componentMap: InputSignal<Map<any, any>> = input.required();
 
-    @ViewChild('filterContainer', { read: ViewContainerRef })
+    @ViewChild("filterContainer", { read: ViewContainerRef })
     private filterContainer!: ViewContainerRef;
 
     private eventMap = new Map<string, Function>([
-        ['onReset', () => this.reset()],
-        ['onApply', () => this.apply()],
+        ["onReset", () => this.reset()],
+        ["onApply", () => this.apply()],
     ]);
 
     public ngAfterViewInit() {
@@ -56,22 +56,22 @@ export class FilterComponent
     }
 
     private loadComponent() {
-        for (let componentMapping of this.componentMap().entries()) {
+        for (const componentMapping of this.componentMap().entries()) {
             const filterType: any = componentMapping[0];
 
             if (this.filter() instanceof filterType) {
                 const componentRef = this.filterContainer.createComponent(
-                    componentMapping[1]
+                    componentMapping[1],
                 );
                 const componentRefAsAny: any = componentRef.instance;
                 componentRefAsAny.filter = this.filter;
 
-                for (let eventMapping of this.eventMap.entries()) {
+                for (const eventMapping of this.eventMap.entries()) {
                     if (componentRefAsAny[eventMapping[0]]) {
                         componentRefAsAny[eventMapping[0]].subscribe(
                             (event: any) => {
                                 eventMapping[1](event);
-                            }
+                            },
                         );
                     }
                 }

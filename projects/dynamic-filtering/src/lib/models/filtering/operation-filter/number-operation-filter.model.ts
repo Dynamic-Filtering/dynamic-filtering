@@ -1,7 +1,7 @@
-import { EqualOperation } from '../operations/equal-operation.model';
-import { ComparisonOperation } from '../operations/comparison-operation.model';
-import { AbstractOperationFilter } from './abstract-operation-filter.model';
-import { Condition } from '../condition.model';
+import { EqualOperation } from "../operations/equal-operation.model";
+import { ComparisonOperation } from "../operations/comparison-operation.model";
+import { AbstractOperationFilter } from "./abstract-operation-filter.model";
+import { Condition } from "../condition.model";
 
 /**
  * A filter class for handling number-based operations, such as comparison or equality operations.
@@ -26,7 +26,7 @@ export class NumberOperationFilter extends AbstractOperationFilter<
     constructor(
         column: string,
         label: string,
-        conditions?: Condition<number, ComparisonOperation | EqualOperation>[]
+        conditions?: Condition<number, ComparisonOperation | EqualOperation>[],
     ) {
         super(column, label, conditions);
     }
@@ -46,7 +46,7 @@ export class NumberOperationFilter extends AbstractOperationFilter<
      */
     public override apply(
         value: number,
-        operation: ComparisonOperation | EqualOperation
+        operation: ComparisonOperation | EqualOperation,
     ): void {
         super.apply(value, operation);
     }

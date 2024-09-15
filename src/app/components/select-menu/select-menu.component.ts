@@ -1,19 +1,10 @@
-import { CommonModule } from '@angular/common';
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    HostListener,
-    input,
-    InputSignal,
-    Output,
-} from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SelectOption } from 'dynamic-filtering';
+import { CommonModule } from "@angular/common";
+import { Component, ElementRef, EventEmitter, forwardRef, HostListener, input, InputSignal, Output } from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { SelectOption } from "dynamic-filtering";
 
 @Component({
-    selector: 'app-select-menu',
+    selector: "app-select-menu",
     standalone: true,
     imports: [CommonModule],
     providers: [
@@ -23,8 +14,8 @@ import { SelectOption } from 'dynamic-filtering';
             multi: true,
         },
     ],
-    templateUrl: './select-menu.component.html',
-    styleUrl: './select-menu.component.scss',
+    templateUrl: "./select-menu.component.html",
+    styleUrl: "./select-menu.component.scss",
 })
 export class SelectMenuComponent implements ControlValueAccessor {
     //This is more of a combobox than a select
@@ -35,8 +26,7 @@ export class SelectMenuComponent implements ControlValueAccessor {
 
     public value: string | undefined = undefined;
 
-    @Output() optionSelected: EventEmitter<SelectOption<any>> =
-        new EventEmitter();
+    @Output() optionSelected: EventEmitter<SelectOption<any>> = new EventEmitter();
 
     protected showingContent: boolean = false;
     protected selectedOption: SelectOption<any> | undefined = undefined;
@@ -44,7 +34,7 @@ export class SelectMenuComponent implements ControlValueAccessor {
     onChange: any = () => {};
     onTouched: any = () => {};
 
-    @HostListener('document:click', ['$event'])
+    @HostListener("document:click", ["$event"])
     clickOutside(event: MouseEvent) {
         if (!this.elementRef.nativeElement.contains(event.target)) {
             this.showingContent = false;

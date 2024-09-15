@@ -1,6 +1,6 @@
-import { Filter } from '../filter.model';
-import { Condition } from '../condition.model';
-import { ComparisonOperation } from '../operations/comparison-operation.model';
+import { Filter } from "../filter.model";
+import { Condition } from "../condition.model";
+import { ComparisonOperation } from "../operations/comparison-operation.model";
 
 /**
  * An abstract base class for filters that apply range operations, typically for numeric or date values.
@@ -27,11 +27,11 @@ export abstract class AbstractRangeFilter<T> extends Filter<
     constructor(
         column: string,
         label: string,
-        conditions?: Condition<T, ComparisonOperation>[]
+        conditions?: Condition<T, ComparisonOperation>[],
     ) {
         if (conditions && conditions.length > 2) {
             throw new RangeError(
-                'Range filters only support 1 or 2 conditions'
+                "Range filters only support 1 or 2 conditions",
             );
         }
 
@@ -56,17 +56,17 @@ export abstract class AbstractRangeFilter<T> extends Filter<
         value1: T,
         operation1: ComparisonOperation,
         value2: T,
-        operation2: ComparisonOperation
+        operation2: ComparisonOperation,
     ) {
         const condition1 = new Condition<T, ComparisonOperation>(
             this.column,
             operation1,
-            value1
+            value1,
         );
         const condition2 = new Condition<T, ComparisonOperation>(
             this.column,
             operation2,
-            value2
+            value2,
         );
 
         this._conditions = [condition1, condition2];

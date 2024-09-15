@@ -1,9 +1,9 @@
-import { Condition } from './filtering/condition.model';
-import { ComparisonOperation } from './filtering/operations/comparison-operation.model';
-import { EqualOperation } from './filtering/operations/equal-operation.model';
-import { LikeOperation } from './filtering/operations/like-operation.model';
-import { Pagination } from './pagination/pagination.model';
-import { Sorting } from './sorting/sorting.model';
+import { Condition } from "./filtering/condition.model";
+import { ComparisonOperation } from "./filtering/operations/comparison-operation.model";
+import { EqualOperation } from "./filtering/operations/equal-operation.model";
+import { LikeOperation } from "./filtering/operations/like-operation.model";
+import { Pagination } from "./pagination/pagination.model";
+import { Sorting } from "./sorting/sorting.model";
 
 export class DynamicQueryOption {
     conditions: Condition<
@@ -19,7 +19,7 @@ export class DynamicQueryOption {
             ComparisonOperation | EqualOperation | LikeOperation
         >[],
         sortings: Sorting[],
-        pagination: Pagination
+        pagination: Pagination,
     ) {
         this.conditions = conditions;
         this.sortings = sortings;

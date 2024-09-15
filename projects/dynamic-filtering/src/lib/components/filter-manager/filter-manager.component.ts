@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule } from "@angular/common";
 import {
     Component,
     effect,
@@ -6,20 +6,20 @@ import {
     InputSignal,
     output,
     OutputEmitterRef,
-} from '@angular/core';
-import { FilterComponent } from '../filter/filter.component';
-import { EqualOperation } from '../../models/filtering/operations/equal-operation.model';
-import { LikeOperation } from '../../models/filtering/operations/like-operation.model';
-import { ComparisonOperation } from '../../models/filtering/operations/comparison-operation.model';
-import { Filter } from '../../models/filtering/filter.model';
-import { FilterManagerService } from '../../services/filter-manager.service';
-import { InOperation } from '../../models/filtering/operations/in-operation.model';
+} from "@angular/core";
+import { FilterComponent } from "../filter/filter.component";
+import { EqualOperation } from "../../models/filtering/operations/equal-operation.model";
+import { LikeOperation } from "../../models/filtering/operations/like-operation.model";
+import { ComparisonOperation } from "../../models/filtering/operations/comparison-operation.model";
+import { Filter } from "../../models/filtering/filter.model";
+import { FilterManagerService } from "../../services/filter-manager.service";
+import { InOperation } from "../../models/filtering/operations/in-operation.model";
 
 @Component({
-    selector: 'app-filter-manager',
+    selector: "app-filter-manager",
     standalone: true,
     imports: [CommonModule, FilterComponent],
-    templateUrl: './filter-manager.component.html',
+    templateUrl: "./filter-manager.component.html",
 })
 export class FilterManagerComponent {
     public filters: InputSignal<
@@ -28,7 +28,7 @@ export class FilterManagerComponent {
             ComparisonOperation | EqualOperation | LikeOperation | InOperation
         >[]
     > = input.required();
-    public componentMap: InputSignal<Map<any, any>> = input.required();
+    public componentMap: InputSignal<Map<unknown, unknown>> = input.required();
 
     public change: OutputEmitterRef<
         Filter<
@@ -53,7 +53,7 @@ export class FilterManagerComponent {
                     this.filterManagerService.setFilters(this.filters());
                 }
             },
-            { allowSignalWrites: true }
+            { allowSignalWrites: true },
         );
     }
 

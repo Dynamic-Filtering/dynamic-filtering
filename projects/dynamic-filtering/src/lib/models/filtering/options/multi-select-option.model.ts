@@ -1,4 +1,4 @@
-import { SelectOption } from './select-option.model';
+import { SelectOption } from "./select-option.model";
 
 /**
  * Represents an option in a multi-select filter, extending the basic select option with a selection state.

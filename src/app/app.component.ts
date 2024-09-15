@@ -1,16 +1,16 @@
-import { Component, computed, Signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ButtonComponent } from './components/button/button.component';
-import { SingleSelectFilterComponent } from './components/filters/select-filter/single-select-filter/single-select-filter.component';
-import { DropdownComponent } from './components/dropdown/dropdown.component';
-import { SelectMenuComponent } from './components/select-menu/select-menu.component';
-import { DateOperationFilterComponent } from './components/filters/operation-filter/date-operation-filter/date-operation-filter.component';
-import { NumberOperationFilterComponent } from './components/filters/operation-filter/number-operation-filter/number-operation-filter.component';
-import { StringOperationFilterComponent } from './components/filters/operation-filter/string-operation-filter/string-operation-filter.component';
-import { DateRangeFilterComponent } from './components/filters/range-filter/date-range-filter/date-range-filter.component';
-import { NumberRangeFilterComponent } from './components/filters/range-filter/number-range-filter/number-range-filter.component';
-import { MultiSelectFilterComponent } from './components/filters/select-filter/multi-select-filter/multi-select-filter.component';
+import { Component, computed, Signal } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { ButtonComponent } from "./components/button/button.component";
+import { SingleSelectFilterComponent } from "./components/filters/select-filter/single-select-filter/single-select-filter.component";
+import { DropdownComponent } from "./components/dropdown/dropdown.component";
+import { SelectMenuComponent } from "./components/select-menu/select-menu.component";
+import { DateOperationFilterComponent } from "./components/filters/operation-filter/date-operation-filter/date-operation-filter.component";
+import { NumberOperationFilterComponent } from "./components/filters/operation-filter/number-operation-filter/number-operation-filter.component";
+import { StringOperationFilterComponent } from "./components/filters/operation-filter/string-operation-filter/string-operation-filter.component";
+import { DateRangeFilterComponent } from "./components/filters/range-filter/date-range-filter/date-range-filter.component";
+import { NumberRangeFilterComponent } from "./components/filters/range-filter/number-range-filter/number-range-filter.component";
+import { MultiSelectFilterComponent } from "./components/filters/select-filter/multi-select-filter/multi-select-filter.component";
 import {
     ComparisonOperation,
     DateOperationFilter,
@@ -29,12 +29,12 @@ import {
     StringOperationFilter,
     FilterManagerComponent,
     DynamicFilterService,
-} from 'dynamic-filtering';
-import { InOperation } from '../../dist/dynamic-filtering/lib/models/filtering/operations/in-operation.model';
-import { HttpParams } from '@angular/common/http';
+} from "dynamic-filtering";
+import { InOperation } from "../../dist/dynamic-filtering/lib/models/filtering/operations/in-operation.model";
+import { HttpParams } from "@angular/common/http";
 
 @Component({
-    selector: 'app-root',
+    selector: "app-root",
     standalone: true,
     imports: [
         RouterOutlet,
@@ -47,34 +47,34 @@ import { HttpParams } from '@angular/common/http';
         FilterManagerComponent,
     ],
     providers: [FilterManagerService],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.scss',
+    templateUrl: "./app.component.html",
+    styleUrl: "./app.component.scss",
 })
 export class AppComponent {
     protected filters: Filter<
         unknown,
         ComparisonOperation | EqualOperation | LikeOperation | InOperation
     >[] = [
-        new SingleSelectFilter('column1', 'SingleSelectFilter', [
-            new SelectOption('NL', 1),
-            new SelectOption('BE', 2),
-            new SelectOption('DE', 3),
-            new SelectOption('CZ', 4),
-            new SelectOption('PO', 5),
-            new SelectOption('US', 6),
-            new SelectOption('GB', 7),
+        new SingleSelectFilter("column1", "SingleSelectFilter", [
+            new SelectOption("NL", 1),
+            new SelectOption("BE", 2),
+            new SelectOption("DE", 3),
+            new SelectOption("CZ", 4),
+            new SelectOption("PO", 5),
+            new SelectOption("US", 6),
+            new SelectOption("GB", 7),
         ]),
-        new NumberRangeFilter('column2', 'NumberRangeFilter'),
-        new DateRangeFilter('column3', 'DateRangeFilter'),
-        new StringOperationFilter('column4', 'StringOperationFilter'),
-        new MultiSelectFilter('column5', 'MultiSelectFilter', [
-            new MultiSelectOption('NL', 1),
-            new MultiSelectOption('BE', 2),
-            new MultiSelectOption('DE', 3),
-            new MultiSelectOption('CZ', 4),
-            new MultiSelectOption('PO', 5),
-            new MultiSelectOption('US', 6),
-            new MultiSelectOption('GB', 7),
+        new NumberRangeFilter("column2", "NumberRangeFilter"),
+        new DateRangeFilter("column3", "DateRangeFilter"),
+        new StringOperationFilter("column4", "StringOperationFilter"),
+        new MultiSelectFilter("column5", "MultiSelectFilter", [
+            new MultiSelectOption("NL", 1),
+            new MultiSelectOption("BE", 2),
+            new MultiSelectOption("DE", 3),
+            new MultiSelectOption("CZ", 4),
+            new MultiSelectOption("PO", 5),
+            new MultiSelectOption("US", 6),
+            new MultiSelectOption("GB", 7),
         ]),
     ];
 
@@ -93,7 +93,7 @@ export class AppComponent {
         let httpParams = new HttpParams();
         httpParams = DynamicFilterService.formatConditionsToHttpParams(
             activeConditions,
-            httpParams
+            httpParams,
         );
 
         return httpParams.toString();
@@ -102,24 +102,24 @@ export class AppComponent {
     constructor(protected readonly filterManagerService: FilterManagerService) {
         // Way to bind events from the filter models directly
         this.filters[0].onReset.subscribe(() => {
-            console.log('Reset caught from filter ref');
+            console.log("Reset caught from filter ref");
         });
     }
 
     public addFilter(): void {
-        console.log('Adding filter');
+        console.log("Adding filter");
         this.filterManagerService.addFilter(
-            new StringOperationFilter('column6', 'StringOperationFilter2')
+            new StringOperationFilter("column6", "StringOperationFilter2"),
         );
     }
 
     public removeFilter(): void {
-        console.log('Remove first filter');
+        console.log("Remove first filter");
         this.filterManagerService.removeFilter(0);
     }
 
     public resetFilters(): void {
-        console.log('Reset filters');
+        console.log("Reset filters");
         this.filterManagerService.resetFilters();
     }
 }

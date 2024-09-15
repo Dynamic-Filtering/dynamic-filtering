@@ -1,7 +1,7 @@
-import { EqualOperation } from '../operations/equal-operation.model';
-import { ComparisonOperation } from '../operations/comparison-operation.model';
-import { AbstractOperationFilter } from './abstract-operation-filter.model';
-import { Condition } from '../condition.model';
+import { EqualOperation } from "../operations/equal-operation.model";
+import { ComparisonOperation } from "../operations/comparison-operation.model";
+import { AbstractOperationFilter } from "./abstract-operation-filter.model";
+import { Condition } from "../condition.model";
 
 /**
  * A filter class for handling date-based operations, such as comparison or equality operations.
@@ -26,7 +26,7 @@ export class DateOperationFilter extends AbstractOperationFilter<
     constructor(
         column: string,
         label: string,
-        conditions?: Condition<Date, ComparisonOperation | EqualOperation>[]
+        conditions?: Condition<Date, ComparisonOperation | EqualOperation>[],
     ) {
         super(column, label, conditions);
     }
@@ -46,7 +46,7 @@ export class DateOperationFilter extends AbstractOperationFilter<
      */
     public override apply(
         value: Date,
-        operation: ComparisonOperation | EqualOperation
+        operation: ComparisonOperation | EqualOperation,
     ): void {
         super.apply(value, operation);
     }

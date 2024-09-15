@@ -1,10 +1,10 @@
-import { computed, Signal, signal, WritableSignal } from '@angular/core';
-import { ComparisonOperation } from '../models/filtering/operations/comparison-operation.model';
-import { EqualOperation } from '../models/filtering/operations/equal-operation.model';
-import { LikeOperation } from '../models/filtering/operations/like-operation.model';
-import { Filter } from '../models/filtering/filter.model';
-import { Condition } from '../models/filtering/condition.model';
-import { InOperation } from '../models/filtering/operations/in-operation.model';
+import { computed, Signal, signal, WritableSignal } from "@angular/core";
+import { ComparisonOperation } from "../models/filtering/operations/comparison-operation.model";
+import { EqualOperation } from "../models/filtering/operations/equal-operation.model";
+import { LikeOperation } from "../models/filtering/operations/like-operation.model";
+import { Filter } from "../models/filtering/filter.model";
+import { Condition } from "../models/filtering/condition.model";
+import { InOperation } from "../models/filtering/operations/in-operation.model";
 
 /**
  * Service to manage and interact with a collection of filters.
@@ -64,7 +64,7 @@ export class FilterManagerService {
                     | EqualOperation
                     | LikeOperation
                     | InOperation
-                >
+                >,
             ) => {
                 // Filters are active if they have conditions with defined values
                 if (filter.conditions.length === 0) {
@@ -79,11 +79,11 @@ export class FilterManagerService {
                             | EqualOperation
                             | LikeOperation
                             | InOperation
-                        >
-                    ) => condition.value !== undefined
+                        >,
+                    ) => condition.value !== undefined,
                 );
-            }
-        )
+            },
+        ),
     );
 
     /**
@@ -107,9 +107,9 @@ export class FilterManagerService {
                     | EqualOperation
                     | LikeOperation
                     | InOperation
-                >
-            ) => filter.conditions
-        )
+                >,
+            ) => filter.conditions,
+        ),
     );
 
     /**
@@ -126,7 +126,7 @@ export class FilterManagerService {
         filters: Filter<
             unknown,
             ComparisonOperation | EqualOperation | LikeOperation | InOperation
-        >[]
+        >[],
     ): void {
         this.internalFilters.set([...filters]);
     }
@@ -145,7 +145,7 @@ export class FilterManagerService {
         filter: Filter<
             unknown,
             ComparisonOperation | EqualOperation | LikeOperation | InOperation
-        >
+        >,
     ): void {
         this.internalFilters.set([...this.internalFilters(), filter]);
     }

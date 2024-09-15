@@ -1,4 +1,4 @@
-import { SortingDirection } from './sorting-direction.model';
+import { SortingDirection } from "./sorting-direction.model";
 
 export class Sorting {
     public column: string;
