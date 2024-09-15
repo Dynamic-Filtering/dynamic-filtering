@@ -56,9 +56,4 @@ export class FilterManagerComponent {
             { allowSignalWrites: true },
         );
     }
-
-    protected filtersChanged() {
-        this.change.emit(this.filterManagerService.filters());
-        this.filterManagerService.notify();
-    }
 }

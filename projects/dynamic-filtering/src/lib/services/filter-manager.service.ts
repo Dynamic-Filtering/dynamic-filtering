@@ -1,4 +1,10 @@
-import { computed, Signal, signal, WritableSignal } from "@angular/core";
+import {
+    computed,
+    effect,
+    Signal,
+    signal,
+    WritableSignal,
+} from "@angular/core";
 import { ComparisonOperation } from "../models/filtering/operations/comparison-operation.model";
 import { EqualOperation } from "../models/filtering/operations/equal-operation.model";
 import { LikeOperation } from "../models/filtering/operations/like-operation.model";
@@ -111,6 +117,16 @@ export class FilterManagerService {
             ) => filter.conditions,
         ),
     );
+
+    constructor() {
+        effect(() => {
+            const filters = this.internalFilters();
+            filters.forEach((filter) => {
+                filter.onReset.subscribe(() => this.notify());
+                filter.onApply.subscribe(() => this.notify());
+            });
+        });
+    }
 
     /**
      * Replaces the current array of filters.
