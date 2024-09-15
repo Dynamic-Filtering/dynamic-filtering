@@ -1,17 +1,3 @@
-<p align="center">
-  <img src="./dynamic-filtering-logo.svg" alt="Dynamic filtering logo" width="150" height="150">
-</p>
-
-<h3 align="center">Dynamic filtering</h3>
-
-<p align="center">
-  Filtering made a whole lot easier
-  <br>
-  <a href="https://github.com/JobHaast/dynamic-filtering/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=Provide+a+summary+of+the+issue">Report a bug</a>
-  ·
-  <a href="https://github.com/JobHaast/dynamic-filtering/issues/new?assignees=&labels=feature&projects=&template=feature_request.yml&title=Suggest+a+new+feature">Request a feature</a>
-</p>
-
 # Dynamic filtering 🔎
 
 Dynamic Filtering is a package that provides classes, interfaces, components, and services for managing filters in applications. It allows developers to create and apply filters dynamically, enabling the addition, removal, and modification of filters at runtime. The package supports building complex filter logic that is useful for data querying, search functionalities, and user-defined filtering rules.
