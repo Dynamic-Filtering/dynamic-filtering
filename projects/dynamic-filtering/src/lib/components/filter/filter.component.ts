@@ -12,6 +12,7 @@ import { Filter } from '../../models/filtering/filter.model';
 import { ComparisonOperation } from '../../models/filtering/operations/comparison-operation.model';
 import { EqualOperation } from '../../models/filtering/operations/equal-operation.model';
 import { LikeOperation } from '../../models/filtering/operations/like-operation.model';
+import { InOperation } from '../../models/filtering/operations/in-operation.model';
 
 @Component({
     selector: 'app-filter',
@@ -25,12 +26,18 @@ export class FilterComponent
 {
     // Input
     public filter: InputSignal<
-        Filter<unknown, ComparisonOperation | EqualOperation | LikeOperation>
+        Filter<
+            unknown,
+            ComparisonOperation | EqualOperation | LikeOperation | InOperation
+        >
     > =
         input.required<
             Filter<
                 unknown,
-                ComparisonOperation | EqualOperation | LikeOperation
+                | ComparisonOperation
+                | EqualOperation
+                | LikeOperation
+                | InOperation
             >
         >();
 

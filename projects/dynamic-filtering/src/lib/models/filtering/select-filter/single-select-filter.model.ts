@@ -13,6 +13,7 @@ import { AbstractSelectFilter } from './abstract-select-filter.model';
  */
 export class SingleSelectFilter<T> extends AbstractSelectFilter<
     T,
+    EqualOperation.Equal,
     SelectOption<T>
 > {
     /**

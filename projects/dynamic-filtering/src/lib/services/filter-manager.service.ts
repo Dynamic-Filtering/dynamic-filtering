@@ -4,6 +4,7 @@ import { EqualOperation } from '../models/filtering/operations/equal-operation.m
 import { LikeOperation } from '../models/filtering/operations/like-operation.model';
 import { Filter } from '../models/filtering/filter.model';
 import { Condition } from '../models/filtering/condition.model';
+import { InOperation } from '../models/filtering/operations/in-operation.model';
 
 /**
  * Service to manage and interact with a collection of filters.
@@ -20,7 +21,10 @@ export class FilterManagerService {
      * @private
      */
     private internalFilters: WritableSignal<
-        Filter<unknown, ComparisonOperation | EqualOperation | LikeOperation>[]
+        Filter<
+            unknown,
+            ComparisonOperation | EqualOperation | LikeOperation | InOperation
+        >[]
     > = signal([]);
 
     /**
@@ -32,7 +36,10 @@ export class FilterManagerService {
      * @public
      */
     public filters: Signal<
-        Filter<unknown, ComparisonOperation | EqualOperation | LikeOperation>[]
+        Filter<
+            unknown,
+            ComparisonOperation | EqualOperation | LikeOperation | InOperation
+        >[]
     > = this.internalFilters.asReadonly();
 
     /**
@@ -44,13 +51,19 @@ export class FilterManagerService {
      * @public
      */
     public activeFilters: Signal<
-        Filter<unknown, ComparisonOperation | EqualOperation | LikeOperation>[]
+        Filter<
+            unknown,
+            ComparisonOperation | EqualOperation | LikeOperation | InOperation
+        >[]
     > = computed(() =>
         this.internalFilters().filter(
             (
                 filter: Filter<
                     unknown,
-                    ComparisonOperation | EqualOperation | LikeOperation
+                    | ComparisonOperation
+                    | EqualOperation
+                    | LikeOperation
+                    | InOperation
                 >
             ) => {
                 // Filters are active if they have conditions with defined values
@@ -62,7 +75,10 @@ export class FilterManagerService {
                     (
                         condition: Condition<
                             unknown,
-                            ComparisonOperation | EqualOperation | LikeOperation
+                            | ComparisonOperation
+                            | EqualOperation
+                            | LikeOperation
+                            | InOperation
                         >
                     ) => condition.value !== undefined
                 );
@@ -80,14 +96,17 @@ export class FilterManagerService {
     public activeConditions: Signal<
         Condition<
             unknown,
-            ComparisonOperation | EqualOperation | LikeOperation
+            ComparisonOperation | EqualOperation | LikeOperation | InOperation
         >[]
     > = computed(() =>
         this.activeFilters().flatMap(
             (
                 filter: Filter<
                     unknown,
-                    ComparisonOperation | EqualOperation | LikeOperation
+                    | ComparisonOperation
+                    | EqualOperation
+                    | LikeOperation
+                    | InOperation
                 >
             ) => filter.conditions
         )
@@ -106,7 +125,7 @@ export class FilterManagerService {
     public setFilters(
         filters: Filter<
             unknown,
-            ComparisonOperation | EqualOperation | LikeOperation
+            ComparisonOperation | EqualOperation | LikeOperation | InOperation
         >[]
     ): void {
         this.internalFilters.set([...filters]);
@@ -125,7 +144,7 @@ export class FilterManagerService {
     public addFilter(
         filter: Filter<
             unknown,
-            ComparisonOperation | EqualOperation | LikeOperation
+            ComparisonOperation | EqualOperation | LikeOperation | InOperation
         >
     ): void {
         this.internalFilters.set([...this.internalFilters(), filter]);

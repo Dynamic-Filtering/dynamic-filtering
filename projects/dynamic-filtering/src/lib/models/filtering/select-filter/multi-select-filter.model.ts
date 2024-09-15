@@ -1,5 +1,5 @@
 import { Condition } from '../condition.model';
-import { EqualOperation } from '../operations/equal-operation.model';
+import { InOperation } from '../operations/in-operation.model';
 import { MultiSelectOption } from '../options/multi-select-option.model';
 import { AbstractSelectFilter } from './abstract-select-filter.model';
 
@@ -13,6 +13,7 @@ import { AbstractSelectFilter } from './abstract-select-filter.model';
  */
 export class MultiSelectFilter<T> extends AbstractSelectFilter<
     T,
+    InOperation.In,
     MultiSelectOption<T>
 > {
     /**
@@ -38,7 +39,7 @@ export class MultiSelectFilter<T> extends AbstractSelectFilter<
         column: string,
         label: string,
         options: MultiSelectOption<T>[],
-        conditions?: Condition<T, EqualOperation.Equal>[]
+        conditions?: Condition<T, InOperation.In>[]
     ) {
         super(column, label, options, conditions);
     }
@@ -58,7 +59,7 @@ export class MultiSelectFilter<T> extends AbstractSelectFilter<
         if (option) {
             if (option.selected) {
                 const conditionIndex = this._conditions.findIndex(
-                    (condition: Condition<T, EqualOperation.Equal>) =>
+                    (condition: Condition<T, InOperation.In>) =>
                         condition.value === option.value
                 );
                 if (conditionIndex !== -1) {
@@ -66,12 +67,10 @@ export class MultiSelectFilter<T> extends AbstractSelectFilter<
                     option.selected = false;
                 }
             } else {
-                const condition: Condition<T, EqualOperation.Equal> =
-                    new Condition<T, EqualOperation.Equal>(
-                        this.column,
-                        EqualOperation.Equal,
-                        option.value
-                    );
+                const condition: Condition<T, InOperation.In> = new Condition<
+                    T,
+                    InOperation.In
+                >(this.column, InOperation.In, option.value);
                 this._conditions = [...this._conditions, condition];
                 option.selected = true;
             }

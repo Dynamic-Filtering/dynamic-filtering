@@ -6,12 +6,13 @@ import { EqualOperation } from '../models/filtering/operations/equal-operation.m
 import { LikeOperation } from '../models/filtering/operations/like-operation.model';
 import { Sorting } from '../models/sorting/sorting.model';
 import { Pagination } from '../models/pagination/pagination.model';
+import { InOperation } from '../models/filtering/operations/in-operation.model';
 
 export abstract class DynamicFilterService {
     public static formatConditionsToHttpParams(
         conditions: Condition<
             any,
-            ComparisonOperation | EqualOperation | LikeOperation
+            ComparisonOperation | EqualOperation | LikeOperation | InOperation
         >[],
         httpParams: HttpParams
     ): HttpParams {

@@ -1,6 +1,7 @@
 import { Condition } from '../condition.model';
 import { Filter } from '../filter.model';
 import { EqualOperation } from '../operations/equal-operation.model';
+import { InOperation } from '../operations/in-operation.model';
 import { MultiSelectOption } from '../options/multi-select-option.model';
 import { SelectOption } from '../options/select-option.model';
 
@@ -9,28 +10,29 @@ import { SelectOption } from '../options/select-option.model';
  * This filter allows selecting from predefined options and applies an equality operation.
  *
  * @template T - The data type that the options operate on.
- * @template R - The type of option used by the filter, which can either be a single select option or a multi-select option.
+ * @template V - The type of option used by the filter, which can either be a single select option or a multi-select option.
  *
  * @extends Filter<T, EqualOperation.Equal>
  */
 export abstract class AbstractSelectFilter<
     T,
-    R extends SelectOption<T> | MultiSelectOption<T>
-> extends Filter<T, EqualOperation.Equal> {
+    R extends EqualOperation.Equal | InOperation,
+    V extends SelectOption<T> | MultiSelectOption<T>
+> extends Filter<T, R> {
     /**
      * A protected array of options that can be selected in this filter.
      * This array represents the list of selectable options.
      *
      * @protected
      */
-    protected _options: R[] = [];
+    protected _options: V[] = [];
 
     /**
      * Getter for retrieving the available options for this filter.
      *
-     * @returns {R[]} The list of options that can be selected.
+     * @returns {V[]} The list of options that can be selected.
      */
-    get options(): R[] {
+    get options(): V[] {
         return this._options;
     }
 
@@ -49,8 +51,8 @@ export abstract class AbstractSelectFilter<
     constructor(
         column: string,
         label: string,
-        options: R[],
-        conditions?: Condition<T, EqualOperation.Equal>[]
+        options: V[],
+        conditions?: Condition<T, R>[]
     ) {
         super(column, label, conditions);
         this._options = options;

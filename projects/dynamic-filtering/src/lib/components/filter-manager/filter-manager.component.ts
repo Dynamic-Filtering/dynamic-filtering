@@ -13,6 +13,7 @@ import { LikeOperation } from '../../models/filtering/operations/like-operation.
 import { ComparisonOperation } from '../../models/filtering/operations/comparison-operation.model';
 import { Filter } from '../../models/filtering/filter.model';
 import { FilterManagerService } from '../../services/filter-manager.service';
+import { InOperation } from '../../models/filtering/operations/in-operation.model';
 
 @Component({
     selector: 'app-filter-manager',
@@ -20,21 +21,28 @@ import { FilterManagerService } from '../../services/filter-manager.service';
     imports: [CommonModule, FilterComponent],
     templateUrl: './filter-manager.component.html',
 })
-// TODO:
-// - Support adding new filters (take mapping of columns and the supported filter variants, but would be hard with select filter inputs)
 export class FilterManagerComponent {
     public filters: InputSignal<
-        Filter<unknown, ComparisonOperation | EqualOperation | LikeOperation>[]
+        Filter<
+            unknown,
+            ComparisonOperation | EqualOperation | LikeOperation | InOperation
+        >[]
     > = input.required();
     public componentMap: InputSignal<Map<any, any>> = input.required();
 
     public change: OutputEmitterRef<
-        Filter<unknown, ComparisonOperation | EqualOperation | LikeOperation>[]
+        Filter<
+            unknown,
+            ComparisonOperation | EqualOperation | LikeOperation | InOperation
+        >[]
     > =
         output<
             Filter<
                 unknown,
-                ComparisonOperation | EqualOperation | LikeOperation
+                | ComparisonOperation
+                | EqualOperation
+                | LikeOperation
+                | InOperation
             >[]
         >();
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, Signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './components/button/button.component';
@@ -28,7 +28,10 @@ import {
     SingleSelectFilter,
     StringOperationFilter,
     FilterManagerComponent,
+    DynamicFilterService,
 } from 'dynamic-filtering';
+import { InOperation } from '../../dist/dynamic-filtering/lib/models/filtering/operations/in-operation.model';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
     selector: 'app-root',
@@ -50,7 +53,7 @@ import {
 export class AppComponent {
     protected filters: Filter<
         unknown,
-        ComparisonOperation | EqualOperation | LikeOperation
+        ComparisonOperation | EqualOperation | LikeOperation | InOperation
     >[] = [
         new SingleSelectFilter('column1', 'SingleSelectFilter', [
             new SelectOption('NL', 1),
@@ -84,6 +87,17 @@ export class AppComponent {
         [NumberOperationFilter, NumberOperationFilterComponent],
         [DateOperationFilter, DateOperationFilterComponent],
     ]);
+
+    protected urlResult: Signal<string> = computed(() => {
+        const activeConditions = this.filterManagerService.activeConditions();
+        let httpParams = new HttpParams();
+        httpParams = DynamicFilterService.formatConditionsToHttpParams(
+            activeConditions,
+            httpParams
+        );
+
+        return httpParams.toString();
+    });
 
     constructor(protected readonly filterManagerService: FilterManagerService) {
         // Way to bind events from the filter models directly
