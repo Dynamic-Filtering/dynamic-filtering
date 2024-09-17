@@ -70,5 +70,6 @@ export abstract class AbstractRangeFilter<T> extends Filter<
         );
 
         this._conditions = [condition1, condition2];
+        this.onApply.emit();
     }
 }

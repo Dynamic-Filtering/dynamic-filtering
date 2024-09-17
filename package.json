@@ -8,7 +8,9 @@
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "lint": "eslint .",
-        "lint:fix": "eslint . --fix"
+        "lint:fix": "eslint . --fix",
+        "build core": "ng build @dynamic-filtering/core",
+        "watch core": "ng build @dynamic-filtering/core --watch --configuration development"
     },
     "private": true,
     "dependencies": {

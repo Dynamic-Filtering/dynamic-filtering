@@ -64,10 +64,19 @@ body:
               - Microsoft Edge
               - Opera
 
+    - type: dropdown
+      id: package
+      attributes:
+          label: Which @dynamic-filter/* package(s) are the source of the bug?
+          multiple: true
+          options:
+              - core
+              - components
+
     - type: input
       id: version
       attributes:
-          label: What version of dynamic filtering are you using?
+          label: What version of the package are you using?
           placeholder: e.g., v1.0.0
       validations:
           required: true

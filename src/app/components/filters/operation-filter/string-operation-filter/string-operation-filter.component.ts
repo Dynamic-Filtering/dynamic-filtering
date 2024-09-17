@@ -4,26 +4,26 @@ import {
     HostListener,
     input,
     InputSignal,
-} from '@angular/core';
-import { ButtonComponent } from '../../../button/button.component';
-import { SelectMenuComponent } from '../../../select-menu/select-menu.component';
-import { AbstractFilterDirective } from '../../../../../../projects/dynamic-filtering/src/lib/components/filter/abstract-filter.directive';
+} from "@angular/core";
+import { ButtonComponent } from "../../../button/button.component";
+import { SelectMenuComponent } from "../../../select-menu/select-menu.component";
 import {
     FormControl,
     FormGroup,
     ReactiveFormsModule,
     Validators,
-} from '@angular/forms';
-import { CommonModule } from '@angular/common';
+} from "@angular/forms";
+import { CommonModule } from "@angular/common";
 import {
     StringOperationFilter,
     LikeOperation,
     EqualOperation,
     SelectOption,
-} from 'dynamic-filtering';
+    AbstractFilterDirective,
+} from "@dynamic-filtering/core";
 
 @Component({
-    selector: 'app-string-operation-filter',
+    selector: "app-string-operation-filter",
     standalone: true,
     imports: [
         CommonModule,
@@ -31,8 +31,8 @@ import {
         SelectMenuComponent,
         ReactiveFormsModule,
     ],
-    templateUrl: './string-operation-filter.component.html',
-    styleUrl: './string-operation-filter.component.scss',
+    templateUrl: "./string-operation-filter.component.html",
+    styleUrl: "./string-operation-filter.component.scss",
 })
 export class StringOperationFilterComponent extends AbstractFilterDirective {
     public filter: InputSignal<StringOperationFilter> =
@@ -41,7 +41,7 @@ export class StringOperationFilterComponent extends AbstractFilterDirective {
     protected form: FormGroup = new FormGroup({
         operation: new FormControl<LikeOperation | EqualOperation>(
             EqualOperation.Equal,
-            [Validators.required]
+            [Validators.required],
         ),
         value: new FormControl<string | null>(null, [Validators.required]),
     });
@@ -50,20 +50,20 @@ export class StringOperationFilterComponent extends AbstractFilterDirective {
     public showingContent: boolean = false;
     public filterOptions: SelectOption<LikeOperation | EqualOperation>[] = [
         {
-            label: 'Equal',
+            label: "Equal",
             value: EqualOperation.Equal,
         },
         {
-            label: 'Not equal',
+            label: "Not equal",
             value: EqualOperation.NotEqual,
         },
         {
-            label: 'Like',
+            label: "Like",
             value: LikeOperation.Like,
         },
     ];
 
-    @HostListener('document:click', ['$event'])
+    @HostListener("document:click", ["$event"])
     clickOutside(event: MouseEvent) {
         if (!this.elementRef.nativeElement.contains(event.target)) {
             this.showingContent = false;
@@ -83,7 +83,7 @@ export class StringOperationFilterComponent extends AbstractFilterDirective {
     }
 
     protected apply(): void {
-        this.filter().apply('1', EqualOperation.Equal);
+        this.filter().apply("1", EqualOperation.Equal);
         this.toggleContent();
 
         this.onApply.emit();

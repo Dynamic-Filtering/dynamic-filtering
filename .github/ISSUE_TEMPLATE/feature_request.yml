@@ -41,6 +41,15 @@ body:
           required: true
 
     - type: dropdown
+      id: package
+      attributes:
+          label: Which @dynamic-filter/* package(s) are relevant/related to the feature request?
+          multiple: true
+          options:
+              - core
+              - components
+
+    - type: dropdown
       id: importance
       attributes:
           label: Feature Importance

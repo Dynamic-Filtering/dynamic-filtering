@@ -20,6 +20,7 @@ import {
     FilterComponent,
     FilterManagerService,
     LikeOperation,
+    InOperation,
     MultiSelectFilter,
     MultiSelectOption,
     NumberOperationFilter,
@@ -29,8 +30,7 @@ import {
     StringOperationFilter,
     FilterManagerComponent,
     DynamicFilterService,
-} from "dynamic-filtering";
-import { InOperation } from "../../dist/dynamic-filtering/lib/models/filtering/operations/in-operation.model";
+} from "@dynamic-filtering/core";
 import { HttpParams } from "@angular/common/http";
 
 @Component({

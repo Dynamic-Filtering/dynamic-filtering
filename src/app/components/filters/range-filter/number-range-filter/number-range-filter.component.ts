@@ -1,26 +1,26 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule } from "@angular/common";
 import {
     Component,
     ElementRef,
     HostListener,
     input,
     InputSignal,
-} from '@angular/core';
-import { ButtonComponent } from '../../../button/button.component';
-import { SelectMenuComponent } from '../../../select-menu/select-menu.component';
-import { AbstractFilterDirective } from '../../../../../../projects/dynamic-filtering/src/lib/components/filter/abstract-filter.directive';
+} from "@angular/core";
+import { ButtonComponent } from "../../../button/button.component";
+import { SelectMenuComponent } from "../../../select-menu/select-menu.component";
 import {
+    AbstractFilterDirective,
     ComparisonOperation,
     NumberRangeFilter,
     SelectOption,
-} from 'dynamic-filtering';
+} from "@dynamic-filtering/core";
 
 @Component({
-    selector: 'app-number-range-filter',
+    selector: "app-number-range-filter",
     standalone: true,
     imports: [CommonModule, ButtonComponent, SelectMenuComponent],
-    templateUrl: './number-range-filter.component.html',
-    styleUrls: ['./number-range-filter.component.scss'],
+    templateUrl: "./number-range-filter.component.html",
+    styleUrls: ["./number-range-filter.component.scss"],
 })
 export class NumberRangeFilterComponent extends AbstractFilterDirective {
     public filter: InputSignal<NumberRangeFilter> =
@@ -31,24 +31,24 @@ export class NumberRangeFilterComponent extends AbstractFilterDirective {
 
     public filterOptions: SelectOption<ComparisonOperation>[] = [
         {
-            label: '>',
+            label: ">",
             value: ComparisonOperation.GreaterThan,
         },
         {
-            label: '>=',
+            label: ">=",
             value: ComparisonOperation.GreaterThanOrEqual,
         },
         {
-            label: '<',
+            label: "<",
             value: ComparisonOperation.LowerThan,
         },
         {
-            label: '<=',
+            label: "<=",
             value: ComparisonOperation.LowerThanOrEqual,
         },
     ];
 
-    @HostListener('document:click', ['$event'])
+    @HostListener("document:click", ["$event"])
     clickOutside(event: MouseEvent) {
         if (!this.elementRef.nativeElement.contains(event.target)) {
             this.showingContent = false;
@@ -73,7 +73,7 @@ export class NumberRangeFilterComponent extends AbstractFilterDirective {
             1,
             ComparisonOperation.GreaterThan,
             2,
-            ComparisonOperation.LowerThan
+            ComparisonOperation.LowerThan,
         );
         this.onApply.emit();
         this.toggleContent();

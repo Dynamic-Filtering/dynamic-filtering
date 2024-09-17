@@ -1,7 +1,16 @@
 import { CommonModule } from "@angular/common";
-import { Component, ElementRef, EventEmitter, forwardRef, HostListener, input, InputSignal, Output } from "@angular/core";
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    HostListener,
+    input,
+    InputSignal,
+    Output,
+} from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { SelectOption } from "dynamic-filtering";
+import { SelectOption } from "@dynamic-filtering/core";
 
 @Component({
     selector: "app-select-menu",
@@ -26,7 +35,8 @@ export class SelectMenuComponent implements ControlValueAccessor {
 
     public value: string | undefined = undefined;
 
-    @Output() optionSelected: EventEmitter<SelectOption<any>> = new EventEmitter();
+    @Output() optionSelected: EventEmitter<SelectOption<any>> =
+        new EventEmitter();
 
     protected showingContent: boolean = false;
     protected selectedOption: SelectOption<any> | undefined = undefined;

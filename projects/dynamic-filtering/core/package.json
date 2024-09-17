@@ -1,0 +1,28 @@
+{
+    "name": "@dynamic-filtering/core",
+    "version": "0.0.5",
+    "description": "Dynamic Filtering core is the base of dynamic filtering that provides classes, interfaces and services for managing filters in applications. It allows developers to create and apply filters dynamically, enabling the addition, removal, and modification of filters at runtime. The package supports building complex filter logic that is useful for data querying, search functionalities, and user-defined filtering rules.",
+    "peerDependencies": {
+        "@angular/common": "^18.2.0",
+        "@angular/core": "^18.2.0"
+    },
+    "dependencies": {
+        "tslib": "^2.3.0"
+    },
+    "sideEffects": false,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Dynamic-Filtering/dynamic-filtering.git"
+    },
+    "bugs": {
+        "url": "https://github.com/JobHaast/dynamic-filtering/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=Provide+a+summary+of+the+issue"
+    },
+    "license": "MIT",
+    "keywords": [
+        "filters"
+    ],
+    "author": {
+        "name": "Job Haast",
+        "url": "https://github.com/JobHaast"
+    }
+}

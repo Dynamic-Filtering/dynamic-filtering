@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule } from "@angular/common";
 import {
     Component,
     InputSignal,
@@ -8,20 +8,20 @@ import {
     HostListener,
     ElementRef,
     AfterViewInit,
-} from '@angular/core';
+} from "@angular/core";
 import {
     AbstractFilterDirective,
     SingleSelectFilter,
     SelectOption,
-} from 'dynamic-filtering';
-import { ButtonComponent } from '../../../button/button.component';
+} from "@dynamic-filtering/core";
+import { ButtonComponent } from "../../../button/button.component";
 
 @Component({
-    selector: 'app-single-select-filter',
+    selector: "app-single-select-filter",
     standalone: true,
     imports: [CommonModule, ButtonComponent],
-    templateUrl: './single-select-filter.component.html',
-    styleUrls: ['./single-select-filter.component.scss'],
+    templateUrl: "./single-select-filter.component.html",
+    styleUrls: ["./single-select-filter.component.scss"],
 })
 export class SingleSelectFilterComponent
     extends AbstractFilterDirective
@@ -38,7 +38,7 @@ export class SingleSelectFilterComponent
     //     output<SelectOption<unknown>>();
     public onInput: OutputEmitterRef<any> = output<any>(); //For search bar
 
-    @HostListener('document:click', ['$event'])
+    @HostListener("document:click", ["$event"])
     clickOutside(event: MouseEvent) {
         if (!this.elementRef.nativeElement.contains(event.target)) {
             this.showingContent = false;

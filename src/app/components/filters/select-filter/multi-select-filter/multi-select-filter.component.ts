@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule } from "@angular/common";
 import {
     Component,
     ElementRef,
@@ -7,17 +7,20 @@ import {
     model,
     output,
     OutputEmitterRef,
-} from '@angular/core';
-import { ButtonComponent } from '../../../button/button.component';
-import { AbstractFilterDirective } from '../../../../../../projects/dynamic-filtering/src/lib/components/filter/abstract-filter.directive';
-import { MultiSelectFilter, MultiSelectOption } from 'dynamic-filtering';
+} from "@angular/core";
+import { ButtonComponent } from "../../../button/button.component";
+import {
+    AbstractFilterDirective,
+    MultiSelectFilter,
+    MultiSelectOption,
+} from "@dynamic-filtering/core";
 
 @Component({
-    selector: 'app-multi-select-filter',
+    selector: "app-multi-select-filter",
     standalone: true,
     imports: [CommonModule, ButtonComponent],
-    templateUrl: './multi-select-filter.component.html',
-    styleUrls: ['./multi-select-filter.component.scss'],
+    templateUrl: "./multi-select-filter.component.html",
+    styleUrls: ["./multi-select-filter.component.scss"],
 })
 export class MultiSelectFilterComponent extends AbstractFilterDirective {
     public filter: InputSignal<MultiSelectFilter<unknown>> =
@@ -29,7 +32,7 @@ export class MultiSelectFilterComponent extends AbstractFilterDirective {
 
     public onInput: OutputEmitterRef<any> = output<any>(); //For search bar
 
-    @HostListener('document:click', ['$event'])
+    @HostListener("document:click", ["$event"])
     clickOutside(event: MouseEvent) {
         if (!this.elementRef.nativeElement.contains(event.target)) {
             this.showingContent = false;
@@ -50,7 +53,7 @@ export class MultiSelectFilterComponent extends AbstractFilterDirective {
 
     protected selectOption(
         event: MouseEvent,
-        option: MultiSelectOption<unknown>
+        option: MultiSelectOption<unknown>,
     ): void {
         event.stopPropagation();
 

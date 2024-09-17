@@ -92,23 +92,23 @@
                 }
             }
         },
-        "dynamic-filtering": {
+        "core": {
             "projectType": "library",
-            "root": "projects/dynamic-filtering",
-            "sourceRoot": "projects/dynamic-filtering/src",
+            "root": "projects/core",
+            "sourceRoot": "projects/core/src",
             "prefix": "lib",
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:ng-packagr",
                     "options": {
-                        "project": "projects/dynamic-filtering/ng-package.json"
+                        "project": "projects/core/ng-package.json"
                     },
                     "configurations": {
                         "production": {
-                            "tsConfig": "projects/dynamic-filtering/tsconfig.lib.prod.json"
+                            "tsConfig": "projects/core/tsconfig.lib.prod.json"
                         },
                         "development": {
-                            "tsConfig": "projects/dynamic-filtering/tsconfig.lib.json"
+                            "tsConfig": "projects/core/tsconfig.lib.json"
                         }
                     },
                     "defaultConfiguration": "production"
@@ -116,11 +116,44 @@
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
-                        "tsConfig": "projects/dynamic-filtering/tsconfig.spec.json",
+                        "tsConfig": "projects/core/tsconfig.spec.json",
                         "polyfills": ["zone.js", "zone.js/testing"]
                     }
                 }
             }
+        },
+        "@dynamic-filtering/core": {
+          "projectType": "library",
+          "root": "projects/dynamic-filtering/core",
+          "sourceRoot": "projects/dynamic-filtering/core/src",
+          "prefix": "lib",
+          "architect": {
+            "build": {
+              "builder": "@angular-devkit/build-angular:ng-packagr",
+              "options": {
+                "project": "projects/dynamic-filtering/core/ng-package.json"
+              },
+              "configurations": {
+                "production": {
+                  "tsConfig": "projects/dynamic-filtering/core/tsconfig.lib.prod.json"
+                },
+                "development": {
+                  "tsConfig": "projects/dynamic-filtering/core/tsconfig.lib.json"
+                }
+              },
+              "defaultConfiguration": "production"
+            },
+            "test": {
+              "builder": "@angular-devkit/build-angular:karma",
+              "options": {
+                "tsConfig": "projects/dynamic-filtering/core/tsconfig.spec.json",
+                "polyfills": [
+                  "zone.js",
+                  "zone.js/testing"
+                ]
+              }
+            }
+          }
         }
     }
 }
