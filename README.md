@@ -25,7 +25,13 @@ Features include:
 # Installing ⬇️
 
 ```shell
-npm install dynamic-filtering
+npm install @dynamic-filtering/core
+```
+
+You only need to run command below if you want to make use of the (Angular) components.
+
+```shell
+npm install @dynamic-filtering/core
 ```
 
 # Usage 🕑
@@ -60,16 +66,28 @@ The active conditions resulting from the filters will need to be parsed into a u
 
 ```ts
 let httpParams = new HttpParams();
-httpParams = DynamicFilterService.formatConditionsToHttpParams(conditions, httpParams);
-httpParams = DynamicFilterService.formatSortingsToHttpParams(sortings, httpParams);
-httpParams = DynamicFilterService.formatPaginationToHttpParams(pagination, httpParams);
+httpParams = DynamicFilterService.formatConditionsToHttpParams(
+    conditions,
+    httpParams,
+);
+httpParams = DynamicFilterService.formatSortingsToHttpParams(
+    sortings,
+    httpParams,
+);
+httpParams = DynamicFilterService.formatPaginationToHttpParams(
+    pagination,
+    httpParams,
+);
 ```
 
 There is also a single method that combines the three methods above into one:
 
 ```ts
 let httpParams = new HttpParams();
-httpParams = DynamicFilterService.formatDynamicQueryOptionToHttpParams(dynamicQueryOption, httpParams);
+httpParams = DynamicFilterService.formatDynamicQueryOptionToHttpParams(
+    dynamicQueryOption,
+    httpParams,
+);
 ```
 
 # Copyright and license
