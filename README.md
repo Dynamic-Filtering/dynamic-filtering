@@ -28,10 +28,10 @@ Features include:
 npm install @dynamic-filtering/core
 ```
 
-You only need to run command below if you want to make use of the (Angular) components.
+You only need to run the command below if you want to make use of the (Angular) components.
 
 ```shell
-npm install @dynamic-filtering/core
+npm install @dynamic-filtering/components
 ```
 
 # Usage 🕑
