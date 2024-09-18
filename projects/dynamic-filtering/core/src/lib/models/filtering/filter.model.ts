@@ -43,7 +43,7 @@ export abstract class Filter<
      *
      * @returns An array of `Condition` instances that represent the current filter conditions.
      */
-    get conditions() {
+    get conditions(): Condition<T, R>[] {
         return this._conditions;
     }
 
@@ -57,7 +57,7 @@ export abstract class Filter<
      *
      * @returns An `EventEmitter` that emits a `void` event when the filter is reset.
      */
-    get onReset() {
+    get onReset(): EventEmitter<void> {
         return this._onReset;
     }
 
@@ -71,7 +71,7 @@ export abstract class Filter<
      *
      * @returns An `EventEmitter` that emits a `void` event when the filter is applied.
      */
-    get onApply() {
+    get onApply(): EventEmitter<void> {
         return this._onApply;
     }
 
