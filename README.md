@@ -28,7 +28,7 @@ Features include:
 npm install @dynamic-filtering/core
 ```
 
-You only need to run the command below if you want to make use of the (Angular) components.
+You only need to run the command below if you want to use the (Angular) components.
 
 ```shell
 npm install @dynamic-filtering/components
@@ -36,7 +36,7 @@ npm install @dynamic-filtering/components
 
 # Usage 🕑
 
-The `app-filter-manager` component is the visual component for adding, removing and displaying your defined and to be defined filters. Using it is pretty easy. You only need to provide the initial filters (active or inactive ones) and your mapping between the filter types and your filter components:
+The `app-filter-manager` component is the visual component for adding, removing, and displaying your defined and to-be-defined filters. Using it is pretty easy. You only need to provide the initial filters (active or inactive ones) and your mapping between the filter types and your filter components:
 
 ```HTML
 <app-filter-manager [filters]="filters" [componentMap]="componentMap"></app-filter-manager>
@@ -46,13 +46,13 @@ The `app-filter-manager` component is the visual component for adding, removing 
 
 Most logic performed by the app filter manager is also accessible through its manager service. Using it is as easy as injecting it into your component. For example:
 
-```ts
+```typescript
 constructor(protected readonly filterManagerService: FilterManagerService) {}
 ```
 
 The manager service exposes useful properties like the currently active filters and conditions. Hooking into changes to these properties is pretty easy by utilizing Angular's signals. Listening to these changes might look something as follows:
 
-```ts
+```typescript
 constructor(protected readonly filterManagerService: FilterManagerService) {
         effect(async () => {
             const activeConditions = this.filterManagerService.activeConditions()
@@ -62,9 +62,9 @@ constructor(protected readonly filterManagerService: FilterManagerService) {
     }
 ```
 
-The active conditions resulting from the filters will need to be parsed into a useful format at some point. To do this we provide a helper class that helps format your filters into http params:
+The active conditions resulting from the filters will need to be parsed into a useful format at some point. To do this we provide a helper class that helps format your filters into HTTP params:
 
-```ts
+```typescript
 let httpParams = new HttpParams();
 httpParams = DynamicFilterService.formatConditionsToHttpParams(
     conditions,
@@ -82,7 +82,7 @@ httpParams = DynamicFilterService.formatPaginationToHttpParams(
 
 There is also a single method that combines the three methods above into one:
 
-```ts
+```typescript
 let httpParams = new HttpParams();
 httpParams = DynamicFilterService.formatDynamicQueryOptionToHttpParams(
     dynamicQueryOption,
