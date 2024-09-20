@@ -40,7 +40,8 @@ const filterManagerService: FilterManagerService = new FilterManagerService();
 filterManagerService.setFilters(filters);
 ```
 
-// TODO: Rewrite according to new implementation
+<!-- TODO: Rewrite according to new implementation -->
+
 The manager service exposes useful properties like the currently active filters and conditions. Hooking into changes to these properties is pretty easy by utilizing Angular's signals. Listening to these changes might look something as follows:
 
 ```typescript
@@ -55,7 +56,7 @@ constructor(protected readonly filterManagerService: FilterManagerService) {
 
 # Extension 🧩
 
-Dynamic filtering core is based on several abstractions which allow you to extend the current filter type set with your own inplementation. Want to know more about the available abstractions and how to extend the current filter type set? [Click here](https://github.com/Dynamic-Filtering/dynamic-filtering/wiki/filters).
+Dynamic filtering core is based on several abstractions which allow you to extend the current filter type set with your own inplementation. Want to know more about the available abstractions and how to extend the current filter type set? [Click here](https://github.com/Dynamic-Filtering/dynamic-filtering/wiki/filter).
 
 # Copyright and license
 
