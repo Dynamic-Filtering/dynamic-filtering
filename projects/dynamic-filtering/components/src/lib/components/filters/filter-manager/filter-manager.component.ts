@@ -8,12 +8,14 @@ import {
     OutputEmitterRef,
 } from "@angular/core";
 import { FilterComponent } from "../filter/filter.component";
-import { EqualOperation } from "../../models/filtering/operations/equal-operation.model";
-import { LikeOperation } from "../../models/filtering/operations/like-operation.model";
-import { ComparisonOperation } from "../../models/filtering/operations/comparison-operation.model";
-import { Filter } from "../../models/filtering/filter.model";
-import { FilterManagerService } from "../../services/filter-manager.service";
-import { InOperation } from "../../models/filtering/operations/in-operation.model";
+import {
+    ComparisonOperation,
+    EqualOperation,
+    Filter,
+    FilterManagerService,
+    InOperation,
+    LikeOperation,
+} from "@dynamic-filtering/core";
 
 @Component({
     selector: "app-filter-manager",

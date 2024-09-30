@@ -4,12 +4,6 @@
 
 // # Components
 
-// ## Filter
-export * from "./lib/components/filter/filter.component";
-
-// ## Filter manager
-export * from "./lib/components/filter-manager/filter-manager.component";
-
 // # Services
 export * from "./lib/services/filter-manager.service";
 export * from "./lib/services/dynamic-filter.service";

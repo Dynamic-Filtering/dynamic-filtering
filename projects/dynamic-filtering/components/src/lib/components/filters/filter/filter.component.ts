@@ -9,11 +9,13 @@ import {
     ViewChild,
     ViewContainerRef,
 } from "@angular/core";
-import { Filter } from "../../models/filtering/filter.model";
-import { ComparisonOperation } from "../../models/filtering/operations/comparison-operation.model";
-import { EqualOperation } from "../../models/filtering/operations/equal-operation.model";
-import { LikeOperation } from "../../models/filtering/operations/like-operation.model";
-import { InOperation } from "../../models/filtering/operations/in-operation.model";
+import {
+    ComparisonOperation,
+    EqualOperation,
+    Filter,
+    InOperation,
+    LikeOperation,
+} from "@dynamic-filtering/core";
 
 @Component({
     selector: "app-filter",

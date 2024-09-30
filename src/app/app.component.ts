@@ -7,7 +7,6 @@ import {
     DateRangeFilter,
     EqualOperation,
     Filter,
-    FilterComponent,
     FilterManagerService,
     LikeOperation,
     InOperation,
@@ -18,7 +17,6 @@ import {
     SelectOption,
     SingleSelectFilter,
     StringOperationFilter,
-    FilterManagerComponent,
     DynamicFilterService,
 } from "@dynamic-filtering/core";
 import { HttpParams } from "@angular/common/http";
@@ -27,6 +25,7 @@ import {
     DateOperationFilterComponent,
     DateRangeFilterComponent,
     DropdownComponent,
+    FilterManagerComponent,
     MultiSelectFilterComponent,
     NumberOperationFilterComponent,
     NumberRangeFilterComponent,
@@ -40,7 +39,6 @@ import {
     standalone: true,
     imports: [
         RouterOutlet,
-        FilterComponent,
         CommonModule,
         ButtonComponent,
         SingleSelectFilterComponent,
