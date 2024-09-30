@@ -5,7 +5,7 @@ Dynamic Filtering components provides pre-built (angular) UI components for the 
 Features include:
 
 -   Filter components: Components for each filter type defined in the core package (e.g. `StringOperationFilterComponent`, `DateRangeFilterComponent`).
--   Filter manager and proxy components: Components for handling the Filter components in a uniform way.
+-   Filter manager and proxy components: Components for handling the filter components in a uniform way.
 
 # Installing ⬇️
 
