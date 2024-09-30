@@ -37,6 +37,7 @@ export * from "./lib/models/filtering/operation-filter/abstract-operation-filter
 export * from "./lib/models/filtering/operation-filter/date-operation-filter.model";
 export * from "./lib/models/filtering/operation-filter/number-operation-filter.model";
 export * from "./lib/models/filtering/operation-filter/string-operation-filter.model";
+export * from "./lib/models/filtering/operation-filter/bool-operation-filter.model";
 
 // ### Range filters
 export * from "./lib/models/filtering/range-filter/abstract-range-filter.model";
