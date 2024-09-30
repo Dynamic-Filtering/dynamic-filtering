@@ -4,10 +4,11 @@ import {
     Component,
     input,
     InputSignal,
+    output,
+    OutputEmitterRef,
     ViewChild,
     ViewContainerRef,
 } from "@angular/core";
-import { AbstractFilterDirective } from "./abstract-filter.directive";
 import { Filter } from "../../models/filtering/filter.model";
 import { ComparisonOperation } from "../../models/filtering/operations/comparison-operation.model";
 import { EqualOperation } from "../../models/filtering/operations/equal-operation.model";
@@ -20,10 +21,7 @@ import { InOperation } from "../../models/filtering/operations/in-operation.mode
     imports: [CommonModule],
     templateUrl: "./filter.component.html",
 })
-export class FilterComponent
-    extends AbstractFilterDirective
-    implements AfterViewInit
-{
+export class FilterComponent implements AfterViewInit {
     // Input
     public filter: InputSignal<
         Filter<
@@ -45,6 +43,9 @@ export class FilterComponent
 
     @ViewChild("filterContainer", { read: ViewContainerRef })
     private filterContainer!: ViewContainerRef;
+
+    public onReset: OutputEmitterRef<void> = output<void>();
+    public onApply: OutputEmitterRef<void> = output<void>();
 
     private eventMap = new Map<string, Function>([
         ["onReset", () => this.reset()],

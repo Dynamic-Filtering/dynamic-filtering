@@ -10,7 +10,9 @@
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "build core": "ng build @dynamic-filtering/core",
-        "watch core": "ng build @dynamic-filtering/core --watch --configuration development"
+        "watch core": "ng build @dynamic-filtering/core --watch --configuration development",
+        "build components": "ng build @dynamic-filtering/components",
+        "watch components": "ng build @dynamic-filtering/components --watch --configuration development"
     },
     "private": true,
     "dependencies": {

@@ -1,16 +1,6 @@
 import { Component, computed, Signal } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { ButtonComponent } from "./components/button/button.component";
-import { SingleSelectFilterComponent } from "./components/filters/select-filter/single-select-filter/single-select-filter.component";
-import { DropdownComponent } from "./components/dropdown/dropdown.component";
-import { SelectMenuComponent } from "./components/select-menu/select-menu.component";
-import { DateOperationFilterComponent } from "./components/filters/operation-filter/date-operation-filter/date-operation-filter.component";
-import { NumberOperationFilterComponent } from "./components/filters/operation-filter/number-operation-filter/number-operation-filter.component";
-import { StringOperationFilterComponent } from "./components/filters/operation-filter/string-operation-filter/string-operation-filter.component";
-import { DateRangeFilterComponent } from "./components/filters/range-filter/date-range-filter/date-range-filter.component";
-import { NumberRangeFilterComponent } from "./components/filters/range-filter/number-range-filter/number-range-filter.component";
-import { MultiSelectFilterComponent } from "./components/filters/select-filter/multi-select-filter/multi-select-filter.component";
 import {
     ComparisonOperation,
     DateOperationFilter,
@@ -32,6 +22,18 @@ import {
     DynamicFilterService,
 } from "@dynamic-filtering/core";
 import { HttpParams } from "@angular/common/http";
+import {
+    ButtonComponent,
+    DateOperationFilterComponent,
+    DateRangeFilterComponent,
+    DropdownComponent,
+    MultiSelectFilterComponent,
+    NumberOperationFilterComponent,
+    NumberRangeFilterComponent,
+    SelectMenuComponent,
+    SingleSelectFilterComponent,
+    StringOperationFilterComponent,
+} from "@dynamic-filtering/components";
 
 @Component({
     selector: "app-root",
@@ -78,7 +80,7 @@ export class AppComponent {
         ]),
     ];
 
-    protected componentMap = new Map<any, any>([
+    protected componentMap = new Map<unknown, unknown>([
         [SingleSelectFilter, SingleSelectFilterComponent],
         [MultiSelectFilter, MultiSelectFilterComponent],
         [NumberRangeFilter, NumberRangeFilterComponent],

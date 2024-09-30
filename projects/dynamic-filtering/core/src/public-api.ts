@@ -5,7 +5,6 @@
 // # Components
 
 // ## Filter
-export * from "./lib/components/filter/abstract-filter.directive";
 export * from "./lib/components/filter/filter.component";
 
 // ## Filter manager

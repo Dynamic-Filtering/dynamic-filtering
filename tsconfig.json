@@ -5,6 +5,9 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "paths": {
+      "@dynamic-filtering/components": [
+        "./dist/dynamic-filtering/components"
+      ],
       "@dynamic-filtering/core": [
         "./dist/dynamic-filtering/core"
       ],

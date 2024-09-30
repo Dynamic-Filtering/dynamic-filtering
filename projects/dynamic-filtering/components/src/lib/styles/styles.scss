@@ -1,5 +1,4 @@
-// /* You can add global styles to this file, and also import other style files */
-:root {
+* {
     --black-100: #000000;
     --black-90: #191919;
     --black-80: #333333;
@@ -40,16 +39,39 @@
     --maya-blue: #6bbaec; // Primary
 }
 
-* {
-    font-family:
-        Inter var,
-        ui-sans-serif,
-        system-ui,
-        sans-serif,
-        "Apple Color Emoji",
-        "Segoe UI Emoji",
-        Segoe UI Symbol,
-        "Noto Color Emoji";
-    font-size: small;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+.filter-content.visible {
+    animation-name: fadeIn;
 }
+
+.filter-content.hidden {
+    animation-name: fadeOut;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        visibility: hidden;
+    }
+    to {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        visibility: visible;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+// *,
+// :after,
+// :before {
+//     box-sizing: border-box;
+//     border: 0 solid #e5e7eb;
+// }
