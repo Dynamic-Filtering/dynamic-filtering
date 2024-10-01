@@ -2,11 +2,8 @@
  * Public API Surface
  */
 
-// # Components
-
 // # Services
 export * from "./lib/services/filter-manager.service";
-export * from "./lib/services/dynamic-filter.service";
 
 // # Models
 export * from "./lib/models/dynamic-query-option.model";
@@ -20,6 +17,7 @@ export * from "./lib/models/filtering/operations/comparison-operation.model";
 export * from "./lib/models/filtering/operations/equal-operation.model";
 export * from "./lib/models/filtering/operations/like-operation.model";
 export * from "./lib/models/filtering/operations/in-operation.model";
+export * from "./lib/models/filtering/operations/operation.model";
 
 // ### Options
 export * from "./lib/models/filtering/options/multi-select-option.model";

@@ -2,33 +2,37 @@
  * Public API Surface
  */
 
-// # Button
+// # Components
+// ## Button
 export * from "./lib/components/button/button.component";
 
-// # Dropdown
+// ## Dropdown
 export * from "./lib/components/dropdown/dropdown.component";
 
-// # Filters
+// ## Filters
 export * from "./lib/components/filters/abstract-filter.directive";
 
-// ## Filter
+// ### Filter
 export * from "./lib/components/filters/filter/filter.component";
 
-// ## Filter manager
+// ### Filter manager
 export * from "./lib/components/filters/filter-manager/filter-manager.component";
 
-// ## Operation filters
+// ### Operation filters
 export * from "./lib/components/filters/operation-filter/date-operation-filter/date-operation-filter.component";
 export * from "./lib/components/filters/operation-filter/number-operation-filter/number-operation-filter.component";
 export * from "./lib/components/filters/operation-filter/string-operation-filter/string-operation-filter.component";
 
-// ## Range filters
+// ### Range filters
 export * from "./lib/components/filters/range-filter/date-range-filter/date-range-filter.component";
 export * from "./lib/components/filters/range-filter/number-range-filter/number-range-filter.component";
 
-// ## Select filters
+// ### Select filters
 export * from "./lib/components/filters/select-filter/multi-select-filter/multi-select-filter.component";
 export * from "./lib/components/filters/select-filter/single-select-filter/single-select-filter.component";
 
-// # Select menu
+// ## Select menu
 export * from "./lib/components/select-menu/select-menu.component";
+
+// # Services
+export * from "./lib/services/dynamic-filter.service";

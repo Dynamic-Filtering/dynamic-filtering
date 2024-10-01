@@ -1,210 +1,147 @@
 import {
-    computed,
-    effect,
-    Signal,
-    signal,
-    WritableSignal,
-} from "@angular/core";
-import { ComparisonOperation } from "../models/filtering/operations/comparison-operation.model";
-import { EqualOperation } from "../models/filtering/operations/equal-operation.model";
-import { LikeOperation } from "../models/filtering/operations/like-operation.model";
+    BehaviorSubject,
+    Observable,
+    Subject,
+    map,
+    merge,
+    takeUntil,
+} from "rxjs";
 import { Filter } from "../models/filtering/filter.model";
 import { Condition } from "../models/filtering/condition.model";
-import { InOperation } from "../models/filtering/operations/in-operation.model";
+import { Operation } from "../models/filtering/operations/operation.model";
 
 /**
  * Service to manage and interact with a collection of filters.
  *
- * The `FilterManagerService` provides functionality to set, add, remove, and notify
- * changes to a collection of filters. It also exposes computed signals for active
- * filters and their conditions based on specific criteria.
+ * This service provides reactive streams for filters, active filters,
+ * and active conditions. It also provides methods to modify the filter collection
+ * and manages subscriptions to individual filter events.
  */
 export class FilterManagerService {
-    /**
-     * Internal writable signal that holds the current array of filters.
-     * This is the mutable source of the `filters` signal.
-     *
-     * @private
-     */
-    private internalFilters: WritableSignal<
-        Filter<
-            unknown,
-            ComparisonOperation | EqualOperation | LikeOperation | InOperation
-        >[]
-    > = signal([]);
+    private filtersSubject: BehaviorSubject<Filter<unknown, Operation>[]>;
+    private destroy$ = new Subject<void>();
 
     /**
-     * Read-only signal exposing the current filters.
-     *
-     * Provides external access to the internal array of filters, ensuring that
-     * it cannot be modified directly.
-     *
-     * @public
+     * Observable stream of all filters.
      */
-    public filters: Signal<
-        Filter<
-            unknown,
-            ComparisonOperation | EqualOperation | LikeOperation | InOperation
-        >[]
-    > = this.internalFilters.asReadonly();
+    public filters$: Observable<Filter<unknown, Operation>[]>;
 
     /**
-     * Computed signal that returns the active filters.
-     *
-     * A filter is considered active if it contains one or more conditions,
-     * and all conditions have a defined value.
-     *
-     * @public
+     * Observable stream of active filters.
+     * A filter is considered active if it has at least one condition and all its conditions have defined values.
      */
-    public activeFilters: Signal<
-        Filter<
-            unknown,
-            ComparisonOperation | EqualOperation | LikeOperation | InOperation
-        >[]
-    > = computed(() =>
-        this.internalFilters().filter(
-            (
-                filter: Filter<
-                    unknown,
-                    | ComparisonOperation
-                    | EqualOperation
-                    | LikeOperation
-                    | InOperation
-                >,
-            ) => {
-                // Filters are active if they have conditions with defined values
-                if (filter.conditions.length === 0) {
-                    return false;
-                }
-
-                return filter.conditions.every(
-                    (
-                        condition: Condition<
-                            unknown,
-                            | ComparisonOperation
-                            | EqualOperation
-                            | LikeOperation
-                            | InOperation
-                        >,
-                    ) => condition.value !== undefined,
-                );
-            },
-        ),
-    );
+    public activeFilters$: Observable<Filter<unknown, Operation>[]>;
 
     /**
-     * Computed signal that returns the active conditions.
-     *
-     * This signal flattens all conditions from active filters into a single array.
-     *
-     * @public
+     * Observable stream of all conditions from active filters.
      */
-    public activeConditions: Signal<
-        Condition<
-            unknown,
-            ComparisonOperation | EqualOperation | LikeOperation | InOperation
-        >[]
-    > = computed(() =>
-        this.activeFilters().flatMap(
-            (
-                filter: Filter<
-                    unknown,
-                    | ComparisonOperation
-                    | EqualOperation
-                    | LikeOperation
-                    | InOperation
-                >,
-            ) => filter.conditions,
-        ),
-    );
+    public activeConditions$: Observable<Condition<unknown, Operation>[]>;
 
-    constructor() {
-        effect(() => {
-            const filters = this.internalFilters();
-            filters.forEach((filter) => {
-                filter.onReset.subscribe(() => this.notify());
-                filter.onApply.subscribe(() => this.notify());
-            });
-        });
+    constructor(filters: Filter<unknown, Operation>[] = []) {
+        this.filtersSubject = new BehaviorSubject<Filter<unknown, Operation>[]>(
+            filters,
+        );
+        this.filters$ = this.filtersSubject.asObservable();
+
+        this.activeFilters$ = this.filters$.pipe(
+            map((filters) => filters.filter(this.isActiveFilter)),
+        );
+
+        this.activeConditions$ = this.activeFilters$.pipe(
+            map((filters) => filters.flatMap((filter) => filter.conditions)),
+        );
+
+        this.setupFilterListeners();
     }
 
     /**
-     * Replaces the current array of filters.
-     *
-     * Sets a new array of filters and updates the internal state. This method
-     * will notify any subscribers or dependent components that the filters
-     * have changed.
+     * Sets the current array of filters, replacing any existing filters.
      *
      * @param filters - The new array of filters to set.
-     * @public
      */
-    public setFilters(
-        filters: Filter<
-            unknown,
-            ComparisonOperation | EqualOperation | LikeOperation | InOperation
-        >[],
-    ): void {
-        this.internalFilters.set([...filters]);
+    public setFilters(filters: Filter<unknown, Operation>[]): void {
+        this.filtersSubject.next(filters);
     }
 
     /**
      * Adds a new filter to the collection of filters.
      *
-     * The new filter appendeds to the existing array of filters. This method
-     * will notify any subscribers or dependent components that the filters
-     * have changed.
-     *
      * @param filter - The new filter to add.
-     * @public
      */
-    public addFilter(
-        filter: Filter<
-            unknown,
-            ComparisonOperation | EqualOperation | LikeOperation | InOperation
-        >,
-    ): void {
-        this.internalFilters.set([...this.internalFilters(), filter]);
+    public addFilter(filter: Filter<unknown, Operation>): void {
+        this.filtersSubject.next([...this.filtersSubject.value, filter]);
     }
 
     /**
      * Removes a filter from the collection of filters by its index.
      *
-     * This method will remove the filter at the specified index. This method
-     * will notify any subscribers or dependent components that the filters
-     * have changed.
-     *
      * @param index - The index of the filter to remove.
-     * @public
      */
     public removeFilter(index: number): void {
-        this.internalFilters().splice(index, 1);
-        this.notify();
+        const filters = [...this.filtersSubject.value];
+        filters.splice(index, 1);
+        this.filtersSubject.next(filters);
     }
 
     /**
      * Resets all filters by calling their `reset` method.
-     *
-     * This will reset each filter in the array to its initial state.
-     * Once reset, it will notify any subscribers of the changes.
-     *
-     * @public
+     * This will trigger an update to all observables.
      */
     public resetFilters(): void {
-        this.internalFilters().forEach((filter) => filter.reset());
-        this.notify();
+        const filters = this.filtersSubject.value;
+        filters.forEach((filter) => filter.reset());
+        this.filtersSubject.next([...filters]);
     }
 
     /**
-     * Notifies subscribers of changes in the filter array.
-     *
-     * This method is used to trigger an update in the filter state without
-     * directly modifying the array. It effectively re-broadcasts the current
-     * state of the filters, which can be useful for scenarios where the filters
-     * themselves haven't changed, but subscribers need to be notified.
-     *
-     * @public
+     * Disposes of the service by completing the destroy subject.
+     * This method should be called when the service is no longer needed.
      */
-    public notify(): void {
-        this.internalFilters.update((value) => [...value]);
+    public dispose(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
+
+    /**
+     * Determines if a filter is active.
+     * A filter is considered active if it has at least one condition
+     * and all its conditions have defined values.
+     *
+     * @param filter - The filter to check.
+     * @returns True if the filter is active, false otherwise.
+     */
+    private isActiveFilter(filter: Filter<unknown, Operation>): boolean {
+        return (
+            filter.conditions.length > 0 &&
+            filter.conditions.every(
+                (condition) => condition.value !== undefined,
+            )
+        );
+    }
+
+    /**
+     * Sets up listeners for the onReset and onApply events of each filter.
+     * Uses the takeUntil pattern to automatically unsubscribe when the service is disposed.
+     */
+    private setupFilterListeners(): void {
+        this.filters$.pipe(takeUntil(this.destroy$)).subscribe((filters) => {
+            merge(
+                ...filters.map((filter: Filter<unknown, Operation>) =>
+                    merge(filter.onReset, filter.onApply),
+                ),
+            )
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(() => {
+                    this.notifyFilterChange();
+                });
+        });
+    }
+
+    /**
+     * Notifies subscribers of a change in the filters.
+     * This method creates a new array reference.
+     */
+    private notifyFilterChange(): void {
+        this.filtersSubject.next([...this.filtersSubject.value]);
     }
 }

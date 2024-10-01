@@ -2,14 +2,10 @@ import { Component, computed, Signal } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import {
-    ComparisonOperation,
     DateOperationFilter,
     DateRangeFilter,
-    EqualOperation,
     Filter,
     FilterManagerService,
-    LikeOperation,
-    InOperation,
     MultiSelectFilter,
     MultiSelectOption,
     NumberOperationFilter,
@@ -17,7 +13,8 @@ import {
     SelectOption,
     SingleSelectFilter,
     StringOperationFilter,
-    DynamicFilterService,
+    Condition,
+    Operation,
 } from "@dynamic-filtering/core";
 import { HttpParams } from "@angular/common/http";
 import {
@@ -25,6 +22,7 @@ import {
     DateOperationFilterComponent,
     DateRangeFilterComponent,
     DropdownComponent,
+    DynamicFilterService,
     FilterManagerComponent,
     MultiSelectFilterComponent,
     NumberOperationFilterComponent,
@@ -33,6 +31,7 @@ import {
     SingleSelectFilterComponent,
     StringOperationFilterComponent,
 } from "@dynamic-filtering/components";
+import { toSignal } from "@angular/core/rxjs-interop";
 
 @Component({
     selector: "app-root",
@@ -51,10 +50,7 @@ import {
     styleUrl: "./app.component.scss",
 })
 export class AppComponent {
-    protected filters: Filter<
-        unknown,
-        ComparisonOperation | EqualOperation | LikeOperation | InOperation
-    >[] = [
+    protected filters: Filter<unknown, Operation>[] = [
         new SingleSelectFilter("column1", "SingleSelectFilter", [
             new SelectOption("NL", 1),
             new SelectOption("BE", 2),
@@ -78,6 +74,9 @@ export class AppComponent {
         ]),
     ];
 
+    protected activeFilters: Signal<Filter<unknown, Operation>[]>;
+    protected activeConditions: Signal<Condition<unknown, Operation>[]>;
+
     protected componentMap = new Map<unknown, unknown>([
         [SingleSelectFilter, SingleSelectFilterComponent],
         [MultiSelectFilter, MultiSelectFilterComponent],
@@ -89,10 +88,10 @@ export class AppComponent {
     ]);
 
     protected urlResult: Signal<string> = computed(() => {
-        const activeConditions = this.filterManagerService.activeConditions();
+        // const activeConditions = this.filterManagerService.activeConditions();
         let httpParams = new HttpParams();
         httpParams = DynamicFilterService.formatConditionsToHttpParams(
-            activeConditions,
+            this.activeConditions(),
             httpParams,
         );
 
@@ -104,6 +103,15 @@ export class AppComponent {
         this.filters[0].onReset.subscribe(() => {
             console.log("Reset caught from filter ref");
         });
+
+        this.activeFilters = toSignal(
+            this.filterManagerService.activeFilters$,
+            { initialValue: [] },
+        );
+        this.activeConditions = toSignal(
+            this.filterManagerService.activeConditions$,
+            { initialValue: [] },
+        );
     }
 
     public addFilter(): void {

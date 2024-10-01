@@ -1,19 +1,15 @@
 import { HttpParams } from "@angular/common/http";
-import { DynamicQueryOption } from "../models/dynamic-query-option.model";
-import { Condition } from "../models/filtering/condition.model";
-import { ComparisonOperation } from "../models/filtering/operations/comparison-operation.model";
-import { EqualOperation } from "../models/filtering/operations/equal-operation.model";
-import { LikeOperation } from "../models/filtering/operations/like-operation.model";
-import { Sorting } from "../models/sorting/sorting.model";
-import { Pagination } from "../models/pagination/pagination.model";
-import { InOperation } from "../models/filtering/operations/in-operation.model";
+import {
+    Condition,
+    DynamicQueryOption,
+    Operation,
+    Pagination,
+    Sorting,
+} from "@dynamic-filtering/core";
 
 export abstract class DynamicFilterService {
     public static formatConditionsToHttpParams(
-        conditions: Condition<
-            any,
-            ComparisonOperation | EqualOperation | LikeOperation | InOperation
-        >[],
+        conditions: Condition<any, Operation>[],
         httpParams: HttpParams,
     ): HttpParams {
         for (let index = 0; index < conditions.length; index++) {

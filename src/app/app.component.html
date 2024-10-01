@@ -4,14 +4,11 @@
     [componentMap]="componentMap"
 ></app-filter-manager>
 
-@if (filterManagerService.activeFilters().length > 0) {
+@if (activeFilters().length > 0) {
     <section>
         <h2>Active filters:</h2>
         <div class="active-filters-display">
-            @for (
-                activeFilter of filterManagerService.activeFilters();
-                track $index
-            ) {
+            @for (activeFilter of activeFilters(); track $index) {
                 <div class="filter">
                     <span class="label" [innerText]="activeFilter.label"></span>
                     <div class="conditions">

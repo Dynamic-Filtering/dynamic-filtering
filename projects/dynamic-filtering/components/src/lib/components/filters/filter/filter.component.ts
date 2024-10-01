@@ -9,13 +9,7 @@ import {
     ViewChild,
     ViewContainerRef,
 } from "@angular/core";
-import {
-    ComparisonOperation,
-    EqualOperation,
-    Filter,
-    InOperation,
-    LikeOperation,
-} from "@dynamic-filtering/core";
+import { Filter, Operation } from "@dynamic-filtering/core";
 
 @Component({
     selector: "app-filter",
@@ -25,21 +19,8 @@ import {
 })
 export class FilterComponent implements AfterViewInit {
     // Input
-    public filter: InputSignal<
-        Filter<
-            unknown,
-            ComparisonOperation | EqualOperation | LikeOperation | InOperation
-        >
-    > =
-        input.required<
-            Filter<
-                unknown,
-                | ComparisonOperation
-                | EqualOperation
-                | LikeOperation
-                | InOperation
-            >
-        >();
+    public filter: InputSignal<Filter<unknown, Operation>> =
+        input.required<Filter<unknown, Operation>>();
 
     public componentMap: InputSignal<Map<any, any>> = input.required();
 

@@ -1,10 +1,9 @@
 {
     "name": "@dynamic-filtering/core",
-    "version": "0.0.8",
+    "version": "1.0.0",
     "description": "Dynamic Filtering core is the base of dynamic filtering that provides classes, interfaces and services for managing filters in applications. It allows developers to create and apply filters dynamically, enabling the addition, removal, and modification of filters at runtime. The package supports building complex filter logic that is useful for data querying, search functionalities, and user-defined filtering rules.",
     "peerDependencies": {
-        "@angular/common": "^18.2.0",
-        "@angular/core": "^18.2.0"
+        "rxjs": "^7.8.1"
     },
     "dependencies": {
         "tslib": "^2.3.0"
