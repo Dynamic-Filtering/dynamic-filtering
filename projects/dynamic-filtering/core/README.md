@@ -18,7 +18,7 @@ npm install @dynamic-filtering/core
 The `FilterManagerService` is the starting point for adding, removing, replacing and reseting your defined and to be defined filters. Using it is pretty easy. You only need to provide the initial filters (active or inactive ones).
 
 ```typescript
-const filters: Filter<unknown, Operartion>[] = [
+const filters: Filter<unknown, Operation>[] = [
     new SingleSelectFilter("country", "Country", [
         new SelectOption("NL", 1),
         new SelectOption("BE", 2),
