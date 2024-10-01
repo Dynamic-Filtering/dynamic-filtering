@@ -93,3 +93,7 @@ httpParams = DynamicFilterService.formatDynamicQueryOptionToHttpParams(
 # Copyright and license
 
 Code is released under the [MIT License](https://github.com/JobHaast/dynamic-filtering/blob/main/LICENSE).
+
+## Changelog
+
+All notable changes to this project will be documented in the [CHANGELOG](./CHANGELOG.md).
