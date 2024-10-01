@@ -18,10 +18,7 @@ npm install @dynamic-filtering/core
 The `FilterManagerService` is the starting point for adding, removing, replacing and reseting your defined and to be defined filters. Using it is pretty easy. You only need to provide the initial filters (active or inactive ones).
 
 ```typescript
-const filters: Filter<
-    unknown,
-    ComparisonOperation | EqualOperation | LikeOperation | InOperation
->[] = [
+const filters: Filter<unknown, Operartion>[] = [
     new SingleSelectFilter("country", "Country", [
         new SelectOption("NL", 1),
         new SelectOption("BE", 2),
@@ -36,21 +33,36 @@ const filters: Filter<
     new StringOperationFilter("name", "Name"),
 ];
 
-const filterManagerService: FilterManagerService = new FilterManagerService();
-filterManagerService.setFilters(filters);
+const filterManagerService: FilterManagerService = new FilterManagerService(
+    filters,
+);
 ```
 
-<!-- TODO: Rewrite according to new implementation -->
-
-The manager service exposes useful properties like the currently active filters and conditions. Hooking into changes to these properties is pretty easy by utilizing Angular's signals. Listening to these changes might look something as follows:
+The manager service exposes useful properties like the currently active filters and conditions. Hooking into changes to these properties is pretty easy by utilizing Observables. Listening to these changes might look something as follows:
 
 ```typescript
 constructor(protected readonly filterManagerService: FilterManagerService) {
-        effect(async () => {
-            const activeConditions = this.filterManagerService.activeConditions()
-            const httpParams = DynamicFilterService.formatConditionsToHttpParams(activeConditions, new HttpParams())
-            await this.apiClient.fetchUsers(httpParams)
-        })
+        this.filterManagerService.activeConditions$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((conditions: Condition<unknown, Operation>[]) => {
+                // Do something with the active conditions (For example make an api request)
+            });
+    }
+```
+
+Angular example:
+
+```typescript
+constructor(protected readonly filterManagerService: FilterManagerService) {
+        this.activeConditions = toSignal(
+            this.filterManagerService.activeConditions$,
+            { initialValue: [] },
+        );
+
+        effect(() => {
+            const activeConditions = this.activeConditions();
+            // Do something with the active conditions (For example make an api request)
+        });
     }
 ```
 
