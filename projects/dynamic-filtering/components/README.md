@@ -25,10 +25,7 @@ The `FilterManagerComponent` is the starting point for managing your filters. Us
 ```
 
 ```typescript
-protected filters: Filter<
-        unknown,
-        ComparisonOperation | EqualOperation | LikeOperation | InOperation
-    >[] = [
+protected filters: Filter<unknown, Operation>[] = [
         new SingleSelectFilter("column1", "SingleSelectFilter", [
             new SelectOption("NL", 1),
             new SelectOption("BE", 2),
