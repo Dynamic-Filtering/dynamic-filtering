@@ -17,14 +17,18 @@ export class MultiSelectFilter<T> extends AbstractSelectFilter<
     MultiSelectOption<T>
 > {
     /**
+     * The internal list of selected options applied to this filter.
+     * These selected options define how the filter operates on the dataset.
+     */
+    private _selectedOptions: MultiSelectOption<T>[] = [];
+
+    /**
      * Getter to retrieve the currently selected options.
      *
      * @returns {MultiSelectOption<T>[]} An array of selected options.
      */
     get selectedOptions(): MultiSelectOption<T>[] {
-        return this._options.filter(
-            (option: MultiSelectOption<T>) => option.selected,
-        );
+        return this._selectedOptions;
     }
 
     /**
@@ -47,8 +51,8 @@ export class MultiSelectFilter<T> extends AbstractSelectFilter<
     /**
      * Selects or deselects an option based on its current state.
      *
-     * If the option is already selected, it will be deselected and removed from the filter's conditions.
-     * If the option is not selected, it will be selected and added to the filter's conditions.
+     * If the option is already selected, it will be deselected and removed from the selected options.
+     * If the option is not selected, it will be selected and added to the filter's selected options.
      *
      * @param value - The value of the option to select or deselect.
      */
@@ -58,20 +62,16 @@ export class MultiSelectFilter<T> extends AbstractSelectFilter<
         );
         if (option) {
             if (option.selected) {
-                const conditionIndex = this._conditions.findIndex(
-                    (condition: Condition<T, InOperation.In>) =>
-                        condition.value === option.value,
+                const selectedOptionIndex = this._selectedOptions.findIndex(
+                    (selectedOption: MultiSelectOption<T>) =>
+                        selectedOption.value === option.value,
                 );
-                if (conditionIndex !== -1) {
-                    this._conditions.splice(conditionIndex, 1);
+                if (selectedOptionIndex !== -1) {
+                    this._selectedOptions.splice(selectedOptionIndex, 1);
                     option.selected = false;
                 }
             } else {
-                const condition: Condition<T, InOperation.In> = new Condition<
-                    T,
-                    InOperation.In
-                >(this.column, InOperation.In, option.value);
-                this._conditions = [...this._conditions, condition];
+                this._selectedOptions = [...this._selectedOptions, option];
                 option.selected = true;
             }
         }
@@ -88,7 +88,26 @@ export class MultiSelectFilter<T> extends AbstractSelectFilter<
             option.selected = false;
             return option;
         });
+        this._selectedOptions = [];
 
         super.reset();
+    }
+
+    /**
+     * Applies the filter by adding each selected option as a condition to the condition list.
+     *
+     * this methods calls the parent class's `apply` method to ensure the filter notifies it is applied.
+     */
+    public override apply(): void {
+        this._conditions = this._selectedOptions.map(
+            (selectedOption: MultiSelectOption<T>) =>
+                new Condition<T, InOperation.In>(
+                    this.column,
+                    InOperation.In,
+                    selectedOption.value,
+                ),
+        );
+
+        super.apply();
     }
 }

@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Changelog reference in main repository readme
 
+#### Changed
+
+-   Fix multi select filter applying conditions before next apply after first apply
+
 ## [1.0.1] - 01-10-2024 - [JHa]
 
 ### @dynamic-filtering/core:
