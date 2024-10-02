@@ -10,13 +10,14 @@ import { SelectOption } from "../options/select-option.model";
  * This filter allows selecting from predefined options and applies an equality operation.
  *
  * @template T - The data type that the options operate on.
+ * @template R - The type of operation that this filter supports, such as equality, or in operations.
  * @template V - The type of option used by the filter, which can either be a single select option or a multi-select option.
  *
  * @extends Filter<T, EqualOperation.Equal>
  */
 export abstract class AbstractSelectFilter<
     T,
-    R extends EqualOperation.Equal | InOperation,
+    R extends EqualOperation | InOperation,
     V extends SelectOption<T> | MultiSelectOption<T>,
 > extends Filter<T, R> {
     /**

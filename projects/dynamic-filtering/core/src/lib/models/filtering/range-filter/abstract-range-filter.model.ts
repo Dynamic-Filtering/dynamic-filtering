@@ -8,7 +8,8 @@ import { ComparisonOperation } from "../operations/comparison-operation.model";
  * This filter allows setting one or two conditions to represent a range of values. It supports comparison
  * operations like greater than, less than, and equal to.
  *
- * @typeParam T - The type of the values being filtered, which must be either `number` or `Date`.
+ * @template T - The type of the values being filtered, which must be either `number` or `Date`.
+ *
  * @extends Filter<T, ComparisonOperation>
  */
 export abstract class AbstractRangeFilter<T> extends Filter<
@@ -27,9 +28,9 @@ export abstract class AbstractRangeFilter<T> extends Filter<
     constructor(
         column: string,
         label: string,
-        conditions?: Condition<T, ComparisonOperation>[],
+        conditions: Condition<T, ComparisonOperation>[] = [],
     ) {
-        if (conditions && conditions.length > 2) {
+        if (conditions.length > 2) {
             throw new RangeError(
                 "Range filters only support 1 or 2 conditions",
             );

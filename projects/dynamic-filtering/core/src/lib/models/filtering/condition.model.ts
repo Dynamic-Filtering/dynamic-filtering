@@ -1,3 +1,5 @@
+import { Operation } from "./operations/operation.model";
+
 /**
  * A class representing a condition used for filtering.
  *
@@ -7,7 +9,7 @@
  * @template T - The type of the value that the condition operates on (e.g., string, number, Date).
  * @template R - The type of the operation used to compare or evaluate the value (e.g., equal, comparison).
  */
-export class Condition<T, R> {
+export class Condition<T, R extends Operation> {
     /**
      * The column or field to which the condition applies.
      */

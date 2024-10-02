@@ -9,12 +9,14 @@ import { LikeOperation } from "../operations/like-operation.model";
  * This class allows only one condition per filter.
  *
  * @template T - The data type that the filter operates on (e.g., string, number, Date).
- * @template T - The data type that the options operate on.
  * @template R - The type of operation that this filter supports, such as comparison, equality, or "like" operations.
  *
  * @extends Filter<T, R>
  */
-export abstract class AbstractOperationFilter<T, R extends ComparisonOperation | EqualOperation | LikeOperation> extends Filter<T, R> {
+export abstract class AbstractOperationFilter<
+    T,
+    R extends ComparisonOperation | EqualOperation | LikeOperation,
+> extends Filter<T, R> {
     /**
      * Initializes the operation filter with the provided column, label, and conditions.
      *
@@ -25,9 +27,15 @@ export abstract class AbstractOperationFilter<T, R extends ComparisonOperation |
      *
      * @throws RangeError - Throws an error if more than one condition is provided since this filter supports only a single condition.
      */
-    constructor(column: string, label: string, conditions?: Condition<T, R>[]) {
-        if (conditions && conditions.length > 1) {
-            throw new RangeError("Operation filters only support a single condition");
+    constructor(
+        column: string,
+        label: string,
+        conditions: Condition<T, R>[] = [],
+    ) {
+        if (conditions.length > 1) {
+            throw new RangeError(
+                "Operation filters only support a single condition",
+            );
         }
 
         super(column, label, conditions);

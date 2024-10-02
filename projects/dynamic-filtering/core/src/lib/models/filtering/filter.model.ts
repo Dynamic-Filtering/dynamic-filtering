@@ -1,9 +1,6 @@
 import { EventEmitter } from "@angular/core";
 import { Condition } from "./condition.model";
-import { ComparisonOperation } from "./operations/comparison-operation.model";
-import { EqualOperation } from "./operations/equal-operation.model";
-import { LikeOperation } from "./operations/like-operation.model";
-import { InOperation } from "./operations/in-operation.model";
+import { Operation } from "./operations/operation.model";
 
 /**
  * An abstract base class representing a filter for managing conditions that apply to data filtering logic.
@@ -14,14 +11,7 @@ import { InOperation } from "./operations/in-operation.model";
  * @template T - The type of value that the filter operates on (e.g., string, number, Date).
  * @template R - The type of operations the filter supports (e.g., comparison, equality, or like operations).
  */
-export abstract class Filter<
-    T,
-    R extends
-        | ComparisonOperation
-        | EqualOperation
-        | LikeOperation
-        | InOperation,
-> {
+export abstract class Filter<T, R extends Operation> {
     /**
      * The name of the column or field that this filter applies to.
      */
@@ -36,7 +26,7 @@ export abstract class Filter<
      * The internal list of conditions applied to this filter.
      * These conditions define how the filter operates on the dataset.
      */
-    protected _conditions: Condition<T, R>[] = [];
+    protected _conditions: Condition<T, R>[];
 
     /**
      * Gets the list of conditions associated with this filter.
@@ -82,13 +72,14 @@ export abstract class Filter<
      * @param label - The label or display name for the filter.
      * @param conditions - An optional initial set of conditions for the filter.
      */
-    constructor(column: string, label: string, conditions?: Condition<T, R>[]) {
+    constructor(
+        column: string,
+        label: string,
+        conditions: Condition<T, R>[] = [],
+    ) {
         this.column = column;
         this.label = label;
-
-        if (conditions) {
-            this._conditions = conditions;
-        }
+        this._conditions = conditions;
     }
 
     /**
