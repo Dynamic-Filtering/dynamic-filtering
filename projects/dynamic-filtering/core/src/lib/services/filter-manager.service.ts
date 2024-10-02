@@ -1,11 +1,4 @@
-import {
-    BehaviorSubject,
-    Observable,
-    Subject,
-    Subscription,
-    map,
-    takeUntil,
-} from "rxjs";
+import { BehaviorSubject, Observable, Subscription, map } from "rxjs";
 import { Filter } from "../models/filtering/filter.model";
 import { Condition } from "../models/filtering/condition.model";
 import { Operation } from "../models/filtering/operations/operation.model";
@@ -19,8 +12,8 @@ import { Operation } from "../models/filtering/operations/operation.model";
  */
 export class FilterManagerService {
     private filtersSubject: BehaviorSubject<Filter<unknown, Operation>[]>;
-    private filterSubscriptions: Subscription[] = [];
-    private destroy$ = new Subject<void>();
+    private filterSubscriptions: Map<Filter<unknown, Operation>, Subscription> =
+        new Map();
 
     /**
      * Observable stream of all filters.
@@ -73,6 +66,7 @@ export class FilterManagerService {
      */
     public addFilter(filter: Filter<unknown, Operation>): void {
         this.filtersSubject.next([...this.filtersSubject.value, filter]);
+        this.addFilterListener(filter);
     }
 
     /**
@@ -81,8 +75,9 @@ export class FilterManagerService {
      * @param index - The index of the filter to remove.
      */
     public removeFilter(index: number): void {
-        this.filtersSubject.value.splice(index, 1);
+        const removedFilter = this.filtersSubject.value.splice(index, 1)[0];
         this.notifyFilterChange();
+        this.removeFilterListener(removedFilter);
     }
 
     /**
@@ -99,8 +94,8 @@ export class FilterManagerService {
      * This method should be called when the service is no longer needed.
      */
     public dispose(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
+        this.clearFilterSubscriptions();
+        this.filtersSubject.complete();
     }
 
     /**
@@ -122,23 +117,48 @@ export class FilterManagerService {
 
     /**
      * Sets up listeners for the onReset and onApply events of each filter.
-     * Uses the takeUntil pattern to automatically unsubscribe when the service is disposed.
      */
     private setupFilterListeners(filters: Filter<unknown, Operation>[]): void {
-        filters.forEach((filter) => {
-            const onResetSubscription = filter.onReset
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(() => this.notifyFilterChange());
-            const onApplySubscription = filter.onApply
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(() => this.notifyFilterChange());
-
-            this.filterSubscriptions = [
-                ...this.filterSubscriptions,
-                onResetSubscription,
-                onApplySubscription,
-            ];
+        filters.forEach((filter: Filter<unknown, Operation>) => {
+            this.addFilterListener(filter);
         });
+    }
+
+    /**
+     * Sets up listeners for the onReset and onApply events of a filter.
+     * Uses the takeUntil pattern to automatically unsubscribe when the service is disposed.
+     */
+    private addFilterListener(filter: Filter<unknown, Operation>): void {
+        const subscription = new Subscription();
+        subscription.add(
+            filter.onReset.subscribe(() => this.notifyFilterChange()),
+        );
+        subscription.add(
+            filter.onApply.subscribe(() => this.notifyFilterChange()),
+        );
+
+        this.filterSubscriptions.set(filter, subscription);
+    }
+
+    /**
+     * Removes listeners for the onReset and onApply events of a filter.
+     */
+    private removeFilterListener(filter: Filter<unknown, Operation>): void {
+        const subscription = this.filterSubscriptions.get(filter);
+        if (subscription) {
+            subscription.unsubscribe();
+            this.filterSubscriptions.delete(filter);
+        }
+    }
+
+    /**
+     * Unsubscribes from all existing filter subscriptions.
+     */
+    private clearFilterSubscriptions(): void {
+        this.filterSubscriptions.forEach((sub: Subscription) =>
+            sub.unsubscribe(),
+        );
+        this.filterSubscriptions.clear();
     }
 
     /**
@@ -147,13 +167,5 @@ export class FilterManagerService {
      */
     private notifyFilterChange(): void {
         this.filtersSubject.next(this.filtersSubject.value);
-    }
-
-    /**
-     * Unsubscribes from all existing filter subscriptions.
-     */
-    private clearFilterSubscriptions(): void {
-        this.filterSubscriptions.forEach((sub) => sub.unsubscribe());
-        this.filterSubscriptions.length = 0;
     }
 }
