@@ -2,8 +2,8 @@ import {
     BehaviorSubject,
     Observable,
     Subject,
+    Subscription,
     map,
-    merge,
     takeUntil,
 } from "rxjs";
 import { Filter } from "../models/filtering/filter.model";
@@ -19,6 +19,7 @@ import { Operation } from "../models/filtering/operations/operation.model";
  */
 export class FilterManagerService {
     private filtersSubject: BehaviorSubject<Filter<unknown, Operation>[]>;
+    private filterSubscriptions: Subscription[] = [];
     private destroy$ = new Subject<void>();
 
     /**
@@ -51,7 +52,7 @@ export class FilterManagerService {
             map((filters) => filters.flatMap((filter) => filter.conditions)),
         );
 
-        this.setupFilterListeners();
+        this.setupFilterListeners(filters);
     }
 
     /**
@@ -61,6 +62,8 @@ export class FilterManagerService {
      */
     public setFilters(filters: Filter<unknown, Operation>[]): void {
         this.filtersSubject.next(filters);
+        this.clearFilterSubscriptions();
+        this.setupFilterListeners(filters);
     }
 
     /**
@@ -78,9 +81,8 @@ export class FilterManagerService {
      * @param index - The index of the filter to remove.
      */
     public removeFilter(index: number): void {
-        const filters = [...this.filtersSubject.value];
-        filters.splice(index, 1);
-        this.filtersSubject.next(filters);
+        this.filtersSubject.value.splice(index, 1);
+        this.notifyFilterChange();
     }
 
     /**
@@ -90,7 +92,6 @@ export class FilterManagerService {
     public resetFilters(): void {
         const filters = this.filtersSubject.value;
         filters.forEach((filter) => filter.reset());
-        this.filtersSubject.next([...filters]);
     }
 
     /**
@@ -123,17 +124,20 @@ export class FilterManagerService {
      * Sets up listeners for the onReset and onApply events of each filter.
      * Uses the takeUntil pattern to automatically unsubscribe when the service is disposed.
      */
-    private setupFilterListeners(): void {
-        this.filters$.pipe(takeUntil(this.destroy$)).subscribe((filters) => {
-            merge(
-                ...filters.map((filter: Filter<unknown, Operation>) =>
-                    merge(filter.onReset, filter.onApply),
-                ),
-            )
+    private setupFilterListeners(filters: Filter<unknown, Operation>[]): void {
+        filters.forEach((filter) => {
+            const onResetSubscription = filter.onReset
                 .pipe(takeUntil(this.destroy$))
-                .subscribe(() => {
-                    this.notifyFilterChange();
-                });
+                .subscribe(() => this.notifyFilterChange());
+            const onApplySubscription = filter.onApply
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(() => this.notifyFilterChange());
+
+            this.filterSubscriptions = [
+                ...this.filterSubscriptions,
+                onResetSubscription,
+                onApplySubscription,
+            ];
         });
     }
 
@@ -142,6 +146,14 @@ export class FilterManagerService {
      * This method creates a new array reference.
      */
     private notifyFilterChange(): void {
-        this.filtersSubject.next([...this.filtersSubject.value]);
+        this.filtersSubject.next(this.filtersSubject.value);
+    }
+
+    /**
+     * Unsubscribes from all existing filter subscriptions.
+     */
+    private clearFilterSubscriptions(): void {
+        this.filterSubscriptions.forEach((sub) => sub.unsubscribe());
+        this.filterSubscriptions.length = 0;
     }
 }

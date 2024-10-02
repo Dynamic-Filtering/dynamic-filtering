@@ -88,7 +88,7 @@ export class MultiSelectFilter<T> extends AbstractSelectFilter<
             option.selected = false;
             return option;
         });
-        this._selectedOptions = [];
+        this._selectedOptions.length = 0;
 
         super.reset();
     }

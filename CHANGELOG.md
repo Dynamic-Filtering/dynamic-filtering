@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 none
 
+## [1.0.3] - 02-10-2024
+
+### @dynamic-filtering/core:
+
+#### Changed
+
+-   Fix unnecessary re-subscribtions to onReset and onApply in the filter manager service - [JHa]
+
 ## [1.0.2] - 02-10-2024
 
 ### @dynamic-filtering/core:
