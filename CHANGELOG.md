@@ -7,64 +7,68 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### @dynamic-filtering/core:
+none
 
-#### Added
-
--   Changelog reference in main repository readme
-
-#### Changed
-
--   Fix multi select filter applying conditions before next apply after first apply
-
-## [1.0.1] - 01-10-2024 - [JHa]
-
-### @dynamic-filtering/core:
-
-#### Changed
-
--   Fix typos in readme
-
-## [1.0.0] - 01-10-2024 - [JHa]
+## [1.0.2] - 02-10-2024
 
 ### @dynamic-filtering/core:
 
 #### Added
 
--   Abstract operation filter model
--   String operation filter model
--   Number operation filter model
--   Date operation filter model
--   Bool operation filter model
--   Abstract range filter model
--   Date range filter model
--   Number range filter model
--   Abstract select filter model
--   Multi select filter model
--   Single select filter model
--   Multi select option model
--   Comparison operation model/enum
--   Equal operation model/enum
--   In operation model/enum
--   Like operation model/enum
--   Operation model/enum
--   Condition model
--   Filter model
--   Paginiation model
--   Sorting direction model/enum
--   Sorting model
--   Dynamic query option model
--   Filter manager service
+-   Changelog reference in main repository readme - [JHa]
+
+#### Changed
+
+-   Fix multi select filter applying conditions before next apply after first apply - [JHa]
+
+## [1.0.1] - 01-10-2024
+
+### @dynamic-filtering/core:
+
+#### Changed
+
+-   Fix typos in readme - [JHa]
+
+## [1.0.0] - 01-10-2024
+
+### @dynamic-filtering/core:
+
+#### Added
+
+-   Abstract operation filter model - [JHa]
+-   String operation filter model - [JHa]
+-   Number operation filter model - [JHa]
+-   Date operation filter model - [JHa]
+-   Bool operation filter model - [JHa]
+-   Abstract range filter model - [JHa]
+-   Date range filter model - [JHa]
+-   Number range filter model - [JHa]
+-   Abstract select filter model - [JHa]
+-   Multi select filter model - [JHa]
+-   Single select filter model - [JHa]
+-   Multi select option model - [JHa]
+-   Comparison operation model/enum - [JHa]
+-   Equal operation model/enum - [JHa]
+-   In operation model/enum - [JHa]
+-   Like operation model/enum - [JHa]
+-   Operation model/enum - [JHa]
+-   Condition model - [JHa]
+-   Filter model - [JHa]
+-   Paginiation model - [JHa]
+-   Sorting direction model/enum - [JHa]
+-   Sorting model - [JHa]
+-   Dynamic query option model - [JHa]
+-   Filter manager service - [JHa]
 
 ### @dynamic-filtering/components:
 
 #### Added
 
--   String operation filter component
--   Number operation filter component
--   Date operation filter component
--   Bool operation filter component
--   Date range filter component
--   Number range filter component
--   Multi select filter component
--   Single select filter component
+-   String operation filter component - [JHa]
+-   Number operation filter component - [JHa]
+-   Date operation filter component - [JHa]
+-   Bool operation filter component - [JHa]
+-   Date range filter component - [JHa]
+-   Number range filter component - [JHa]
+-   Multi select filter component - [JHa]
+-   Single select filter component - [JHa]

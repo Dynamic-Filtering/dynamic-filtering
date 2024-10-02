@@ -1,11 +1,11 @@
 {
     "name": "@dynamic-filtering/components",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Dynamic Filtering components provides pre-built (angular) UI components for the filter types defined in the Dynamic Filtering core package",
     "peerDependencies": {
         "@angular/common": "^18.2.0",
         "@angular/core": "^18.2.0",
-        "@dynamic-filtering/core": "^1.0.1"
+        "@dynamic-filtering/core": "^1.0.2"
     },
     "dependencies": {
         "tslib": "^2.3.0"
