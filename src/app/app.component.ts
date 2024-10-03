@@ -88,7 +88,6 @@ export class AppComponent {
     ]);
 
     protected urlResult: Signal<string> = computed(() => {
-        // const activeConditions = this.filterManagerService.activeConditions();
         let httpParams = new HttpParams();
         httpParams = DynamicFilterService.formatConditionsToHttpParams(
             this.activeConditions(),
